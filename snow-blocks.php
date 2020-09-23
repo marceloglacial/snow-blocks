@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name:     Snow Blocks
- * Description:     Example block written with ESNext standard and JSX support – build step required.
+ * Description:     Awesome Custom Blocks
  * Version:         0.1.0
- * Author:          The WordPress Contributors
+ * Author:          Marcelo Glacial
  * License:         GPL-2.0-or-later
  * License URI:     https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:     snow-blocks
@@ -11,12 +11,6 @@
  * @package         create-block
  */
 
-/**
- * Registers all block assets so that they can be enqueued through the block editor
- * in the corresponding context.
- *
- * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/applying-styles-with-stylesheets/
- */
 function create_block_snow_blocks_block_init() {
 	$dir = dirname( __FILE__ );
 
@@ -59,3 +53,58 @@ function create_block_snow_blocks_block_init() {
 	) );
 }
 add_action( 'init', 'create_block_snow_blocks_block_init' );
+
+
+/**
+ * Specify allowed core blocks
+ *
+ * @package Blocks
+ * @category Gutenberg Supports
+ * @version 1.0
+ * @see other uses for this function: https://rudrastyh.com/gutenberg/remove-default-blocks.html
+ * @see a list of core blocks: https://wpdevelopment.courses/a-list-of-all-default-gutenberg-blocks-in-wordpress-5-0/
+ * @see set available core blocks https://github.com/WordPress/gutenberg/tree/master/packages/block-library/src
+ *
+ */
+function set_allowed_blocks($final_blocks, $post)
+{
+    // Register core blocks
+    $core_blocks = array(
+        'core/heading',
+        'core/gallery',
+        'core/image',
+        'core/list',
+        'core/paragraph',
+        'core/quote',
+        'core/table',
+		'core/code',
+        'core/embed',
+    );
+
+    // Register custom blocks
+    $custom_blocks = array(
+        'create-block/snow-blocks',
+    );
+
+    // Register admin specific blocks
+    $admin_blocks = array();
+
+    if (current_user_can('administrator')) {
+        $admin_blocks = array(
+            'core/html',
+            'core/shortcode',
+        );
+    }
+
+    // Specify block groupings available on specific post types
+    switch ($post->post_type) {
+        case 'cu_accordion':
+            $final_blocks = array_merge($core_blocks);
+            break;
+        default:
+            $final_blocks = array_merge($core_blocks, $custom_blocks, $admin_blocks);
+    }
+
+    return $final_blocks;
+}
+add_filter('allowed_block_types', 'set_allowed_blocks', 10, 2);
