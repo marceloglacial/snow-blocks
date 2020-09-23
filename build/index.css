@@ -1,5 +1,38 @@
-.wp-block-create-block-snow-blocks {
-  border: 1px dotted #f00; }
+.editor-styles-wrapper .hero_container,
+.hero_container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px; }
+  .editor-styles-wrapper .hero_container h2,
+  .hero_container h2 {
+    z-index: 2;
+    color: white; }
+    .editor-styles-wrapper .hero_container h2::before,
+    .hero_container h2::before {
+      display: none; }
+  .editor-styles-wrapper .hero_container img,
+  .hero_container img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+    z-index: 0; }
+  .editor-styles-wrapper .hero_container::after,
+  .hero_container::after {
+    display: block;
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5); }
 
 
 /*# sourceMappingURL=index.css.map*/

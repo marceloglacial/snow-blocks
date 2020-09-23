@@ -1,0 +1,38 @@
+.editor-styles-wrapper .hero_container,
+.hero_container {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 200px;
+
+	h2 {
+		z-index: 2;
+		color: white;
+
+		&::before {
+			display: none;
+		}
+	}
+
+	img {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		z-index: 0;
+	}
+	&::after {
+		display: block;
+		content: " ";
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+}
