@@ -1,0 +1,22 @@
+{
+	"name": "marceloglacial/snow-blocks",
+	"description": "Snow Blocks",
+	"keywords": [
+		"wordpress",
+		"plugin"
+	],
+	"homepage": "https://github.com/marceloglacial/snow-blocks/settings",
+	"license": "MIT",
+	"type": "wordpress-plugin",
+	"authors": [
+		{
+			"name": "Marcelo Glacial",
+			"email": "glacial@gmail.com",
+			"homepage": "https://marceloglacial.com"
+		}
+	],
+	"require": {
+		"php": ">=7.0",
+		"composer/installers": "1.*"
+	}
+}
