@@ -6,7 +6,7 @@ registerBlockType('snow-blocks/post-list', {
   title: __('Post List', 'Post-list'),
   description: __('List of posts.', 'post-list-description'),
   category: 'widgets',
-  icon: 'block',
+  icon: 'screenoptions',
   supports: {
     html: false,
   },
