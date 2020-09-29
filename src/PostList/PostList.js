@@ -11,6 +11,8 @@ registerBlockType('snow-blocks/post-list', {
     html: false,
   },
   edit: () => {
+    // https://developer.wordpress.org/block-editor/packages/packages-api-fetch/
+    // https://getbootstrap.com/docs/4.5/components/card/#card-decks
     return <PostListView env />;
   },
   save: () => {
