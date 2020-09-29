@@ -7182,11 +7182,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])("snow-blocks/hero", {
-  title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])("Hero", "hero"),
-  description: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])("Aweomse Custom Blocks.", "hero"),
-  category: "widgets",
-  icon: "smiley",
+Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('snow-blocks/hero', {
+  title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Hero', 'hero'),
+  description: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Aweomse Custom Blocks.', 'hero'),
+  category: 'widgets',
+  icon: 'smiley',
   supports: {
     html: false
   },
@@ -7305,11 +7305,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])("snow-blocks/post-list", {
-  title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])("Post List", "Post-list"),
-  description: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])("List of posts.", "post-list-description"),
-  category: "widgets",
-  icon: "block",
+Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('snow-blocks/post-list', {
+  title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Post List', 'Post-list'),
+  description: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('List of posts.', 'post-list-description'),
+  category: 'widgets',
+  icon: 'block',
   supports: {
     html: false
   },
