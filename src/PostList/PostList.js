@@ -23,6 +23,8 @@ registerBlockType('snow-blocks/post-list', {
         props.setAttributes({ posts: posts });
       });
     }, []);
+
+    // TODO: Pagination
     return <PostListView env {...props} />;
   },
   save: (props) => {

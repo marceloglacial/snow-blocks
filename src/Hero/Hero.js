@@ -10,10 +10,27 @@ registerBlockType('snow-blocks/hero', {
   supports: {
     html: false,
   },
-  edit: () => {
-    return <HeroView env />;
+  attributes: {
+    title: {
+      type: 'string',
+    },
+    description: {
+      type: 'string',
+    },
+    buttonText: {
+      type: 'string',
+    },
+    buttonLink: {
+      type: 'string',
+    },
+    imageUrl: {
+      type: 'string',
+    },
   },
-  save: () => {
-    return <HeroView />;
+  edit: (props) => {
+    return <HeroView env {...props} />;
+  },
+  save: (props) => {
+    return <HeroView {...props} />;
   },
 });
