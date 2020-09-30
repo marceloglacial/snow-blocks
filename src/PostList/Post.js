@@ -1,4 +1,8 @@
-const Post = () => {
+const Post = (props) => {
+  const { title, excerpt } = props;
+
+  console.log(props);
+
   return (
     <div className='card'>
       <img
@@ -7,14 +11,18 @@ const Post = () => {
         alt='image'
       />
       <div className='card-body'>
-        <h5 className='card-title'>Card title</h5>
-        <p className='card-text'>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </p>
-        <a href='#' className='btn btn-primary'>
-          Go somewhere
-        </a>
+        {title && (
+          <h5
+            className='card-title'
+            dangerouslySetInnerHTML={{ __html: title.rendered }}
+          />
+        )}
+        {excerpt && (
+          <p
+            className='card-text'
+            dangerouslySetInnerHTML={{ __html: excerpt.rendered }}
+          />
+        )}
       </div>
     </div>
   );

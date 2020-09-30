@@ -23,8 +23,6 @@ registerBlockType('snow-blocks/post-list', {
         props.setAttributes({ posts: posts });
       });
     }, []);
-
-    // https://getbootstrap.com/docs/4.5/components/card/#card-decks
     return <PostListView env {...props} />;
   },
   save: (props) => {
