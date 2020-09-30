@@ -1,6 +1,8 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 import PostListView from './PostListView';
+import apiFetch from '@wordpress/api-fetch';
+import { useEffect } from 'react';
 
 registerBlockType('snow-blocks/post-list', {
   title: __('Post List', 'Post-list'),
@@ -10,12 +12,22 @@ registerBlockType('snow-blocks/post-list', {
   supports: {
     html: false,
   },
-  edit: () => {
-    // https://developer.wordpress.org/block-editor/packages/packages-api-fetch/
-    // https://getbootstrap.com/docs/4.5/components/card/#card-decks
-    return <PostListView env />;
+  attributes: {
+    posts: {
+      type: 'array',
+    },
   },
-  save: () => {
-    return <PostListView />;
+  edit: (props) => {
+    useEffect(() => {
+      apiFetch({ path: '/wp/v2/posts' }).then((posts) => {
+        props.setAttributes({ posts: posts });
+      });
+    }, []);
+
+    // https://getbootstrap.com/docs/4.5/components/card/#card-decks
+    return <PostListView env {...props} />;
+  },
+  save: (props) => {
+    return <PostListView {...props} />;
   },
 });

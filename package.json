@@ -15,6 +15,7 @@
     "packages-update": "wp-scripts packages-update"
   },
   "devDependencies": {
+    "@wordpress/api-fetch": "^3.19.1",
     "@wordpress/scripts": "^12.2.1",
     "bootstrap": "^4.5.2"
   }
