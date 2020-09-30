@@ -7329,12 +7329,13 @@ __webpack_require__.r(__webpack_exports__);
 
 var Post = function Post(props) {
   var title = props.title,
-      excerpt = props.excerpt;
+      excerpt = props.excerpt,
+      better_featured_image = props.better_featured_image;
   console.log(props);
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "card"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
-    src: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2426&q=80",
+  }, better_featured_image && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+    src: better_featured_image.source_url,
     className: "card-img-top",
     alt: "image"
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
