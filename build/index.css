@@ -1,4 +1,5 @@
-.editor-styles-wrapper .jumbotron {
+.editor-styles-wrapper .jumbotron,
+.jumbotron {
   padding-top: 30rem;
   padding-bottom: 3rem;
   width: 100vw;
@@ -6,7 +7,8 @@
   margin-left: -50vw;
   left: 50%;
   background-color: unset; }
-  .editor-styles-wrapper .jumbotron::after {
+  .editor-styles-wrapper .jumbotron::after,
+  .jumbotron::after {
     display: block;
     content: '';
     position: absolute;
@@ -16,19 +18,25 @@
     width: 100%;
     height: 100%;
     background: black;
-    background: linear-gradient(0deg, black 0%, rgba(0, 212, 255, 0) 100%); }
+    background: linear-gradient(0deg, black 0%, rgba(0, 0, 0, 0) 100%); }
   .editor-styles-wrapper .jumbotron h1,
-  .editor-styles-wrapper .jumbotron p {
+  .editor-styles-wrapper .jumbotron p,
+  .jumbotron h1,
+  .jumbotron p {
     margin: 0; }
-  .editor-styles-wrapper .jumbotron h1::before {
+  .editor-styles-wrapper .jumbotron h1::before,
+  .jumbotron h1::before {
     display: none; }
-  .editor-styles-wrapper .jumbotron textarea {
+  .editor-styles-wrapper .jumbotron textarea,
+  .jumbotron textarea {
     background-color: unset; }
-  .editor-styles-wrapper .jumbotron .container {
+  .editor-styles-wrapper .jumbotron .container,
+  .jumbotron .container {
     position: relative;
     z-index: 2;
     color: var(--white); }
-  .editor-styles-wrapper .jumbotron img {
+  .editor-styles-wrapper .jumbotron img,
+  .jumbotron img {
     position: absolute;
     top: 0;
     left: 0;

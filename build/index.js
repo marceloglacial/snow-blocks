@@ -253,6 +253,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var HeroImage = function HeroImage(props) {
+  console.log(props);
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
     src: "https://res.cloudinary.com/dw2wjwhuv/image/upload/w_1024,h_768,c_scale/v1/sergio-souza-tncsQE63ENU-unsplash_obs9vk"
   });
