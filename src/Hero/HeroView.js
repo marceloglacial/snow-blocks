@@ -5,7 +5,7 @@ import HeroImage from './HeroImage';
 
 const HeroView = (props) => {
   return (
-    <div className='jumbotron jumbotron-fluid'>
+    <div className='hero jumbotron jumbotron-fluid'>
       <HeroImage {...props} />
       <div className='container'>
         <HeroTitle {...props} />
