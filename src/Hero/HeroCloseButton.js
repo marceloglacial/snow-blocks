@@ -7,7 +7,7 @@ const HeroCloseButton = (props) => {
     <div className='hero-close container'>
       <button
         type='button'
-        class='hero-close__button close'
+        className='hero-close__button close'
         aria-label='Close'
         onClick={(e) => handleClick(e)}
       >

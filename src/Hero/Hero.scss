@@ -83,11 +83,16 @@
     z-index: 99999;
     text-align: right;
   }
+
   .hero-close__button {
     background-color: white;
     border-radius: 100%;
     font-size: 3rem;
     padding: 17px 12px 10px 12px;
     line-height: 0;
+  }
+
+  .btn {
+    color: white;
   }
 }
