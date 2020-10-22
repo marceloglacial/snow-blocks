@@ -1,5 +1,6 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
+import HeroMediLibrary from './HeroMediaLibrary';
 import HeroView from './HeroView';
 
 registerBlockType('snow-blocks/hero', {
@@ -28,6 +29,9 @@ registerBlockType('snow-blocks/hero', {
     },
   },
   edit: (props) => {
+    const { imageUrl } = props.attributes;
+    if (!imageUrl) return <HeroMediLibrary {...props} />;
+
     return <HeroView env {...props} />;
   },
   save: (props) => {
