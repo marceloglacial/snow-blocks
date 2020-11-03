@@ -103,6 +103,9 @@ function set_allowed_blocks($final_blocks, $post)
 add_filter('allowed_block_types', 'set_allowed_blocks', 10, 2);
 
 
+// Add blocks to the API
+// @see https://wpscholar.com/blog/add-gutenberg-blocks-to-wp-rest-api/
+// 
 add_action(
 	'rest_api_init',
 	function () {
