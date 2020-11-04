@@ -181,6 +181,9 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
     hasButton: {
       type: 'string',
       default: 'no'
+    },
+    image: {
+      type: 'object'
     }
   },
   edit: function edit(props) {
@@ -417,7 +420,8 @@ var HeroMediLibrary = function HeroMediLibrary(props) {
   , {
     onSelect: function onSelect(media) {
       return setAttributes({
-        imageUrl: media.sizes.full.url
+        imageUrl: media.sizes.full.url,
+        image: media
       });
     },
     allowedTypes: ALLOWED_MEDIA_TYPES,

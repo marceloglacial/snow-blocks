@@ -9,7 +9,7 @@ const HeroMediLibrary = (props) => {
         <MediaUpload
           // onSelect={(media) => console.log(media)}
           onSelect={(media) =>
-            setAttributes({ imageUrl: media.sizes.full.url })
+            setAttributes({ imageUrl: media.sizes.full.url, image: media })
           }
           allowedTypes={ALLOWED_MEDIA_TYPES}
           render={({ open }) => (

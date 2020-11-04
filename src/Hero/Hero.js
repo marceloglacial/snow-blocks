@@ -33,6 +33,9 @@ registerBlockType('snow-blocks/hero', {
       type: 'string',
       default: 'no',
     },
+    image: {
+      type: 'object',
+    },
   },
   edit: (props) => {
     const { imageUrl } = props.attributes;
