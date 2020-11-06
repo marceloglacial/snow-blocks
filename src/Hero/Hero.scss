@@ -26,11 +26,14 @@
     );
   }
 
-  h1,
-  p {
+  .hero__title {
     margin: 0;
     font-weight: normal;
-    font-family: sans-serif;
+    line-height: 1;
+  }
+
+  .hero__description {
+    margin: 1rem 0 2rem 0;
   }
 
   h1::before {
@@ -56,24 +59,12 @@
 
 // Editor
 .editor-styles-wrapper {
-  .container {
-    max-width: 750px;
-  }
-
   .hero {
     padding-top: 15rem;
   }
 
   .hero-upload {
     border: dashed 2px grey;
-  }
-
-  textarea {
-    background-color: unset;
-
-    &::placeholder {
-      color: white;
-    }
   }
 
   .hero-close.container {
@@ -87,12 +78,34 @@
   .hero-close__button {
     background-color: white;
     border-radius: 100%;
-    font-size: 3rem;
+    font-size: 1rem;
     padding: 17px 12px 10px 12px;
     line-height: 0;
   }
 
-  .btn {
+  .hero-button {
+    position: relative;
+    display: inline-block;
+  }
+
+  .hero-button .block-editor-url-input__button {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+
+    button {
+      border-radius: 50px;
+      background-color: white;
+      color: black;
+    }
+  }
+
+  .hero-button__button {
     color: white;
+    padding: 1rem;
+
+    .block-editor-plain-text {
+      text-align: center;
+    }
   }
 }

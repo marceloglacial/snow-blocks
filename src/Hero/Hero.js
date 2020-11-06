@@ -20,7 +20,7 @@ registerBlockType('snow-blocks/hero', {
     },
     buttonText: {
       type: 'string',
-      default: 'Add a text using the sidebar',
+      default: 'Button Text',
     },
     buttonLink: {
       type: 'string',
@@ -32,6 +32,10 @@ registerBlockType('snow-blocks/hero', {
     hasButton: {
       type: 'string',
       default: 'no',
+    },
+    heroStyle: {
+      type: 'string',
+      default: 'full',
     },
     image: {
       type: 'object',

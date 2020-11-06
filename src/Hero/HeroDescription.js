@@ -8,7 +8,7 @@ const HeroDescription = (props) => {
   if (!env) return <p className={`lead`}>{description}</p>;
 
   return (
-    <p className={`lead`}>
+    <p className={`lead hero__description`}>
       <PlainText
         placeholder={'Add Description'}
         value={description}

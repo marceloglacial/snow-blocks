@@ -19,13 +19,14 @@
     height: 100%;
     background: black;
     background: linear-gradient(0deg, black 0%, rgba(0, 0, 0, 0) 100%); }
-  .editor-styles-wrapper .jumbotron h1,
-  .editor-styles-wrapper .jumbotron p,
-  .jumbotron h1,
-  .jumbotron p {
+  .editor-styles-wrapper .jumbotron .hero__title,
+  .jumbotron .hero__title {
     margin: 0;
     font-weight: normal;
-    font-family: sans-serif; }
+    line-height: 1; }
+  .editor-styles-wrapper .jumbotron .hero__description,
+  .jumbotron .hero__description {
+    margin: 1rem 0 2rem 0; }
   .editor-styles-wrapper .jumbotron h1::before,
   .jumbotron h1::before {
     display: none; }
@@ -45,23 +46,11 @@
     -o-object-fit: cover;
        object-fit: cover; }
 
-.editor-styles-wrapper .container {
-  max-width: 750px; }
-
 .editor-styles-wrapper .hero {
   padding-top: 15rem; }
 
 .editor-styles-wrapper .hero-upload {
   border: dashed 2px grey; }
-
-.editor-styles-wrapper textarea {
-  background-color: unset; }
-  .editor-styles-wrapper textarea::-moz-placeholder {
-    color: white; }
-  .editor-styles-wrapper textarea:-ms-input-placeholder {
-    color: white; }
-  .editor-styles-wrapper textarea::placeholder {
-    color: white; }
 
 .editor-styles-wrapper .hero-close.container {
   position: absolute;
@@ -73,12 +62,28 @@
 .editor-styles-wrapper .hero-close__button {
   background-color: white;
   border-radius: 100%;
-  font-size: 3rem;
+  font-size: 1rem;
   padding: 17px 12px 10px 12px;
   line-height: 0; }
 
-.editor-styles-wrapper .btn {
-  color: white; }
+.editor-styles-wrapper .hero-button {
+  position: relative;
+  display: inline-block; }
+
+.editor-styles-wrapper .hero-button .block-editor-url-input__button {
+  position: absolute;
+  top: -15px;
+  left: -15px; }
+  .editor-styles-wrapper .hero-button .block-editor-url-input__button button {
+    border-radius: 50px;
+    background-color: white;
+    color: black; }
+
+.editor-styles-wrapper .hero-button__button {
+  color: white;
+  padding: 1rem; }
+  .editor-styles-wrapper .hero-button__button .block-editor-plain-text {
+    text-align: center; }
 
 /*!
  * Bootstrap v4.5.2 (https://getbootstrap.com/)
@@ -7313,6 +7318,21 @@ a.text-dark:hover, a.text-dark:focus {
   .table .thead-dark th {
     color: inherit;
     border-color: #dee2e6; } }
+
+.editor-styles-wrapper * {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; }
+
+.editor-styles-wrapper .container {
+  max-width: 750px; }
+
+.editor-styles-wrapper textarea {
+  background-color: unset; }
+  .editor-styles-wrapper textarea::-moz-placeholder {
+    color: white; }
+  .editor-styles-wrapper textarea:-ms-input-placeholder {
+    color: white; }
+  .editor-styles-wrapper textarea::placeholder {
+    color: white; }
 
 
 /*# sourceMappingURL=index.css.map*/

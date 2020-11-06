@@ -1,15 +1,15 @@
 import HeroDescription from './HeroDescription';
 import HeroTitle from './HeroTitle';
-import './Hero.scss';
 import HeroImage from './HeroImage';
 import HeroCloseButton from './HeroCloseButton';
 import HeroButton from './HeroButton';
+import './Hero.scss';
 
 const HeroView = (props) => {
   const { env } = props;
-  const { hasButton } = props.attributes;
+  const { hasButton, heroStyle } = props.attributes;
   return (
-    <div className='hero jumbotron jumbotron-fluid'>
+    <div className={`hero hero--${heroStyle} jumbotron jumbotron-fluid`}>
       {env && <HeroCloseButton {...props} />}
       <HeroImage {...props} />
       <div className='container'>

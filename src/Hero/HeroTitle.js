@@ -5,10 +5,10 @@ const HeroTitle = (props) => {
   const { title } = attributes;
 
   if (!title && !env) return null;
-  if (!env) return <h1 className={`display-4`}>{title}</h1>;
+  if (!env) return <h1 className={`hero__title display-4`}>{title}</h1>;
 
   return (
-    <h1 className={`display-4`}>
+    <h1 className={`hero__title display-4`}>
       <PlainText
         placeholder={'Add Title'}
         value={title}

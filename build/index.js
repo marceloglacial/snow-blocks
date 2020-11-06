@@ -169,7 +169,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
     },
     buttonText: {
       type: 'string',
-      default: 'Add a text using the sidebar'
+      default: 'Button Text'
     },
     buttonLink: {
       type: 'string',
@@ -181,6 +181,10 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
     hasButton: {
       type: 'string',
       default: 'no'
+    },
+    heroStyle: {
+      type: 'string',
+      default: 'full'
     },
     image: {
       type: 'object'
@@ -222,17 +226,44 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+
 
 
 var HeroButton = function HeroButton(props) {
-  var _props$attributes = props.attributes,
-      buttonText = _props$attributes.buttonText,
-      buttonLink = _props$attributes.buttonLink;
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
-    className: "btn btn-primary",
+  var attributes = props.attributes,
+      setAttributes = props.setAttributes,
+      env = props.env;
+  var buttonText = attributes.buttonText,
+      buttonLink = attributes.buttonLink;
+  if (!buttonText && !env) return null;
+  if (!env) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
     href: buttonLink,
-    role: "button"
+    className: "btn btn--primary hero__button"
   }, buttonText);
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "hero-button"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["URLInputButton"], {
+    className: "hero-button__link",
+    url: buttonLink,
+    onChange: function onChange(buttonLink) {
+      return setAttributes({
+        buttonLink: buttonLink
+      });
+    }
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+    type: "button",
+    className: "btn btn-primary hero-button__button"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["PlainText"], {
+    placeholder: 'Add Title',
+    value: buttonText,
+    onChange: function onChange(val) {
+      return setAttributes({
+        buttonText: val
+      });
+    }
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (HeroButton);
@@ -304,7 +335,7 @@ var HeroDescription = function HeroDescription(props) {
     className: "lead"
   }, description);
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", {
-    className: "lead"
+    className: "lead hero__description"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["PlainText"], {
     placeholder: 'Add Description',
     value: description,
@@ -367,21 +398,42 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var HeroInspector = function HeroInspector(props) {
-  var hasButton = props.attributes.hasButton;
+  var attributes = props.attributes,
+      setAttributes = props.setAttributes;
+  var hasButton = attributes.hasButton,
+      heroStyle = attributes.heroStyle,
+      buttonLink = attributes.buttonLink;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
+    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Style'),
+    initialOpen: true
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["RadioControl"], {
+    selected: heroStyle,
+    options: [{
+      label: 'Full',
+      value: 'full'
+    }, {
+      label: 'Two Columns',
+      value: 'two'
+    }],
+    onChange: function onChange(option) {
+      setAttributes({
+        heroStyle: option
+      });
+    }
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
     title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Action Button'),
     initialOpen: true
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["RadioControl"], {
     selected: hasButton,
     options: [{
-      label: 'Show',
-      value: 'yes'
-    }, {
       label: 'Hide',
       value: 'no'
+    }, {
+      label: 'Show',
+      value: 'yes'
     }],
     onChange: function onChange(option) {
-      props.setAttributes({
+      setAttributes({
         hasButton: option
       });
     }
@@ -463,10 +515,10 @@ var HeroTitle = function HeroTitle(props) {
   var title = attributes.title;
   if (!title && !env) return null;
   if (!env) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", {
-    className: "display-4"
+    className: "hero__title display-4"
   }, title);
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", {
-    className: "display-4"
+    className: "hero__title display-4"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["PlainText"], {
     placeholder: 'Add Title',
     value: title,
@@ -495,11 +547,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _HeroDescription__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HeroDescription */ "./src/Hero/HeroDescription.js");
 /* harmony import */ var _HeroTitle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./HeroTitle */ "./src/Hero/HeroTitle.js");
-/* harmony import */ var _Hero_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Hero.scss */ "./src/Hero/Hero.scss");
-/* harmony import */ var _Hero_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_Hero_scss__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _HeroImage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./HeroImage */ "./src/Hero/HeroImage.js");
-/* harmony import */ var _HeroCloseButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./HeroCloseButton */ "./src/Hero/HeroCloseButton.js");
-/* harmony import */ var _HeroButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./HeroButton */ "./src/Hero/HeroButton.js");
+/* harmony import */ var _HeroImage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./HeroImage */ "./src/Hero/HeroImage.js");
+/* harmony import */ var _HeroCloseButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./HeroCloseButton */ "./src/Hero/HeroCloseButton.js");
+/* harmony import */ var _HeroButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./HeroButton */ "./src/Hero/HeroButton.js");
+/* harmony import */ var _Hero_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Hero.scss */ "./src/Hero/Hero.scss");
+/* harmony import */ var _Hero_scss__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_Hero_scss__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
@@ -510,12 +562,14 @@ __webpack_require__.r(__webpack_exports__);
 
 var HeroView = function HeroView(props) {
   var env = props.env;
-  var hasButton = props.attributes.hasButton;
+  var _props$attributes = props.attributes,
+      hasButton = _props$attributes.hasButton,
+      heroStyle = _props$attributes.heroStyle;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "hero jumbotron jumbotron-fluid"
-  }, env && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroCloseButton__WEBPACK_IMPORTED_MODULE_5__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroImage__WEBPACK_IMPORTED_MODULE_4__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "hero hero--".concat(heroStyle, " jumbotron jumbotron-fluid")
+  }, env && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroCloseButton__WEBPACK_IMPORTED_MODULE_4__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroImage__WEBPACK_IMPORTED_MODULE_3__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "container"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroTitle__WEBPACK_IMPORTED_MODULE_2__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroDescription__WEBPACK_IMPORTED_MODULE_1__["default"], props), hasButton === 'yes' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroButton__WEBPACK_IMPORTED_MODULE_6__["default"], props)));
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroTitle__WEBPACK_IMPORTED_MODULE_2__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroDescription__WEBPACK_IMPORTED_MODULE_1__["default"], props), hasButton === 'yes' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroButton__WEBPACK_IMPORTED_MODULE_5__["default"], props)));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (HeroView);
@@ -534,8 +588,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Hero_Hero__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Hero/Hero */ "./src/Hero/Hero.js");
 /* harmony import */ var _node_modules_bootstrap_scss_bootstrap_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/bootstrap/scss/bootstrap.scss */ "./node_modules/bootstrap/scss/bootstrap.scss");
 /* harmony import */ var _node_modules_bootstrap_scss_bootstrap_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_bootstrap_scss_bootstrap_scss__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _styles_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles.scss */ "./src/styles.scss");
+/* harmony import */ var _styles_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_styles_scss__WEBPACK_IMPORTED_MODULE_2__);
 
 
+
+
+/***/ }),
+
+/***/ "./src/styles.scss":
+/*!*************************!*\
+  !*** ./src/styles.scss ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
