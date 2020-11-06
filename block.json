@@ -1,14 +1,14 @@
 {
-	"name": "create-block/snow-blocks",
-	"title": "Snow Blocks",
-	"category": "widgets",
-	"icon": "smiley",
-	"description": "Example block written with ESNext standard and JSX support – build step required.",
-	"textdomain": "snow-blocks",
-	"supports": {
-		"html": false
-	},
-	"editorScript": "file:./build/index.js",
-	"editorStyle": "file:./build/index.css",
-	"style": "file:./build/style-index.css"
+  "name": "create-block/snow-blocks",
+  "title": "Snow Blocks",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "Example block written with ESNext standard and JSX support – build step required.",
+  "textdomain": "snow-blocks",
+  "supports": {
+    "html": false
+  },
+  "editorScript": "file:./build/index.js",
+  "editorStyle": "file:./build/index.css",
+  "style": "file:./build/style-index.css"
 }

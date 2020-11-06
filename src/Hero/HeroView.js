@@ -1,11 +1,27 @@
-import "./Hero.scss";
+import HeroDescription from './HeroDescription';
+import HeroTitle from './HeroTitle';
+import HeroImage from './HeroImage';
+import HeroCloseButton from './HeroCloseButton';
+import HeroButton from './HeroButton';
+import './Hero.scss';
 
 const HeroView = (props) => {
-	return (
-		<div className="hero_container">
-			<h2>Hero</h2>
-			<img src="https://images.unsplash.com/photo-1536082555308-99948d5c8ecf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2467&q=80" />
-		</div>
-	);
+  const { env } = props;
+  const { hasButton, heroStyle, imagePosition } = props.attributes;
+  return (
+    <div
+      className={`hero hero--${heroStyle} hero--${imagePosition} jumbotron jumbotron-fluid`}
+    >
+      <div className='container'>
+        <HeroTitle {...props} />
+        <HeroDescription {...props} />
+        {hasButton === 'yes' && <HeroButton {...props} />}
+      </div>
+      <div className='hero-figure'>
+        {env && <HeroCloseButton {...props} />}
+        <HeroImage {...props} />
+      </div>{' '}
+    </div>
+  );
 };
 export default HeroView;
