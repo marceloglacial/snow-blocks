@@ -1,7 +1,67 @@
-// Editor and Front-end
-.editor-styles-wrapper .jumbotron,
-.jumbotron {
-  padding-top: 30rem;
+.hero-upload {
+  border: dashed 2px grey;
+}
+
+.editor-styles-wrapper .hero,
+.hero {
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  h1::before {
+    display: none;
+  }
+
+  .hero-close.container {
+    position: absolute;
+    top: 2rem;
+    right: 5rem;
+    z-index: 99999;
+    text-align: right;
+    width: unset;
+  }
+
+  .hero-close__button {
+    background-color: white;
+    border-radius: 100%;
+    font-size: 2rem;
+    padding: 20px 13px 25px 13px;
+    line-height: 0;
+  }
+
+  .hero-button {
+    position: relative;
+    display: inline-block;
+  }
+
+  .hero-button .block-editor-url-input__button {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+
+    button {
+      border: solid 1px rgba(0, 0, 0, 0.2);
+      border-radius: 50px;
+      background-color: white;
+      color: black;
+    }
+  }
+
+  .hero-button__button {
+    color: white;
+    padding: 1rem;
+
+    .block-editor-plain-text {
+      text-align: center;
+    }
+  }
+}
+
+// Hero Full
+.editor-styles-wrapper .hero--full,
+.hero--full {
+  padding-top: 20rem;
   padding-bottom: 3rem;
   width: 100vw;
   position: relative;
@@ -26,6 +86,10 @@
     );
   }
 
+  .container {
+    max-width: 750px;
+  }
+
   .hero__title {
     margin: 0;
     font-weight: normal;
@@ -34,10 +98,6 @@
 
   .hero__description {
     margin: 1rem 0 2rem 0;
-  }
-
-  h1::before {
-    display: none;
   }
 
   .container {
@@ -51,61 +111,43 @@
     top: 0;
     left: 0;
     z-index: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
 }
 
-// Editor
-.editor-styles-wrapper {
-  .hero {
-    padding-top: 15rem;
+// Split
+.editor-styles-wrapper .hero--split,
+.hero--split {
+  display: flex;
+  background-color: unset;
+  padding: 0;
+
+  .hero__title {
+    font-size: 2rem;
   }
 
-  .hero-upload {
-    border: dashed 2px grey;
+  .hero-figure {
+    width: 100%;
+    padding-left: 2rem;
   }
 
   .hero-close.container {
-    position: absolute;
-    top: 2rem;
-    right: 5rem;
-    z-index: 99999;
-    text-align: right;
+    right: 1rem;
+  }
+}
+
+// Image Position
+
+.editor-styles-wrapper .hero--left,
+.hero--left {
+  flex-direction: row-reverse;
+
+  .hero-figure {
+    padding-left: unset;
+    padding-right: 2rem;
   }
 
-  .hero-close__button {
-    background-color: white;
-    border-radius: 100%;
-    font-size: 1rem;
-    padding: 17px 12px 10px 12px;
-    line-height: 0;
-  }
-
-  .hero-button {
-    position: relative;
-    display: inline-block;
-  }
-
-  .hero-button .block-editor-url-input__button {
-    position: absolute;
-    top: -15px;
-    left: -15px;
-
-    button {
-      border-radius: 50px;
-      background-color: white;
-      color: black;
-    }
-  }
-
-  .hero-button__button {
-    color: white;
-    padding: 1rem;
-
-    .block-editor-plain-text {
-      text-align: center;
-    }
+  .hero-close.container {
+    right: unset;
+    left: 1rem;
   }
 }

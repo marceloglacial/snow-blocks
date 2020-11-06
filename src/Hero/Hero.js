@@ -33,6 +33,10 @@ registerBlockType('snow-blocks/hero', {
       type: 'string',
       default: 'no',
     },
+    imagePosition: {
+      type: 'string',
+      default: 'right',
+    },
     heroStyle: {
       type: 'string',
       default: 'full',

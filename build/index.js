@@ -182,6 +182,10 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
       type: 'string',
       default: 'no'
     },
+    imagePosition: {
+      type: 'string',
+      default: 'right'
+    },
     heroStyle: {
       type: 'string',
       default: 'full'
@@ -402,27 +406,47 @@ var HeroInspector = function HeroInspector(props) {
       setAttributes = props.setAttributes;
   var hasButton = attributes.hasButton,
       heroStyle = attributes.heroStyle,
-      buttonLink = attributes.buttonLink;
+      imagePosition = attributes.imagePosition;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
     title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Style'),
-    initialOpen: true
+    initialOpen: true,
+    className: "hero__inspector hero__inspector--style"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["RadioControl"], {
     selected: heroStyle,
     options: [{
       label: 'Full',
       value: 'full'
     }, {
-      label: 'Two Columns',
-      value: 'two'
+      label: 'Split',
+      value: 'split'
     }],
     onChange: function onChange(option) {
       setAttributes({
         heroStyle: option
       });
     }
+  })), heroStyle === 'split' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
+    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Image Position'),
+    initialOpen: true,
+    className: "hero__inspector hero__inspector--image"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["RadioControl"], {
+    selected: imagePosition,
+    options: [{
+      label: 'Right',
+      value: 'right'
+    }, {
+      label: 'Left',
+      value: 'left'
+    }],
+    onChange: function onChange(option) {
+      setAttributes({
+        imagePosition: option
+      });
+    }
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
     title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Action Button'),
-    initialOpen: true
+    initialOpen: true,
+    className: "hero__inspector hero__inspector--button"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["RadioControl"], {
     selected: hasButton,
     options: [{
@@ -564,12 +588,15 @@ var HeroView = function HeroView(props) {
   var env = props.env;
   var _props$attributes = props.attributes,
       hasButton = _props$attributes.hasButton,
-      heroStyle = _props$attributes.heroStyle;
+      heroStyle = _props$attributes.heroStyle,
+      imagePosition = _props$attributes.imagePosition;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "hero hero--".concat(heroStyle, " jumbotron jumbotron-fluid")
-  }, env && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroCloseButton__WEBPACK_IMPORTED_MODULE_4__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroImage__WEBPACK_IMPORTED_MODULE_3__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "hero hero--".concat(heroStyle, " hero--").concat(imagePosition, " jumbotron jumbotron-fluid")
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "container"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroTitle__WEBPACK_IMPORTED_MODULE_2__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroDescription__WEBPACK_IMPORTED_MODULE_1__["default"], props), hasButton === 'yes' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroButton__WEBPACK_IMPORTED_MODULE_5__["default"], props)));
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroTitle__WEBPACK_IMPORTED_MODULE_2__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroDescription__WEBPACK_IMPORTED_MODULE_1__["default"], props), hasButton === 'yes' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroButton__WEBPACK_IMPORTED_MODULE_5__["default"], props)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "hero-figure"
+  }, env && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroCloseButton__WEBPACK_IMPORTED_MODULE_4__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroImage__WEBPACK_IMPORTED_MODULE_3__["default"], props)), ' ');
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (HeroView);
