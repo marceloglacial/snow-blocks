@@ -204,8 +204,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
       default: '#'
     },
     buttonSlug: {
-      type: 'string',
-      default: '/'
+      type: 'string'
     },
     imageUrl: {
       type: 'string'
@@ -658,7 +657,9 @@ var getSlug = function getSlug(link) {
   return link.split(domain)[1];
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (getSlug);
+/* harmony default export */ __webpack_exports__["default"] = (getSlug); //
+// WIP get proper hostaname (without port)
+//
 
 /***/ }),
 

@@ -4,3 +4,7 @@ const getSlug = (link) => {
   return link.split(domain)[1];
 };
 export default getSlug;
+
+//
+// WIP get proper hostaname (without port)
+//
