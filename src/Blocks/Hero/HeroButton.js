@@ -1,15 +1,20 @@
 import { PlainText, URLInputButton } from '@wordpress/block-editor';
+import getSlug from '../../functions/getSlug';
+import Button from '../Button/Button';
 
 const HeroButton = (props) => {
   const { attributes, setAttributes, env } = props;
-  const { buttonText, buttonLink } = attributes;
+  const { buttonText, buttonLink, buttonSlug } = attributes;
 
   if (!buttonText && !env) return null;
   if (!env)
     return (
-      <a href={buttonLink} className={`btn btn--primary hero__button`}>
-        {buttonText}
-      </a>
+      <Button
+        title={buttonText}
+        link={buttonSlug || buttonLink}
+        type={'primary'}
+        className={'hero__button'}
+      />
     );
 
   return (
@@ -20,6 +25,7 @@ const HeroButton = (props) => {
         onChange={(buttonLink) =>
           setAttributes({
             buttonLink,
+            buttonSlug: getSlug(buttonLink),
           })
         }
       />
