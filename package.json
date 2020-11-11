@@ -1,0 +1,24 @@
+{
+  "name": "snow-blocks",
+  "version": "0.1.0",
+  "description": "Awesome custom blocks.",
+  "author": "Marcelo Glacial",
+  "license": "GPL-2.0-or-later",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "format:js": "wp-scripts format-js",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "start": "wp-scripts start",
+    "dev": "wp-scripts start",
+    "packages-update": "wp-scripts packages-update"
+  },
+  "devDependencies": {
+    "@wordpress/api-fetch": "^3.19.1",
+    "@wordpress/scripts": "^12.2.1",
+    "bootstrap": "^4.5.2",
+    "node-sass": "^4.14.1",
+    "sass": "^1.27.0"
+  }
+}
