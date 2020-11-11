@@ -653,13 +653,19 @@ var HeroView = function HeroView(props) {
 __webpack_require__.r(__webpack_exports__);
 var getSlug = function getSlug(link) {
   if (!link.includes('http')) return '';
-  var domain = new URL(link).host + '/';
-  return link.split(domain)[1];
+  var hasHost = new URL(link).host;
+
+  if (hasHost.includes(':')) {
+    var domain = new URL(link).host + '/';
+    return link.split(domain)[1];
+  } else {
+    var _domain = new URL(link).hostname + '/';
+
+    return link.split(_domain);
+  }
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (getSlug); //
-// WIP get proper hostaname (without port)
-//
+/* harmony default export */ __webpack_exports__["default"] = (getSlug);
 
 /***/ }),
 
