@@ -1,3 +1,3 @@
-import './Hero/Hero';
+import './Blocks/Hero/Hero';
 import '../node_modules/bootstrap/scss/bootstrap.scss';
 import './styles.scss';
