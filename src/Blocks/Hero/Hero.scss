@@ -56,6 +56,10 @@
       text-align: center;
     }
   }
+
+  textarea::placeholder {
+    color: white;
+  }
 }
 
 // Hero Full
@@ -132,6 +136,10 @@
 
   .hero-close.container {
     right: 1rem;
+  }
+
+  textarea::placeholder {
+    color: unset;
   }
 }
 

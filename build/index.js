@@ -196,8 +196,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
       type: 'string'
     },
     buttonText: {
-      type: 'string',
-      default: 'Button Text'
+      type: 'string'
     },
     buttonLink: {
       type: 'string',

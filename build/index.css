@@ -54,6 +54,16 @@
   .hero .hero-button__button .block-editor-plain-text {
     text-align: center; }
 
+.editor-styles-wrapper .hero textarea::-moz-placeholder, .hero textarea::-moz-placeholder {
+  color: white; }
+
+.editor-styles-wrapper .hero textarea:-ms-input-placeholder, .hero textarea:-ms-input-placeholder {
+  color: white; }
+
+.editor-styles-wrapper .hero textarea::placeholder,
+.hero textarea::placeholder {
+  color: white; }
+
 .editor-styles-wrapper .hero--full,
 .hero--full {
   padding-top: 20rem;
@@ -113,6 +123,13 @@
   .editor-styles-wrapper .hero--split .hero-close.container,
   .hero--split .hero-close.container {
     right: 1rem; }
+  .editor-styles-wrapper .hero--split textarea::-moz-placeholder, .hero--split textarea::-moz-placeholder {
+    color: unset; }
+  .editor-styles-wrapper .hero--split textarea:-ms-input-placeholder, .hero--split textarea:-ms-input-placeholder {
+    color: unset; }
+  .editor-styles-wrapper .hero--split textarea::placeholder,
+  .hero--split textarea::placeholder {
+    color: unset; }
 
 .editor-styles-wrapper .hero--left,
 .hero--left {
@@ -7365,12 +7382,6 @@ a.text-dark:hover, a.text-dark:focus {
 
 .editor-styles-wrapper textarea {
   background-color: unset; }
-  .editor-styles-wrapper textarea::-moz-placeholder {
-    color: white; }
-  .editor-styles-wrapper textarea:-ms-input-placeholder {
-    color: white; }
-  .editor-styles-wrapper textarea::placeholder {
-    color: white; }
 
 
 /*# sourceMappingURL=index.css.map*/

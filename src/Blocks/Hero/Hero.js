@@ -20,7 +20,6 @@ registerBlockType('snow-blocks/hero', {
     },
     buttonText: {
       type: 'string',
-      default: 'Button Text',
     },
     buttonLink: {
       type: 'string',
