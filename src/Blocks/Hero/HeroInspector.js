@@ -4,7 +4,7 @@ import { PanelBody, RadioControl } from '@wordpress/components';
 
 const HeroInspector = (props) => {
   const { attributes, setAttributes } = props;
-  const { hasButton, heroStyle, imagePosition } = attributes;
+  const { hasButton, heroStyle, imagePosition, imageStyle } = attributes;
   return (
     <InspectorControls>
       <PanelBody
@@ -24,22 +24,40 @@ const HeroInspector = (props) => {
         />
       </PanelBody>
       {heroStyle === 'split' && (
-        <PanelBody
-          title={__('Image Position')}
-          initialOpen={true}
-          className='hero__inspector hero__inspector--image'
-        >
-          <RadioControl
-            selected={imagePosition}
-            options={[
-              { label: 'Right', value: 'right' },
-              { label: 'Left', value: 'left' },
-            ]}
-            onChange={(option) => {
-              setAttributes({ imagePosition: option });
-            }}
-          />
-        </PanelBody>
+        <>
+          <PanelBody
+            title={__('Image Position')}
+            initialOpen={true}
+            className='hero__inspector hero__inspector--image'
+          >
+            <RadioControl
+              selected={imagePosition}
+              options={[
+                { label: 'Right', value: 'right' },
+                { label: 'Left', value: 'left' },
+              ]}
+              onChange={(option) => {
+                setAttributes({ imagePosition: option });
+              }}
+            />
+          </PanelBody>
+          <PanelBody
+            title={__('Image Type')}
+            initialOpen={true}
+            className='hero__inspector hero__inspector--type'
+          >
+            <RadioControl
+              selected={imageStyle}
+              options={[
+                { label: 'Default', value: 'default' },
+                { label: 'Rounded', value: 'rounded' },
+              ]}
+              onChange={(option) => {
+                setAttributes({ imageStyle: option });
+              }}
+            />
+          </PanelBody>
+        </>
       )}
       <PanelBody
         title={__('Action Button')}

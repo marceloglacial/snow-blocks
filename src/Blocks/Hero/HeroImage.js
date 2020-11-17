@@ -1,5 +1,5 @@
 const HeroImage = (props) => {
-  const { imageUrl } = props.attributes;
-  return <img src={imageUrl} />;
+  const { imageUrl, imageStyle, imageAlt } = props.attributes;
+  return <img src={imageUrl} alt={imageAlt || ''} className={imageStyle} />;
 };
 export default HeroImage;
