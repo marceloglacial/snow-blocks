@@ -208,13 +208,17 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
     imageUrl: {
       type: 'string'
     },
-    hasButton: {
-      type: 'string',
-      default: 'no'
-    },
     imagePosition: {
       type: 'string',
       default: 'right'
+    },
+    imageStyle: {
+      type: 'string',
+      default: 'default'
+    },
+    hasButton: {
+      type: 'string',
+      default: 'no'
     },
     heroStyle: {
       type: 'string',
@@ -407,9 +411,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var HeroImage = function HeroImage(props) {
-  var imageUrl = props.attributes.imageUrl;
+  var _props$attributes = props.attributes,
+      imageUrl = _props$attributes.imageUrl,
+      imageStyle = _props$attributes.imageStyle,
+      imageAlt = _props$attributes.imageAlt;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
-    src: imageUrl
+    src: imageUrl,
+    alt: imageAlt || '',
+    className: imageStyle
   });
 };
 
@@ -444,7 +453,8 @@ var HeroInspector = function HeroInspector(props) {
       setAttributes = props.setAttributes;
   var hasButton = attributes.hasButton,
       heroStyle = attributes.heroStyle,
-      imagePosition = attributes.imagePosition;
+      imagePosition = attributes.imagePosition,
+      imageStyle = attributes.imageStyle;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
     title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Style'),
     initialOpen: true,
@@ -463,7 +473,7 @@ var HeroInspector = function HeroInspector(props) {
         heroStyle: option
       });
     }
-  })), heroStyle === 'split' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
+  })), heroStyle === 'split' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
     title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Image Position'),
     initialOpen: true,
     className: "hero__inspector hero__inspector--image"
@@ -482,6 +492,24 @@ var HeroInspector = function HeroInspector(props) {
       });
     }
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
+    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Image Type'),
+    initialOpen: true,
+    className: "hero__inspector hero__inspector--type"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["RadioControl"], {
+    selected: imageStyle,
+    options: [{
+      label: 'Default',
+      value: 'default'
+    }, {
+      label: 'Rounded',
+      value: 'rounded'
+    }],
+    onChange: function onChange(option) {
+      setAttributes({
+        imageStyle: option
+      });
+    }
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
     title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Action Button'),
     initialOpen: true,
     className: "hero__inspector hero__inspector--button"

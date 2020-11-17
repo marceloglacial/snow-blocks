@@ -31,13 +31,17 @@ registerBlockType('snow-blocks/hero', {
     imageUrl: {
       type: 'string',
     },
-    hasButton: {
-      type: 'string',
-      default: 'no',
-    },
     imagePosition: {
       type: 'string',
       default: 'right',
+    },
+    imageStyle: {
+      type: 'string',
+      default: 'default',
+    },
+    hasButton: {
+      type: 'string',
+      default: 'no',
     },
     heroStyle: {
       type: 'string',
