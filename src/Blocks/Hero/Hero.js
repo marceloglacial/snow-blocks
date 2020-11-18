@@ -54,7 +54,6 @@ registerBlockType('snow-blocks/hero', {
   },
   edit: (props) => {
     const { imageUrl } = props.attributes;
-    console.log(props.attributes.buttonSlug);
     if (!imageUrl) return <HeroMediLibrary {...props} />;
     return (
       <>
