@@ -203,7 +203,8 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
       default: '#'
     },
     buttonSlug: {
-      type: 'string'
+      type: 'string',
+      default: '#'
     },
     imageUrl: {
       type: 'string'
