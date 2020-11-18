@@ -3,6 +3,8 @@ import { __ } from '@wordpress/i18n';
 import HeroInspector from './HeroInspector';
 import HeroMediLibrary from './HeroMediaLibrary';
 import HeroView from './HeroView';
+import { useState, useEffect } from 'react';
+import getSlug from '../../functions/getSlug';
 
 registerBlockType('snow-blocks/hero', {
   title: __('Hero', 'hero'),
@@ -53,9 +55,15 @@ registerBlockType('snow-blocks/hero', {
     },
   },
   edit: (props) => {
-    const { imageUrl } = props.attributes;
-    console.log(props.attributes.buttonSlug);
+    const { imageUrl, buttonLink, buttonSlug } = props.attributes;
     if (!imageUrl) return <HeroMediLibrary {...props} />;
+
+    const [slug, setSlug] = useState(buttonSlug);
+
+    useEffect(() => {
+      setSlug(getSlug(buttonLink));
+    }, [buttonLink]);
+
     return (
       <>
         <HeroInspector {...props} />

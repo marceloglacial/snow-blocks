@@ -1,5 +1,4 @@
 import { PlainText, URLInputButton } from '@wordpress/block-editor';
-import getSlug from '../../functions/getSlug';
 import Button from '../Button/Button';
 
 const HeroButton = (props) => {
@@ -22,12 +21,7 @@ const HeroButton = (props) => {
       <URLInputButton
         className='hero-button__link'
         url={buttonLink}
-        onChange={(buttonLink) =>
-          setAttributes({
-            buttonLink,
-            buttonSlug: getSlug(buttonLink),
-          })
-        }
+        onChange={(buttonLink) => setAttributes({ buttonLink })}
       />
       <button type='button' className='btn btn-primary hero-button__button'>
         <PlainText
