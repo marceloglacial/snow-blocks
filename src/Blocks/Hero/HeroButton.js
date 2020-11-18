@@ -11,7 +11,7 @@ const HeroButton = (props) => {
     return (
       <Button
         title={buttonText}
-        link={buttonSlug || buttonLink}
+        link={buttonSlug || '#'}
         type={'primary'}
         className={'hero__button'}
       />

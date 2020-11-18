@@ -1,9 +1,9 @@
 const getSlug = (link) => {
   if (!link.includes('http')) return '';
 
-  const hasHost = new URL(link).host;
+  const hasPort = new URL(link).port;
 
-  if (hasHost.includes(':')) {
+  if (hasPort) {
     const domain = new URL(link).host + '/';
     return link.split(domain)[1];
   } else {

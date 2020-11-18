@@ -20,7 +20,7 @@ const HeroView = (props) => {
       <div className='hero-figure'>
         {env && <HeroCloseButton {...props} />}
         <HeroImage {...props} />
-      </div>{' '}
+      </div>
     </div>
   );
 };

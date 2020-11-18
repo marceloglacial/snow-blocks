@@ -283,7 +283,7 @@ var HeroButton = function HeroButton(props) {
   if (!buttonText && !env) return null;
   if (!env) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_Button_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
     title: buttonText,
-    link: buttonSlug || buttonLink,
+    link: buttonSlug || '#',
     type: 'primary',
     className: 'hero__button'
   });
@@ -662,7 +662,7 @@ var HeroView = function HeroView(props) {
     className: "container"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroTitle__WEBPACK_IMPORTED_MODULE_2__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroDescription__WEBPACK_IMPORTED_MODULE_1__["default"], props), hasButton === 'yes' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroButton__WEBPACK_IMPORTED_MODULE_5__["default"], props)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "hero-figure"
-  }, env && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroCloseButton__WEBPACK_IMPORTED_MODULE_4__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroImage__WEBPACK_IMPORTED_MODULE_3__["default"], props)), ' ');
+  }, env && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroCloseButton__WEBPACK_IMPORTED_MODULE_4__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroImage__WEBPACK_IMPORTED_MODULE_3__["default"], props)));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (HeroView);
@@ -680,9 +680,9 @@ var HeroView = function HeroView(props) {
 __webpack_require__.r(__webpack_exports__);
 var getSlug = function getSlug(link) {
   if (!link.includes('http')) return '';
-  var hasHost = new URL(link).host;
+  var hasPort = new URL(link).port;
 
-  if (hasHost.includes(':')) {
+  if (hasPort) {
     var domain = new URL(link).host + '/';
     return link.split(domain)[1];
   } else {
