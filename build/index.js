@@ -344,10 +344,6 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["registerBlockType"])('sno
       type: 'string',
       default: '#'
     },
-    buttonSlug: {
-      type: 'string',
-      default: '#'
-    },
     imageUrl: {
       type: 'string'
     },
@@ -431,12 +427,11 @@ var HeroButton = function HeroButton(props) {
       setAttributes = props.setAttributes,
       env = props.env;
   var buttonText = attributes.buttonText,
-      buttonLink = attributes.buttonLink,
-      buttonSlug = attributes.buttonSlug;
+      buttonLink = attributes.buttonLink;
   if (!buttonText && !env) return null;
   if (!env) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_Button_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
     title: buttonText,
-    link: buttonSlug || '#',
+    link: buttonLink || '#',
     type: 'primary',
     className: 'hero__button'
   });

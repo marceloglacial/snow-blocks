@@ -3,14 +3,14 @@ import Button from '../Button/Button';
 
 const HeroButton = (props) => {
   const { attributes, setAttributes, env } = props;
-  const { buttonText, buttonLink, buttonSlug } = attributes;
+  const { buttonText, buttonLink } = attributes;
 
   if (!buttonText && !env) return null;
   if (!env)
     return (
       <Button
         title={buttonText}
-        link={buttonSlug || '#'}
+        link={buttonLink || '#'}
         type={'primary'}
         className={'hero__button'}
       />
