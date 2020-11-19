@@ -27,10 +27,6 @@ registerBlockType('snow-blocks/hero', {
       type: 'string',
       default: '#',
     },
-    buttonSlug: {
-      type: 'string',
-      default: '#',
-    },
     imageUrl: {
       type: 'string',
     },
