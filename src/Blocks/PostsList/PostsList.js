@@ -1,10 +1,12 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
+import useApi from '../../functions/useApi';
+import PostsListsView from './components/PostsListView';
 
 registerBlockType('snow-blocks/postslist', {
   title: __('Posts List', 'postslist'),
   category: 'widgets',
-  icon: 'cards',
+  icon: 'excerpt-view',
   supports: {
     html: false,
   },
@@ -13,6 +15,16 @@ registerBlockType('snow-blocks/postslist', {
       type: 'string',
     },
   },
-  edit: (props) => <p>posts</p>,
-  save: (props) => <p>posts</p>,
+  edit: (props) => {
+    const { data, isLoading, isError } = useApi('posts');
+    const postData = {
+      data,
+      isLoading,
+      isError,
+      props,
+    };
+
+    return <PostsListsView {...postData} />;
+  },
+  save: (props) => <PostsListsView {...props} />,
 });

@@ -76,7 +76,7 @@ function set_allowed_blocks($final_blocks, $post)
     // Register custom blocks
     $custom_blocks = array(
         'snow-blocks/hero',
-        'snow-blocks/post-list',
+        'snow-blocks/postslist',
     );
 
     // Register admin specific blocks
