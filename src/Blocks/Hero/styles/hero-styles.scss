@@ -1,8 +1,3 @@
-.hero-upload {
-  border: dashed 2px grey;
-}
-
-.editor-styles-wrapper .hero,
 .hero {
   img {
     width: 100%;
@@ -57,13 +52,15 @@
     }
   }
 
-  textarea::placeholder {
-    color: white;
+  textarea {
+    background-color: unset;
+    &::placeholder {
+      color: white;
+    }
   }
 }
 
 // Hero Full
-.editor-styles-wrapper .hero--full,
 .hero--full {
   padding-top: 20rem;
   padding-bottom: 3rem;
@@ -119,7 +116,6 @@
 }
 
 // Split
-.editor-styles-wrapper .hero--split,
 .hero--split {
   display: flex;
   background-color: unset;
@@ -145,7 +141,6 @@
 
 // Image Position
 
-.editor-styles-wrapper .hero--left,
 .hero--left {
   flex-direction: row-reverse;
 

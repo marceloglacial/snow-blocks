@@ -249,17 +249,6 @@ module.exports = _unsupportedIterableToArray;
 
 /***/ }),
 
-/***/ "./node_modules/bootstrap/scss/bootstrap.scss":
-/*!****************************************************!*\
-  !*** ./node_modules/bootstrap/scss/bootstrap.scss ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "./node_modules/dequal/lite/index.mjs":
 /*!********************************************!*\
   !*** ./node_modules/dequal/lite/index.mjs ***!
@@ -1568,9 +1557,9 @@ var SWRConfig = _swr_config_context__WEBPACK_IMPORTED_MODULE_2__["default"].Prov
 
 /***/ }),
 
-/***/ "./src/Blocks/Button/Button.js":
+/***/ "./src/blocks/Button/Button.js":
 /*!*************************************!*\
-  !*** ./src/Blocks/Button/Button.js ***!
+  !*** ./src/blocks/Button/Button.js ***!
   \*************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1596,9 +1585,9 @@ var Button = function Button(props) {
 
 /***/ }),
 
-/***/ "./src/Blocks/Hero/Hero.js":
+/***/ "./src/blocks/Hero/Hero.js":
 /*!*********************************!*\
-  !*** ./src/Blocks/Hero/Hero.js ***!
+  !*** ./src/blocks/Hero/Hero.js ***!
   \*********************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1615,9 +1604,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _HeroInspector__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./HeroInspector */ "./src/Blocks/Hero/HeroInspector.js");
-/* harmony import */ var _HeroMediaLibrary__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./HeroMediaLibrary */ "./src/Blocks/Hero/HeroMediaLibrary.js");
-/* harmony import */ var _HeroView__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./HeroView */ "./src/Blocks/Hero/HeroView.js");
+/* harmony import */ var _components_HeroInspector__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/HeroInspector */ "./src/blocks/Hero/components/HeroInspector.js");
+/* harmony import */ var _components_HeroMediaLibrary__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/HeroMediaLibrary */ "./src/blocks/Hero/components/HeroMediaLibrary.js");
+/* harmony import */ var _components_HeroView__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/HeroView */ "./src/blocks/Hero/components/HeroView.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _functions_getSlug__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../functions/getSlug */ "./src/functions/getSlug.js");
@@ -1680,7 +1669,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["registerBlockType"])('sno
         imageUrl = _props$attributes.imageUrl,
         buttonLink = _props$attributes.buttonLink,
         buttonSlug = _props$attributes.buttonSlug;
-    if (!imageUrl) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_HeroMediaLibrary__WEBPACK_IMPORTED_MODULE_6__["default"], props);
+    if (!imageUrl) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_components_HeroMediaLibrary__WEBPACK_IMPORTED_MODULE_6__["default"], props);
 
     var _useState = Object(react__WEBPACK_IMPORTED_MODULE_8__["useState"])(buttonSlug),
         _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default()(_useState, 2),
@@ -1690,32 +1679,21 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__["registerBlockType"])('sno
     Object(react__WEBPACK_IMPORTED_MODULE_8__["useEffect"])(function () {
       setSlug(Object(_functions_getSlug__WEBPACK_IMPORTED_MODULE_9__["default"])(buttonLink));
     }, [buttonLink]);
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_HeroInspector__WEBPACK_IMPORTED_MODULE_5__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_HeroView__WEBPACK_IMPORTED_MODULE_7__["default"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_components_HeroInspector__WEBPACK_IMPORTED_MODULE_5__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_components_HeroView__WEBPACK_IMPORTED_MODULE_7__["default"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
       env: true
     }, props)));
   },
   save: function save(props) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_HeroView__WEBPACK_IMPORTED_MODULE_7__["default"], props);
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_components_HeroView__WEBPACK_IMPORTED_MODULE_7__["default"], props);
   }
 });
 
 /***/ }),
 
-/***/ "./src/Blocks/Hero/Hero.scss":
-/*!***********************************!*\
-  !*** ./src/Blocks/Hero/Hero.scss ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ "./src/Blocks/Hero/HeroButton.js":
-/*!***************************************!*\
-  !*** ./src/Blocks/Hero/HeroButton.js ***!
-  \***************************************/
+/***/ "./src/blocks/Hero/components/HeroButton.js":
+/*!**************************************************!*\
+  !*** ./src/blocks/Hero/components/HeroButton.js ***!
+  \**************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1725,7 +1703,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Button_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Button/Button */ "./src/Blocks/Button/Button.js");
+/* harmony import */ var _Button_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Button/Button */ "./src/blocks/Button/Button.js");
 
 
 
@@ -1771,10 +1749,10 @@ var HeroButton = function HeroButton(props) {
 
 /***/ }),
 
-/***/ "./src/Blocks/Hero/HeroCloseButton.js":
-/*!********************************************!*\
-  !*** ./src/Blocks/Hero/HeroCloseButton.js ***!
-  \********************************************/
+/***/ "./src/blocks/Hero/components/HeroCloseButton.js":
+/*!*******************************************************!*\
+  !*** ./src/blocks/Hero/components/HeroCloseButton.js ***!
+  \*******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1810,10 +1788,10 @@ var HeroCloseButton = function HeroCloseButton(props) {
 
 /***/ }),
 
-/***/ "./src/Blocks/Hero/HeroDescription.js":
-/*!********************************************!*\
-  !*** ./src/Blocks/Hero/HeroDescription.js ***!
-  \********************************************/
+/***/ "./src/blocks/Hero/components/HeroDescription.js":
+/*!*******************************************************!*\
+  !*** ./src/blocks/Hero/components/HeroDescription.js ***!
+  \*******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1852,10 +1830,10 @@ var HeroDescription = function HeroDescription(props) {
 
 /***/ }),
 
-/***/ "./src/Blocks/Hero/HeroImage.js":
-/*!**************************************!*\
-  !*** ./src/Blocks/Hero/HeroImage.js ***!
-  \**************************************/
+/***/ "./src/blocks/Hero/components/HeroImage.js":
+/*!*************************************************!*\
+  !*** ./src/blocks/Hero/components/HeroImage.js ***!
+  \*************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1881,10 +1859,10 @@ var HeroImage = function HeroImage(props) {
 
 /***/ }),
 
-/***/ "./src/Blocks/Hero/HeroInspector.js":
-/*!******************************************!*\
-  !*** ./src/Blocks/Hero/HeroInspector.js ***!
-  \******************************************/
+/***/ "./src/blocks/Hero/components/HeroInspector.js":
+/*!*****************************************************!*\
+  !*** ./src/blocks/Hero/components/HeroInspector.js ***!
+  \*****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1989,10 +1967,10 @@ var HeroInspector = function HeroInspector(props) {
 
 /***/ }),
 
-/***/ "./src/Blocks/Hero/HeroMediaLibrary.js":
-/*!*********************************************!*\
-  !*** ./src/Blocks/Hero/HeroMediaLibrary.js ***!
-  \*********************************************/
+/***/ "./src/blocks/Hero/components/HeroMediaLibrary.js":
+/*!********************************************************!*\
+  !*** ./src/blocks/Hero/components/HeroMediaLibrary.js ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2026,7 +2004,7 @@ var HeroMediLibrary = function HeroMediLibrary(props) {
       var open = _ref.open;
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["Button"], {
         type: "button",
-        className: "btn btn-primary",
+        className: "btn btn--primary",
         onClick: open
       }, "Open Media Library");
     }
@@ -2037,10 +2015,10 @@ var HeroMediLibrary = function HeroMediLibrary(props) {
 
 /***/ }),
 
-/***/ "./src/Blocks/Hero/HeroTitle.js":
-/*!**************************************!*\
-  !*** ./src/Blocks/Hero/HeroTitle.js ***!
-  \**************************************/
+/***/ "./src/blocks/Hero/components/HeroTitle.js":
+/*!*************************************************!*\
+  !*** ./src/blocks/Hero/components/HeroTitle.js ***!
+  \*************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2079,10 +2057,10 @@ var HeroTitle = function HeroTitle(props) {
 
 /***/ }),
 
-/***/ "./src/Blocks/Hero/HeroView.js":
-/*!*************************************!*\
-  !*** ./src/Blocks/Hero/HeroView.js ***!
-  \*************************************/
+/***/ "./src/blocks/Hero/components/HeroView.js":
+/*!************************************************!*\
+  !*** ./src/blocks/Hero/components/HeroView.js ***!
+  \************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2090,14 +2068,11 @@ var HeroTitle = function HeroTitle(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _HeroDescription__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HeroDescription */ "./src/Blocks/Hero/HeroDescription.js");
-/* harmony import */ var _HeroTitle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./HeroTitle */ "./src/Blocks/Hero/HeroTitle.js");
-/* harmony import */ var _HeroImage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./HeroImage */ "./src/Blocks/Hero/HeroImage.js");
-/* harmony import */ var _HeroCloseButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./HeroCloseButton */ "./src/Blocks/Hero/HeroCloseButton.js");
-/* harmony import */ var _HeroButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./HeroButton */ "./src/Blocks/Hero/HeroButton.js");
-/* harmony import */ var _Hero_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Hero.scss */ "./src/Blocks/Hero/Hero.scss");
-/* harmony import */ var _Hero_scss__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_Hero_scss__WEBPACK_IMPORTED_MODULE_6__);
-
+/* harmony import */ var _HeroDescription__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HeroDescription */ "./src/blocks/Hero/components/HeroDescription.js");
+/* harmony import */ var _HeroTitle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./HeroTitle */ "./src/blocks/Hero/components/HeroTitle.js");
+/* harmony import */ var _HeroImage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./HeroImage */ "./src/blocks/Hero/components/HeroImage.js");
+/* harmony import */ var _HeroCloseButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./HeroCloseButton */ "./src/blocks/Hero/components/HeroCloseButton.js");
+/* harmony import */ var _HeroButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./HeroButton */ "./src/blocks/Hero/components/HeroButton.js");
 
 
 
@@ -2124,9 +2099,9 @@ var HeroView = function HeroView(props) {
 
 /***/ }),
 
-/***/ "./src/Blocks/PostsList/PostsList.js":
+/***/ "./src/blocks/PostsList/PostsList.js":
 /*!*******************************************!*\
-  !*** ./src/Blocks/PostsList/PostsList.js ***!
+  !*** ./src/blocks/PostsList/PostsList.js ***!
   \*******************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -2140,7 +2115,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _functions_useApi__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../functions/useApi */ "./src/functions/useApi.js");
-/* harmony import */ var _components_PostsListView__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/PostsListView */ "./src/Blocks/PostsList/components/PostsListView.js");
+/* harmony import */ var _components_PostsListView__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/PostsListView */ "./src/blocks/PostsList/components/PostsListView.js");
 
 
 
@@ -2179,9 +2154,9 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('sno
 
 /***/ }),
 
-/***/ "./src/Blocks/PostsList/components/PostsListView.js":
+/***/ "./src/blocks/PostsList/components/PostsListView.js":
 /*!**********************************************************!*\
-  !*** ./src/Blocks/PostsList/components/PostsListView.js ***!
+  !*** ./src/blocks/PostsList/components/PostsListView.js ***!
   \**********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -2319,27 +2294,10 @@ var useApi = function useApi(type) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Blocks_Hero_Hero__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Blocks/Hero/Hero */ "./src/Blocks/Hero/Hero.js");
-/* harmony import */ var _Blocks_PostsList_PostsList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Blocks/PostsList/PostsList */ "./src/Blocks/PostsList/PostsList.js");
-/* harmony import */ var _node_modules_bootstrap_scss_bootstrap_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../node_modules/bootstrap/scss/bootstrap.scss */ "./node_modules/bootstrap/scss/bootstrap.scss");
-/* harmony import */ var _node_modules_bootstrap_scss_bootstrap_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_bootstrap_scss_bootstrap_scss__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _styles_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles.scss */ "./src/styles.scss");
-/* harmony import */ var _styles_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_styles_scss__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _blocks_Hero_Hero__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./blocks/Hero/Hero */ "./src/blocks/Hero/Hero.js");
+/* harmony import */ var _blocks_PostsList_PostsList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./blocks/PostsList/PostsList */ "./src/blocks/PostsList/PostsList.js");
 
 
-
-
-
-/***/ }),
-
-/***/ "./src/styles.scss":
-/*!*************************!*\
-  !*** ./src/styles.scss ***!
-  \*************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
 
 /***/ }),
 

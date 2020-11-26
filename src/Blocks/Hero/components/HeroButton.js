@@ -1,5 +1,5 @@
 import { PlainText, URLInputButton } from '@wordpress/block-editor';
-import Button from '../Button/Button';
+import Button from '../../Button/Button';
 
 const HeroButton = (props) => {
   const { attributes, setAttributes, env } = props;

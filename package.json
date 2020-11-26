@@ -17,7 +17,6 @@
   "devDependencies": {
     "@wordpress/api-fetch": "^3.19.1",
     "@wordpress/scripts": "^12.2.1",
-    "bootstrap": "^4.5.2",
     "node-sass": "^4.14.1",
     "sass": "^1.27.0",
     "swr": "^0.3.9"

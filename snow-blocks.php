@@ -30,13 +30,18 @@ function snow_blocks_block_init() {
 	);
 	wp_set_script_translations( 'snow-blocks-block-editor', 'snow-blocks' );
 
-	$editor_css = 'build/index.css';
 	wp_register_style(
 		'snow-blocks-block-editor',
-		plugins_url( $editor_css, __FILE__ ),
-		array(),
-		filemtime( "$dir/$editor_css" )
+        plugins_url( 'src/styles/editor.scss', __FILE__ ),
+        array( 'wp-edit-blocks' ),
+		filemtime( plugin_dir_path( __FILE__ ) . 'editor.css' )
 	);
+	wp_register_style(
+        'snow-blocks-block',
+        plugins_url( 'src/styles/style.scss', __FILE__ ),
+        array(),
+        filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
+    );
 
 	register_block_type( 'marceloglacial/snow-blocks', array(
 		'editor_script' => 'snow-blocks-block-editor',

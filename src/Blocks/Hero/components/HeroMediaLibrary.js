@@ -13,7 +13,7 @@ const HeroMediLibrary = (props) => {
           }
           allowedTypes={ALLOWED_MEDIA_TYPES}
           render={({ open }) => (
-            <Button type='button' className='btn btn-primary' onClick={open}>
+            <Button type='button' className='btn btn--primary' onClick={open}>
               Open Media Library
             </Button>
           )}
