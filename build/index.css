@@ -36,11 +36,13 @@
   padding: 1rem;
   text-align: center; }
 
-.hero textarea {
+.hero__title textarea,
+.hero__description textarea {
   background: unset; }
 
 .hero__button textarea {
-  margin-bottom: -0.25rem !important; }
+  width: auto !important;
+  text-align: center; }
 
 :root {
   --blue: blue;

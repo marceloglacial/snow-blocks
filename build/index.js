@@ -1734,18 +1734,16 @@ var HeroButton = function HeroButton(props) {
         buttonLink: buttonLink
       });
     }
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
-    type: "button",
-    className: "btn btn--primary"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["PlainText"], {
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["PlainText"], {
     placeholder: 'Add Title',
     value: buttonText,
+    className: "btn btn--primary",
     onChange: function onChange(val) {
       return setAttributes({
         buttonText: val
       });
     }
-  })));
+  }));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (HeroButton);
