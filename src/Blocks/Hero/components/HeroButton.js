@@ -17,13 +17,13 @@ const HeroButton = (props) => {
     );
 
   return (
-    <div className='hero-button'>
+    <div className='hero__button'>
       <URLInputButton
-        className='hero-button__link'
+        className='hero__link'
         url={buttonLink}
         onChange={(buttonLink) => setAttributes({ buttonLink })}
       />
-      <button type='button' className='btn btn-primary hero-button__button'>
+      <button type='button' className='btn btn-primary'>
         <PlainText
           placeholder={'Add Title'}
           value={buttonText}

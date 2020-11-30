@@ -5,10 +5,10 @@ const HeroDescription = (props) => {
   const { description } = attributes;
 
   if (!description && !env) return null;
-  if (!env) return <p className={`lead`}>{description}</p>;
+  if (!env) return <p className={`hero__description`}>{description}</p>;
 
   return (
-    <p className={`lead hero__description`}>
+    <p className={`hero__description`}>
       <PlainText
         placeholder={'Add Description'}
         value={description}

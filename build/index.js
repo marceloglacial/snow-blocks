@@ -1725,9 +1725,9 @@ var HeroButton = function HeroButton(props) {
     className: 'hero__button'
   });
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "hero-button"
+    className: "hero__button"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["URLInputButton"], {
-    className: "hero-button__link",
+    className: "hero__link",
     url: buttonLink,
     onChange: function onChange(buttonLink) {
       return setAttributes({
@@ -1736,7 +1736,7 @@ var HeroButton = function HeroButton(props) {
     }
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
     type: "button",
-    className: "btn btn-primary hero-button__button"
+    className: "btn btn-primary"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["PlainText"], {
     placeholder: 'Add Title',
     value: buttonText,
@@ -1774,10 +1774,10 @@ var HeroCloseButton = function HeroCloseButton(props) {
   };
 
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "hero-close container"
+    className: "hero__close"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
     type: "button",
-    className: "hero-close__button close",
+    className: "hero__button hero__button--close",
     "aria-label": "Close",
     onClick: function onClick(e) {
       return handleClick(e);
@@ -1814,10 +1814,10 @@ var HeroDescription = function HeroDescription(props) {
   var description = attributes.description;
   if (!description && !env) return null;
   if (!env) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", {
-    className: "lead"
+    className: "hero__description"
   }, description);
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", {
-    className: "lead hero__description"
+    className: "hero__description"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["PlainText"], {
     placeholder: 'Add Description',
     value: description,
@@ -1851,10 +1851,11 @@ var HeroImage = function HeroImage(props) {
       imageUrl = _props$attributes.imageUrl,
       imageStyle = _props$attributes.imageStyle,
       imageAlt = _props$attributes.imageAlt;
+  if (!imageUrl) return null;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
     src: imageUrl,
     alt: imageAlt || '',
-    className: imageStyle
+    className: "hero__image ".concat(imageStyle)
   });
 };
 
@@ -1993,7 +1994,7 @@ var HeroMediLibrary = function HeroMediLibrary(props) {
   var ALLOWED_MEDIA_TYPES = ['image'];
   var setAttributes = props.setAttributes;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "hero-upload py-5 d-flex justify-content-center  align-items-center"
+    className: "hero__upload"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["MediaUploadCheck"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["MediaUpload"] // onSelect={(media) => console.log(media)}
   , {
     onSelect: function onSelect(media) {
@@ -2041,10 +2042,10 @@ var HeroTitle = function HeroTitle(props) {
   var title = attributes.title;
   if (!title && !env) return null;
   if (!env) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", {
-    className: "hero__title display-4"
+    className: "hero__title"
   }, title);
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", {
-    className: "hero__title display-4"
+    className: "hero__title"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["PlainText"], {
     placeholder: 'Add Title',
     value: title,
@@ -2091,13 +2092,14 @@ var HeroView = function HeroView(props) {
   var _props$attributes = props.attributes,
       hasButton = _props$attributes.hasButton,
       heroStyle = _props$attributes.heroStyle,
-      imagePosition = _props$attributes.imagePosition;
+      imagePosition = _props$attributes.imagePosition,
+      imageUrl = _props$attributes.imageUrl;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "hero hero--".concat(heroStyle, " hero--").concat(imagePosition, " jumbotron jumbotron-fluid")
+    className: "hero hero--".concat(heroStyle, " hero--").concat(imagePosition)
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "container"
+    className: "hero__content"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroTitle__WEBPACK_IMPORTED_MODULE_2__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroDescription__WEBPACK_IMPORTED_MODULE_1__["default"], props), hasButton === 'yes' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroButton__WEBPACK_IMPORTED_MODULE_5__["default"], props)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "hero-figure"
+    className: "hero__figure"
   }, env && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroCloseButton__WEBPACK_IMPORTED_MODULE_4__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_HeroImage__WEBPACK_IMPORTED_MODULE_3__["default"], props)));
 };
 

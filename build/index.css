@@ -115,7 +115,7 @@
     right: unset;
     left: 1rem; }
 
-.hero-upload {
+.hero__upload {
   border: dashed 2px grey;
   padding: 1rem;
   text-align: center; }

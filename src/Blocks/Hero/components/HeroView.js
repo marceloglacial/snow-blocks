@@ -7,17 +7,15 @@ import '../styles/hero-styles.scss';
 
 const HeroView = (props) => {
   const { env } = props;
-  const { hasButton, heroStyle, imagePosition } = props.attributes;
+  const { hasButton, heroStyle, imagePosition, imageUrl } = props.attributes;
   return (
-    <div
-      className={`hero hero--${heroStyle} hero--${imagePosition} jumbotron jumbotron-fluid`}
-    >
-      <div className='container'>
+    <div className={`hero hero--${heroStyle} hero--${imagePosition}`}>
+      <div className='hero__content'>
         <HeroTitle {...props} />
         <HeroDescription {...props} />
         {hasButton === 'yes' && <HeroButton {...props} />}
       </div>
-      <div className='hero-figure'>
+      <div className='hero__figure'>
         {env && <HeroCloseButton {...props} />}
         <HeroImage {...props} />
       </div>
