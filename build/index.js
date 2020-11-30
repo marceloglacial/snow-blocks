@@ -1610,6 +1610,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _functions_getSlug__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../functions/getSlug */ "./src/functions/getSlug.js");
+/* harmony import */ var _styles_hero_editor_scss__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./styles/hero-editor.scss */ "./src/blocks/Hero/styles/hero-editor.scss");
+/* harmony import */ var _styles_hero_editor_scss__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_styles_hero_editor_scss__WEBPACK_IMPORTED_MODULE_10__);
+
 
 
 
@@ -2073,6 +2076,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _HeroImage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./HeroImage */ "./src/blocks/Hero/components/HeroImage.js");
 /* harmony import */ var _HeroCloseButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./HeroCloseButton */ "./src/blocks/Hero/components/HeroCloseButton.js");
 /* harmony import */ var _HeroButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./HeroButton */ "./src/blocks/Hero/components/HeroButton.js");
+/* harmony import */ var _styles_hero_styles_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../styles/hero-styles.scss */ "./src/blocks/Hero/styles/hero-styles.scss");
+/* harmony import */ var _styles_hero_styles_scss__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_styles_hero_styles_scss__WEBPACK_IMPORTED_MODULE_6__);
+
 
 
 
@@ -2096,6 +2102,28 @@ var HeroView = function HeroView(props) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (HeroView);
+
+/***/ }),
+
+/***/ "./src/blocks/Hero/styles/hero-editor.scss":
+/*!*************************************************!*\
+  !*** ./src/blocks/Hero/styles/hero-editor.scss ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./src/blocks/Hero/styles/hero-styles.scss":
+/*!*************************************************!*\
+  !*** ./src/blocks/Hero/styles/hero-styles.scss ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -2296,8 +2324,22 @@ var useApi = function useApi(type) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _blocks_Hero_Hero__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./blocks/Hero/Hero */ "./src/blocks/Hero/Hero.js");
 /* harmony import */ var _blocks_PostsList_PostsList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./blocks/PostsList/PostsList */ "./src/blocks/PostsList/PostsList.js");
+/* harmony import */ var _styles_styles_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles/styles.scss */ "./src/styles/styles.scss");
+/* harmony import */ var _styles_styles_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_styles_styles_scss__WEBPACK_IMPORTED_MODULE_2__);
 
 
+
+
+/***/ }),
+
+/***/ "./src/styles/styles.scss":
+/*!********************************!*\
+  !*** ./src/styles/styles.scss ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 

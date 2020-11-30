@@ -10,7 +10,7 @@
     "format:js": "wp-scripts format-js",
     "lint:css": "wp-scripts lint-style",
     "lint:js": "wp-scripts lint-js",
-    "start": "npm run dev",
+    "start": "wp-scripts start",
     "dev": "echo 'Loading Docker ... (please wait)' && open /Applications/Docker.app && sleep 30 && wp-scripts start",
     "packages-update": "wp-scripts packages-update"
   },
@@ -18,7 +18,7 @@
     "@wordpress/api-fetch": "^3.19.1",
     "@wordpress/scripts": "^12.2.1",
     "node-sass": "^4.14.1",
-    "sass": "^1.27.0",
+    "sass": "^1.29.0",
     "swr": "^0.3.9"
   }
 }

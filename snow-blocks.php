@@ -30,7 +30,7 @@ function snow_blocks_block_init() {
     );
     wp_set_script_translations( 'snow-blocks-block-editor', 'gutenpride' );
  
-    $editor_css = 'src/styles/editor.scss';
+    $editor_css = 'build/index.css';
     wp_register_style(
         'snow-blocks-block-editor',
         plugins_url( $editor_css, __FILE__ ),
@@ -38,7 +38,7 @@ function snow_blocks_block_init() {
         filemtime( "$dir/$editor_css" )
     );
  
-    $style_css = 'src/styles/style.scss';
+    $style_css = 'build/index.css';
     wp_register_style(
         'snow-blocks-block',
         plugins_url( $style_css, __FILE__ ),
