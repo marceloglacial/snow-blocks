@@ -3,3 +3,11 @@
   padding: 1rem;
   text-align: center;
 }
+
+.hero textarea {
+  background: unset;
+}
+
+.hero__button textarea {
+  margin-bottom: -0.25rem !important;
+}

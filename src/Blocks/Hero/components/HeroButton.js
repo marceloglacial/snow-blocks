@@ -23,7 +23,7 @@ const HeroButton = (props) => {
         url={buttonLink}
         onChange={(buttonLink) => setAttributes({ buttonLink })}
       />
-      <button type='button' className='btn btn-primary'>
+      <button type='button' className='btn btn--primary'>
         <PlainText
           placeholder={'Add Title'}
           value={buttonText}

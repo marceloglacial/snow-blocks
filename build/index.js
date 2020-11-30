@@ -1577,7 +1577,7 @@ var Button = function Button(props) {
       className = props.className;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
     href: link || '#',
-    className: "btn btn-".concat(type || 'primary', " ").concat(className)
+    className: "btn btn--".concat(type || 'primary', " ").concat(className)
   }, title || 'Add Title');
 };
 
@@ -1736,7 +1736,7 @@ var HeroButton = function HeroButton(props) {
     }
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
     type: "button",
-    className: "btn btn-primary"
+    className: "btn btn--primary"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["PlainText"], {
     placeholder: 'Add Title',
     value: buttonText,
