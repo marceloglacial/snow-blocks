@@ -2094,6 +2094,7 @@ var HeroView = function HeroView(props) {
       heroStyle = _props$attributes.heroStyle,
       imagePosition = _props$attributes.imagePosition,
       imageUrl = _props$attributes.imageUrl;
+  if (!env && !imageUrl) return null;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "hero hero--".concat(heroStyle, " hero--").concat(imagePosition)
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {

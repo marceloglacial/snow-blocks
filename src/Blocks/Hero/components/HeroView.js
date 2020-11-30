@@ -8,6 +8,9 @@ import '../styles/hero-styles.scss';
 const HeroView = (props) => {
   const { env } = props;
   const { hasButton, heroStyle, imagePosition, imageUrl } = props.attributes;
+
+  if (!env && !imageUrl) return null;
+
   return (
     <div className={`hero hero--${heroStyle} hero--${imagePosition}`}>
       <div className='hero__content'>
