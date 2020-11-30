@@ -13,14 +13,16 @@ const HeroView = (props) => {
 
   return (
     <div className={`hero hero--${heroStyle} hero--${imagePosition}`}>
-      <div className='hero__content'>
-        <HeroTitle {...props} />
-        <HeroDescription {...props} />
-        {hasButton === 'yes' && <HeroButton {...props} />}
-      </div>
-      <div className='hero__figure'>
-        {env && <HeroCloseButton {...props} />}
-        <HeroImage {...props} />
+      <div className='hero__container'>
+        <div className='hero__content'>
+          <HeroTitle {...props} />
+          <HeroDescription {...props} />
+          {hasButton === 'yes' && <HeroButton {...props} />}
+        </div>
+        <div className='hero__figure'>
+          {env && <HeroCloseButton {...props} />}
+          <HeroImage {...props} />
+        </div>
       </div>
     </div>
   );

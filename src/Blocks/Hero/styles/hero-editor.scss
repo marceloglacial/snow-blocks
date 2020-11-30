@@ -4,12 +4,14 @@
   text-align: center;
 }
 
-.hero__title textarea,
-.hero__description textarea {
+.hero textarea {
   background: unset;
 }
 
 .hero__button textarea {
   width: auto !important;
   text-align: center;
+  background-color: var(--primary-color) !important;
+  color: var(--secondary-color) !important;
+  border: solid 1px var(--primary-color) !important;
 }
