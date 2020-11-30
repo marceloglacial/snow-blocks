@@ -1,17 +1,24 @@
-.hero__upload {
-  border: dashed 2px grey;
-  padding: 1rem;
-  text-align: center;
-}
+[data-type='snow-blocks/hero'] {
+  .hero__upload {
+    border: dashed 2px grey;
+    padding: 1rem;
+    text-align: center;
+  }
 
-.hero textarea {
-  background: unset;
-}
+  .hero textarea {
+    background: unset;
+  }
 
-.hero__button textarea {
-  width: auto !important;
-  text-align: center;
-  background-color: var(--primary-color) !important;
-  color: var(--secondary-color) !important;
-  border: solid 1px var(--primary-color) !important;
+  .hero__button textarea {
+    width: auto !important;
+    text-align: center;
+    background-color: var(--primary-color) !important;
+    color: var(--secondary-color) !important;
+    border: solid 1px var(--primary-color) !important;
+  }
+
+  .hero--split .hero__container {
+    width: 80vw;
+    margin-left: -40vw;
+  }
 }
