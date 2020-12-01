@@ -9,7 +9,7 @@
   }
 }
 
-.hero--full {
+.hero.hero--full {
   .hero__figure {
     width: 100vw;
     position: relative;
@@ -42,7 +42,7 @@
   }
 }
 
-.hero--split .hero__container {
+.hero.hero--split .hero__container {
   display: flex;
 
   width: 100vw;
@@ -51,15 +51,16 @@
   left: 50%;
 }
 
-.hero--split .hero__content {
+.hero.hero--split .hero__content {
   padding: 4rem;
   width: 50%;
 }
 
-.hero--split .hero__figure {
+.hero.hero--split .hero__figure {
+  position: relative;
   width: 50%;
 }
 
-.hero--left .hero__container {
+.hero.hero--left .hero__container {
   flex-direction: row-reverse;
 }
