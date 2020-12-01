@@ -1,15 +1,15 @@
 import useSWR from 'swr';
 import fetcher from './fetcher';
 
-const useApi = (type) => {
+const useMedia = (id) => {
   const { data, error } = useSWR(
-    `http://localhost:8888/wp-json/wp/v2/${type}`,
+    `http://localhost:8888/wp-json/wp/v2/media/${id}`,
     fetcher
   );
   return {
-    data,
+    media: data,
     isLoading: !error && !data,
     isError: error,
   };
 };
-export default useApi;
+export default useMedia;

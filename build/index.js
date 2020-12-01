@@ -2147,6 +2147,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _functions_useApi__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../functions/useApi */ "./src/functions/useApi.js");
 /* harmony import */ var _components_PostsListView__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/PostsListView */ "./src/blocks/PostsList/components/PostsListView.js");
+/* harmony import */ var _styles_postslist_editor_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./styles/postslist-editor.scss */ "./src/blocks/PostsList/styles/postslist-editor.scss");
+/* harmony import */ var _styles_postslist_editor_scss__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_styles_postslist_editor_scss__WEBPACK_IMPORTED_MODULE_5__);
+
 
 
 
@@ -2179,9 +2182,46 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('sno
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_PostsListView__WEBPACK_IMPORTED_MODULE_4__["default"], postData);
   },
   save: function save(props) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_PostsListView__WEBPACK_IMPORTED_MODULE_4__["default"], props);
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "This is a React dynamic Block. Please use a headless front-end.");
   }
 });
+
+/***/ }),
+
+/***/ "./src/blocks/PostsList/components/PostsListTitle.js":
+/*!***********************************************************!*\
+  !*** ./src/blocks/PostsList/components/PostsListTitle.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var PostsListTitle = function PostsListTitle(props) {
+  var attributes = props.attributes,
+      setAttributes = props.setAttributes;
+  var title = attributes.title;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h2", {
+    className: "postslist__title"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["PlainText"], {
+    placeholder: 'Add Title',
+    value: title,
+    onChange: function onChange(val) {
+      return setAttributes({
+        title: val
+      });
+    }
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (PostsListTitle);
 
 /***/ }),
 
@@ -2196,6 +2236,10 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('sno
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _functions_useMedia__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../functions/useMedia */ "./src/functions/useMedia.js");
+/* harmony import */ var _PostsListTitle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PostsListTitle */ "./src/blocks/PostsList/components/PostsListTitle.js");
+
+
 
 
 var PostsListsView = function PostsListsView(props) {
@@ -2208,35 +2252,55 @@ var PostsListsView = function PostsListsView(props) {
   if (isLoading) return 'Loading ...';
   if (isError) return 'Error ...';
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "card-deck"
+    className: "postslist"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_PostsListTitle__WEBPACK_IMPORTED_MODULE_2__["default"], props.props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "cardgrid"
   }, data.map(function (item) {
     var id = item.id,
         title = item.title,
         excerpt = item.excerpt,
-        better_featured_image = item.better_featured_image;
+        featured_media = item.featured_media;
+
+    var _useMedia = Object(_functions_useMedia__WEBPACK_IMPORTED_MODULE_1__["default"])(featured_media),
+        media = _useMedia.media,
+        isLoading = _useMedia.isLoading;
+
+    if (isLoading) return 'loading ...';
+    var imageUrl = media.source_url;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "card",
       key: id
-    }, better_featured_image && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
-      src: better_featured_image.source_url,
-      className: "card-img-top",
+    }, featured_media !== 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+      src: imageUrl,
+      className: "card__image",
       alt: "...",
       width: "200",
       height: "100"
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "card-body"
+      className: "card__body"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h5", {
-      className: "card-title"
+      className: "card__title"
     }, title.rendered), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", {
-      className: "card-text",
+      className: "card__text",
       dangerouslySetInnerHTML: {
         __html: excerpt.rendered
       }
     })));
-  }));
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (PostsListsView);
+
+/***/ }),
+
+/***/ "./src/blocks/PostsList/styles/postslist-editor.scss":
+/*!***********************************************************!*\
+  !*** ./src/blocks/PostsList/styles/postslist-editor.scss ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -2301,7 +2365,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var useApi = function useApi(type) {
-  var _useSWR = Object(swr__WEBPACK_IMPORTED_MODULE_0__["default"])("http://localhost:8080/wp-json/wp/v2/".concat(type), _fetcher__WEBPACK_IMPORTED_MODULE_1__["default"]),
+  var _useSWR = Object(swr__WEBPACK_IMPORTED_MODULE_0__["default"])("http://localhost:8888/wp-json/wp/v2/".concat(type), _fetcher__WEBPACK_IMPORTED_MODULE_1__["default"]),
       data = _useSWR.data,
       error = _useSWR.error;
 
@@ -2313,6 +2377,36 @@ var useApi = function useApi(type) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (useApi);
+
+/***/ }),
+
+/***/ "./src/functions/useMedia.js":
+/*!***********************************!*\
+  !*** ./src/functions/useMedia.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swr */ "./node_modules/swr/esm/index.js");
+/* harmony import */ var _fetcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./fetcher */ "./src/functions/fetcher.js");
+
+
+
+var useMedia = function useMedia(id) {
+  var _useSWR = Object(swr__WEBPACK_IMPORTED_MODULE_0__["default"])("http://localhost:8888/wp-json/wp/v2/media/".concat(id), _fetcher__WEBPACK_IMPORTED_MODULE_1__["default"]),
+      data = _useSWR.data,
+      error = _useSWR.error;
+
+  return {
+    media: data,
+    isLoading: !error && !data,
+    isError: error
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (useMedia);
 
 /***/ }),
 
