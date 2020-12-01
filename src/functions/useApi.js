@@ -3,7 +3,7 @@ import fetcher from './fetcher';
 
 const useApi = (type) => {
   const { data, error } = useSWR(
-    `http://localhost:8888/wp-json/wp/v2/${type}`,
+    `${window.location.origin}/wp-json/wp/v2/${type}`,
     fetcher
   );
   return {

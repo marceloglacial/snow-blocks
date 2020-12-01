@@ -2365,7 +2365,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var useApi = function useApi(type) {
-  var _useSWR = Object(swr__WEBPACK_IMPORTED_MODULE_0__["default"])("http://localhost:8888/wp-json/wp/v2/".concat(type), _fetcher__WEBPACK_IMPORTED_MODULE_1__["default"]),
+  var _useSWR = Object(swr__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(window.location.origin, "/wp-json/wp/v2/").concat(type), _fetcher__WEBPACK_IMPORTED_MODULE_1__["default"]),
       data = _useSWR.data,
       error = _useSWR.error;
 
@@ -2395,7 +2395,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var useMedia = function useMedia(id) {
-  var _useSWR = Object(swr__WEBPACK_IMPORTED_MODULE_0__["default"])("http://localhost:8888/wp-json/wp/v2/media/".concat(id), _fetcher__WEBPACK_IMPORTED_MODULE_1__["default"]),
+  var _useSWR = Object(swr__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(window.location.origin, "/wp-json/wp/v2/media/").concat(id), _fetcher__WEBPACK_IMPORTED_MODULE_1__["default"]),
       data = _useSWR.data,
       error = _useSWR.error;
 
