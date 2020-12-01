@@ -18,6 +18,11 @@ registerBlockType('snow-blocks/postslist', {
   },
   edit: (props) => {
     const { data, isLoading, isError } = useApi('posts');
+
+    //
+    // WIP: Get type (category, page?)
+    //
+
     const postData = {
       data,
       isLoading,

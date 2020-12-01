@@ -2171,7 +2171,10 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('sno
     var _useApi = Object(_functions_useApi__WEBPACK_IMPORTED_MODULE_3__["default"])('posts'),
         data = _useApi.data,
         isLoading = _useApi.isLoading,
-        isError = _useApi.isError;
+        isError = _useApi.isError; //
+    // WIP: Get type (category, page?)
+    //
+
 
     var postData = {
       data: data,
