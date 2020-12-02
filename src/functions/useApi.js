@@ -2,10 +2,12 @@ import useSWR from 'swr';
 import fetcher from './fetcher';
 
 const useApi = (type, categories) => {
+  const hasCategories =
+    categories.length !== 0
+      ? `?categories=${categories.map((item) => item)}`
+      : '';
   const { data, error } = useSWR(
-    `${
-      window.location.origin
-    }/wp-json/wp/v2/${type}?categories=${categories.map((item) => item)}`,
+    `${window.location.origin}/wp-json/wp/v2/${type}${hasCategories}`,
     fetcher
   );
   return {

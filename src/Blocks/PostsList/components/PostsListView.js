@@ -5,7 +5,12 @@ const PostsListsView = (props) => {
   const { data = [], isLoading = true, isError = false } = props;
   const { showImage, showText } = props.props.attributes;
 
-  if (isLoading) return 'Loading ...';
+  if (isLoading)
+    return (
+      <div className='cardgrid'>
+        <div className='card'>Loading...</div>
+      </div>
+    );
   if (isError) return 'Error ...';
 
   return (

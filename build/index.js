@@ -2383,7 +2383,7 @@ var PostsListInspector = function PostsListInspector(props) {
   };
 
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Select Categories'),
+    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Filter by Category'),
     initialOpen: true
   }, categories.map(function (category) {
     var id = category.id,
@@ -2503,7 +2503,11 @@ var PostsListsView = function PostsListsView(props) {
   var _props$props$attribut = props.props.attributes,
       showImage = _props$props$attribut.showImage,
       showText = _props$props$attribut.showText;
-  if (isLoading) return 'Loading ...';
+  if (isLoading) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "cardgrid"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "card"
+  }, "Loading..."));
   if (isError) return 'Error ...';
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "postslist"
@@ -2619,9 +2623,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var useApi = function useApi(type, categories) {
-  var _useSWR = Object(swr__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(window.location.origin, "/wp-json/wp/v2/").concat(type, "?categories=").concat(categories.map(function (item) {
+  var hasCategories = categories.length !== 0 ? "?categories=".concat(categories.map(function (item) {
     return item;
-  })), _fetcher__WEBPACK_IMPORTED_MODULE_1__["default"]),
+  })) : '';
+
+  var _useSWR = Object(swr__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(window.location.origin, "/wp-json/wp/v2/").concat(type).concat(hasCategories), _fetcher__WEBPACK_IMPORTED_MODULE_1__["default"]),
       data = _useSWR.data,
       error = _useSWR.error;
 

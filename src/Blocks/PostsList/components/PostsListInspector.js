@@ -37,7 +37,7 @@ const PostsListInspector = (props) => {
 
   return (
     <InspectorControls>
-      <PanelBody title={__('Select Categories')} initialOpen={true}>
+      <PanelBody title={__('Filter by Category')} initialOpen={true}>
         {categories.map((category) => {
           const { id, name } = category;
           const isSelected = checkCategory(id);
