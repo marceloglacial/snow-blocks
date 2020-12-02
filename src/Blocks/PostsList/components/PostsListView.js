@@ -3,6 +3,8 @@ import PostsListTitle from './PostsListTitle';
 
 const PostsListsView = (props) => {
   const { data = [], isLoading = true, isError = false } = props;
+  const { showImage, showText } = props.props.attributes;
+
   if (isLoading) return 'Loading ...';
   if (isError) return 'Error ...';
 
@@ -19,7 +21,7 @@ const PostsListsView = (props) => {
 
           return (
             <div className='card' key={id}>
-              {featured_media !== 0 && (
+              {featured_media !== 0 && showImage === 'yes' && (
                 <img
                   src={imageUrl}
                   className='card__image'
@@ -29,11 +31,13 @@ const PostsListsView = (props) => {
                 />
               )}
               <div className='card__body'>
-                <h5 className='card__title'>{title.rendered}</h5>
-                <p
-                  className='card__text'
-                  dangerouslySetInnerHTML={{ __html: excerpt.rendered }}
-                />
+                <h5 className='card__title'>{title.rendered || ''}</h5>
+                {showText === 'yes' && (
+                  <p
+                    className='card__text'
+                    dangerouslySetInnerHTML={{ __html: excerpt.rendered || '' }}
+                  />
+                )}
               </div>
             </div>
           );

@@ -90,15 +90,13 @@
 
 .postslist .cardgrid {
   display: flex;
+  flex-wrap: wrap;
   gap: 2rem; }
 
 .postslist .card {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
   border: solid 1px var(--grey);
   border-radius: 0.5rem;
   width: 100%; }
@@ -118,16 +116,26 @@
 .postslist .card__body {
   padding: 2rem; }
 
+.postslist .card__tag {
+  padding: 0.25rem 1rem 0.5rem 1rem;
+  color: var(--white);
+  background-color: var(--grey);
+  border-radius: 0.5rem;
+  margin-right: 0.5rem; }
+
 .postslist__title {
   margin: 0 !important;
   padding: 0 !important; }
+
+.postslist__checkbox {
+  margin: 0 !important; }
 
 :root {
   --blue: blue;
   --red: red;
   --white: white;
   --black: black;
-  --grey: grey;
+  --grey: #aaa;
   --primary-color: var(--blue);
   --secondary-color: var(--white);
   --shadow: rgba(0, 0, 0, 0.7); }

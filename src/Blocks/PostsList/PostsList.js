@@ -4,6 +4,7 @@ import useApi from '../../functions/useApi';
 import PostsListsView from './components/PostsListView';
 import Alert from '../Alert/Alert';
 import './styles/postslist-editor.scss';
+import PostsListInspector from './components/PostsListInspector';
 
 registerBlockType('snow-blocks/postslist', {
   title: __('Posts List', 'postslist'),
@@ -16,14 +17,28 @@ registerBlockType('snow-blocks/postslist', {
     title: {
       type: 'string',
     },
+    categoryList: {
+      type: 'array',
+      default: [],
+    },
+    showImage: {
+      type: 'string',
+      default: 'yes',
+    },
+    showDate: {
+      type: 'string',
+      default: 'yes',
+    },
+    showText: {
+      type: 'string',
+      default: 'no',
+    },
   },
   edit: (props) => {
-    const { data, isLoading, isError } = useApi('posts');
-
-    //
-    // WIP: Get type (category, page?)
-    //
-
+    const { data, isLoading, isError } = useApi(
+      'posts',
+      props.attributes.categoryList
+    );
     const postData = {
       data,
       isLoading,
@@ -31,7 +46,12 @@ registerBlockType('snow-blocks/postslist', {
       props,
     };
 
-    return <PostsListsView {...postData} />;
+    return (
+      <>
+        <PostsListInspector {...props} />
+        <PostsListsView {...postData} />
+      </>
+    );
   },
   save: (props) => (
     <Alert title='This is a React dynamic Block. Please use a headless front-end.' />
