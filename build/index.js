@@ -1557,6 +1557,44 @@ var SWRConfig = _swr_config_context__WEBPACK_IMPORTED_MODULE_2__["default"].Prov
 
 /***/ }),
 
+/***/ "./src/blocks/Alert/Alert.js":
+/*!***********************************!*\
+  !*** ./src/blocks/Alert/Alert.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _styles_alert_styles_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/alert-styles.scss */ "./src/blocks/Alert/styles/alert-styles.scss");
+/* harmony import */ var _styles_alert_styles_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_styles_alert_styles_scss__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var Alert = function Alert(props) {
+  var title = props.title;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "alert"
+  }, title || '');
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Alert);
+
+/***/ }),
+
+/***/ "./src/blocks/Alert/styles/alert-styles.scss":
+/*!***************************************************!*\
+  !*** ./src/blocks/Alert/styles/alert-styles.scss ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "./src/blocks/Button/Button.js":
 /*!*************************************!*\
   !*** ./src/blocks/Button/Button.js ***!
@@ -2147,8 +2185,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _functions_useApi__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../functions/useApi */ "./src/functions/useApi.js");
 /* harmony import */ var _components_PostsListView__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/PostsListView */ "./src/blocks/PostsList/components/PostsListView.js");
-/* harmony import */ var _styles_postslist_editor_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./styles/postslist-editor.scss */ "./src/blocks/PostsList/styles/postslist-editor.scss");
-/* harmony import */ var _styles_postslist_editor_scss__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_styles_postslist_editor_scss__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _Alert_Alert__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Alert/Alert */ "./src/blocks/Alert/Alert.js");
+/* harmony import */ var _styles_postslist_editor_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./styles/postslist-editor.scss */ "./src/blocks/PostsList/styles/postslist-editor.scss");
+/* harmony import */ var _styles_postslist_editor_scss__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_styles_postslist_editor_scss__WEBPACK_IMPORTED_MODULE_6__);
+
 
 
 
@@ -2185,7 +2225,9 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('sno
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_PostsListView__WEBPACK_IMPORTED_MODULE_4__["default"], postData);
   },
   save: function save(props) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "This is a React dynamic Block. Please use a headless front-end.");
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_Alert_Alert__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      title: "This is a React dynamic Block. Please use a headless front-end."
+    });
   }
 });
 

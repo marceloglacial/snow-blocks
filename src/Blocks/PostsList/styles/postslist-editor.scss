@@ -1,3 +1,8 @@
+.postslist .cardgrid {
+  display: flex;
+  gap: 2rem;
+}
+
 .postslist .card {
   margin: 0;
   padding: 0;
@@ -5,6 +10,9 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  border: solid 1px var(--grey);
+  border-radius: 0.5rem;
+  width: 100%;
 }
 
 .postslist .card__image {

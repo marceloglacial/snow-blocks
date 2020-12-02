@@ -2,6 +2,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 import useApi from '../../functions/useApi';
 import PostsListsView from './components/PostsListView';
+import Alert from '../Alert/Alert';
 import './styles/postslist-editor.scss';
 
 registerBlockType('snow-blocks/postslist', {
@@ -33,6 +34,6 @@ registerBlockType('snow-blocks/postslist', {
     return <PostsListsView {...postData} />;
   },
   save: (props) => (
-    <p>This is a React dynamic Block. Please use a headless front-end.</p>
+    <Alert title='This is a React dynamic Block. Please use a headless front-end.' />
   ),
 });

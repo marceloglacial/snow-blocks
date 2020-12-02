@@ -81,13 +81,27 @@
   border: none;
   box-shadow: 0 20px 50px var(--shadow); }
 
+.alert {
+  background-color: var(--red);
+  color: var(--white);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  text-align: center; }
+
+.postslist .cardgrid {
+  display: flex;
+  gap: 2rem; }
+
 .postslist .card {
   margin: 0;
   padding: 0;
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
-  align-items: center; }
+  align-items: center;
+  border: solid 1px var(--grey);
+  border-radius: 0.5rem;
+  width: 100%; }
 
 .postslist .card__image {
   width: 100%;
@@ -113,6 +127,7 @@
   --red: red;
   --white: white;
   --black: black;
+  --grey: grey;
   --primary-color: var(--blue);
   --secondary-color: var(--white);
   --shadow: rgba(0, 0, 0, 0.7); }
@@ -136,14 +151,6 @@
   background-color: var(--secondary-color);
   color: blue;
   color: var(--primary-color); }
-
-.cardgrid {
-  display: flex;
-  gap: 2rem; }
-
-.card {
-  width: 100%;
-  border-radius: 0.5rem; }
 
 
 /*# sourceMappingURL=index.css.map*/
