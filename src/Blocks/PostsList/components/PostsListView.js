@@ -1,10 +1,12 @@
 import PostsListTitle from './PostsListTitle';
 import PostListLoading from './PostListLoading';
 import PostListImage from './PostListImage';
+import PostListEmpty from './PostListEmpty';
+import formatDate from '../../../functions/formatDate';
 
 const PostsListsView = (props) => {
   const { data, isLoading, isError } = props;
-  const { showImage, showText } = props.props.attributes;
+  const { showImage, showText, showDate } = props.props.attributes;
 
   if (isLoading) return <PostListLoading />;
   if (isError) return 'Error ...';
@@ -14,13 +16,7 @@ const PostsListsView = (props) => {
     return (
       <div className='postslist'>
         <PostsListTitle {...props.props} />
-        <div className='cardgrid'>
-          <div className='card'>
-            <div className='card__body'>
-              <h5 className='card__title'>No posts</h5>
-            </div>
-          </div>
-        </div>
+        <PostListEmpty />
       </div>
     );
   }
@@ -30,7 +26,7 @@ const PostsListsView = (props) => {
       <PostsListTitle {...props.props} />
       <div className='cardgrid'>
         {data.map((item) => {
-          const { id, title, excerpt, featured_media } = item;
+          const { id, date, title, excerpt, featured_media } = item;
           return (
             <div className='card' key={id}>
               {featured_media !== 0 && showImage === 'yes' && (
@@ -38,6 +34,9 @@ const PostsListsView = (props) => {
               )}
               <div className='card__body'>
                 <h5 className='card__title'>{title.rendered || ''}</h5>
+                {showDate === 'yes' && (
+                  <p className='card__date'>{formatDate(date)}</p>
+                )}
                 {showText === 'yes' && (
                   <p
                     className='card__text'

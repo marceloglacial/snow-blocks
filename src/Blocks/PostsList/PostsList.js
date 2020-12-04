@@ -33,6 +33,10 @@ registerBlockType('snow-blocks/postslist', {
       type: 'string',
       default: 'no',
     },
+    showDate: {
+      type: 'string',
+      default: 'no',
+    },
   },
   edit: (props) => {
     const { data, isLoading, isError } = useApi(

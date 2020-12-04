@@ -10,7 +10,7 @@ import useCategory from '../../../functions/useCategory';
 
 const PostsListInspector = (props) => {
   const { attributes, setAttributes } = props;
-  const { showImage, showText, categoryList } = attributes;
+  const { showImage, showText, showDate, categoryList } = attributes;
   const { categories, isLoading, isError } = useCategory();
 
   // Loading States
@@ -63,6 +63,18 @@ const PostsListInspector = (props) => {
           ]}
           onChange={(option) => {
             setAttributes({ showImage: option });
+          }}
+        />
+      </PanelBody>
+      <PanelBody title={__('Show Date')} initialOpen={true}>
+        <RadioControl
+          selected={showDate}
+          options={[
+            { label: 'Yes', value: 'yes' },
+            { label: 'No', value: 'no' },
+          ]}
+          onChange={(option) => {
+            setAttributes({ showDate: option });
           }}
         />
       </PanelBody>
