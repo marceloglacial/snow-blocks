@@ -1,10 +1,11 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
-import HeroInspector from './HeroInspector';
-import HeroMediLibrary from './HeroMediaLibrary';
-import HeroView from './HeroView';
+import HeroInspector from './components/HeroInspector';
+import HeroMediLibrary from './components/HeroMediaLibrary';
+import HeroView from './components/HeroView';
 import { useState, useEffect } from 'react';
 import getSlug from '../../functions/getSlug';
+import './styles/hero-editor.scss';
 
 registerBlockType('snow-blocks/hero', {
   title: __('Hero', 'hero'),
