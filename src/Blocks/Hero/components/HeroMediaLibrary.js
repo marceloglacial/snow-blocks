@@ -4,7 +4,7 @@ const HeroMediLibrary = (props) => {
   const ALLOWED_MEDIA_TYPES = ['image'];
   const { setAttributes } = props;
   return (
-    <div className='hero-upload py-5 d-flex justify-content-center  align-items-center'>
+    <div className='hero__upload'>
       <MediaUploadCheck>
         <MediaUpload
           // onSelect={(media) => console.log(media)}
@@ -13,7 +13,7 @@ const HeroMediLibrary = (props) => {
           }
           allowedTypes={ALLOWED_MEDIA_TYPES}
           render={({ open }) => (
-            <Button type='button' className='btn btn-primary' onClick={open}>
+            <Button type='button' className='btn btn--primary' onClick={open}>
               Open Media Library
             </Button>
           )}

@@ -3,7 +3,7 @@ const Button = (props) => {
   return (
     <a
       href={link || '#'}
-      className={`btn btn-${type || 'primary'} ${className}`}
+      className={`btn btn--${type || 'primary'} ${className}`}
     >
       {title || 'Add Title'}
     </a>

@@ -4,10 +4,10 @@ const HeroCloseButton = (props) => {
     props.setAttributes({ imageUrl: undefined });
   };
   return (
-    <div className='hero-close container'>
+    <div className='hero__close'>
       <button
         type='button'
-        className='hero-close__button close'
+        className='hero__button hero__button--close'
         aria-label='Close'
         onClick={(e) => handleClick(e)}
       >
