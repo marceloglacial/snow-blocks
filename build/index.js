@@ -2318,6 +2318,66 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('sno
 
 /***/ }),
 
+/***/ "./src/blocks/PostsList/components/PostListImage.js":
+/*!**********************************************************!*\
+  !*** ./src/blocks/PostsList/components/PostListImage.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _functions_useMedia__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../functions/useMedia */ "./src/functions/useMedia.js");
+
+
+
+var PostListImage = function PostListImage(props) {
+  var _useMedia = Object(_functions_useMedia__WEBPACK_IMPORTED_MODULE_1__["default"])(props.featured_media),
+      media = _useMedia.media,
+      isLoading = _useMedia.isLoading;
+
+  if (isLoading) return 'loading ...';
+  var imageUrl = media.source_url;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+    src: imageUrl,
+    className: "card__image",
+    alt: "...",
+    width: "200",
+    height: "100"
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (PostListImage);
+
+/***/ }),
+
+/***/ "./src/blocks/PostsList/components/PostListLoading.js":
+/*!************************************************************!*\
+  !*** ./src/blocks/PostsList/components/PostListLoading.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var PostListLoading = function PostListLoading(props) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "cardgrid"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "card"
+  }, "Loading..."));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (PostListLoading);
+
+/***/ }),
+
 /***/ "./src/blocks/PostsList/components/PostsListInspector.js":
 /*!***************************************************************!*\
   !*** ./src/blocks/PostsList/components/PostsListInspector.js ***!
@@ -2487,54 +2547,52 @@ var PostsListTitle = function PostsListTitle(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _functions_useMedia__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../functions/useMedia */ "./src/functions/useMedia.js");
-/* harmony import */ var _PostsListTitle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PostsListTitle */ "./src/blocks/PostsList/components/PostsListTitle.js");
+/* harmony import */ var _PostsListTitle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PostsListTitle */ "./src/blocks/PostsList/components/PostsListTitle.js");
+/* harmony import */ var _PostListLoading__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PostListLoading */ "./src/blocks/PostsList/components/PostListLoading.js");
+/* harmony import */ var _PostListImage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PostListImage */ "./src/blocks/PostsList/components/PostListImage.js");
+
 
 
 
 
 var PostsListsView = function PostsListsView(props) {
-  var _props$data = props.data,
-      data = _props$data === void 0 ? [] : _props$data,
-      _props$isLoading = props.isLoading,
-      isLoading = _props$isLoading === void 0 ? true : _props$isLoading,
-      _props$isError = props.isError,
-      isError = _props$isError === void 0 ? false : _props$isError;
+  var data = props.data,
+      isLoading = props.isLoading,
+      isError = props.isError;
   var _props$props$attribut = props.props.attributes,
       showImage = _props$props$attribut.showImage,
       showText = _props$props$attribut.showText;
-  if (isLoading) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "cardgrid"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "card"
-  }, "Loading..."));
+  if (isLoading) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_PostListLoading__WEBPACK_IMPORTED_MODULE_2__["default"], null);
   if (isError) return 'Error ...';
+  var hasData = data.length !== 0;
+
+  if (!hasData) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "postslist"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_PostsListTitle__WEBPACK_IMPORTED_MODULE_1__["default"], props.props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "cardgrid"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "card"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "card__body"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h5", {
+      className: "card__title"
+    }, "No posts")))));
+  }
+
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "postslist"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_PostsListTitle__WEBPACK_IMPORTED_MODULE_2__["default"], props.props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_PostsListTitle__WEBPACK_IMPORTED_MODULE_1__["default"], props.props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "cardgrid"
   }, data.map(function (item) {
     var id = item.id,
         title = item.title,
         excerpt = item.excerpt,
         featured_media = item.featured_media;
-
-    var _useMedia = Object(_functions_useMedia__WEBPACK_IMPORTED_MODULE_1__["default"])(featured_media),
-        media = _useMedia.media,
-        isLoading = _useMedia.isLoading;
-
-    if (isLoading) return 'loading ...';
-    var imageUrl = media.source_url;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "card",
       key: id
-    }, featured_media !== 0 && showImage === 'yes' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
-      src: imageUrl,
-      className: "card__image",
-      alt: "...",
-      width: "200",
-      height: "100"
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    }, featured_media !== 0 && showImage === 'yes' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_PostListImage__WEBPACK_IMPORTED_MODULE_3__["default"], item), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "card__body"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h5", {
       className: "card__title"
@@ -2620,7 +2678,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swr */ "./node_modules/swr/esm/index.js");
 /* harmony import */ var _fetcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./fetcher */ "./src/functions/fetcher.js");
 
-
+ //
+// WIP: HANDLE ERROR
+//
 
 var useApi = function useApi(type, categories) {
   var hasCategories = categories.length !== 0 ? "?categories=".concat(categories.map(function (item) {
