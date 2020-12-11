@@ -1,2 +1,3 @@
 import './Blocks/Hero/Hero';
-import './styles/styles.scss';
+import './editor.scss';
+import './style.scss';

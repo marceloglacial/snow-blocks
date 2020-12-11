@@ -13,7 +13,6 @@ const HeroView = (props) => {
   return (
     <div className={`hero hero--${heroStyle} hero--${imagePosition}`}>
       <div className='hero__container'>
-        <p>Test</p>
         <div className='hero__content'>
           <HeroTitle {...props} />
           <HeroDescription {...props} />
