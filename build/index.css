@@ -31,5 +31,35 @@
   border: none;
   box-shadow: 0 20px 50px var(--shadow); }
 
+:root {
+  --blue: blue;
+  --red: red;
+  --white: white;
+  --black: black;
+  --grey: #aaa;
+  --primary-color: var(--blue);
+  --secondary-color: var(--white);
+  --shadow: rgba(0, 0, 0, 0.7); }
+
+.btn {
+  display: inline-block;
+  border-radius: 0.25rem;
+  padding: 1.5rem !important;
+  text-decoration: none; }
+
+.btn--primary {
+  background-color: blue;
+  background-color: var(--primary-color);
+  color: white;
+  color: var(--secondary-color);
+  border: solid 1px blue;
+  border: solid 1px var(--primary-color); }
+
+.btn--primary:hover {
+  background-color: white;
+  background-color: var(--secondary-color);
+  color: blue;
+  color: var(--primary-color); }
+
 
 /*# sourceMappingURL=index.css.map*/
