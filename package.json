@@ -1,27 +1,20 @@
 {
-  "name": "snow-blocks",
-  "version": "0.1.0",
-  "description": "Awesome custom blocks.",
-  "author": "Marcelo Glacial",
-  "license": "GPL-2.0-or-later",
-  "main": "build/index.js",
-  "scripts": {
-    "build": "wp-scripts build",
-    "format:js": "wp-scripts format-js",
-    "lint:css": "wp-scripts lint-style",
-    "lint:js": "wp-scripts lint-js",
-    "wp-env": "wp-env",
-    "start": "wp-env start && wp-scripts start",
-    "dev": "yarn run start",
-    "packages-update": "wp-scripts packages-update",
-    "update": "yarn run packages-update"
-  },
-  "devDependencies": {
-    "@wordpress/api-fetch": "^3.20.0",
-    "@wordpress/env": "^2.1.0",
-    "@wordpress/scripts": "^12.5.0",
-    "node-sass": "^4.14.1",
-    "sass": "^1.29.0",
-    "swr": "^0.3.9"
-  }
+	"name": "snowblocks",
+	"version": "0.1.0",
+	"description": "Example block written with ESNext standard and JSX support – build step required.",
+	"author": "The WordPress Contributors",
+	"license": "GPL-2.0-or-later",
+	"main": "build/index.js",
+	"scripts": {
+		"build": "wp-scripts build",
+		"format:js": "wp-scripts format-js",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"start": "wp-scripts start",
+		"packages-update": "wp-scripts packages-update"
+	},
+	"devDependencies": {
+		"@wordpress/env": "^2.1.0",
+		"@wordpress/scripts": "^12.5.0"
+	}
 }
