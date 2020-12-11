@@ -10,7 +10,9 @@
 		"format:js": "wp-scripts format-js",
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
-		"start": "wp-scripts start",
+		"wp-env": "wp-env",
+		"start": "wp-env start && wp-scripts build",
+		"dev": "wp-env start && wp-scripts start",
 		"packages-update": "wp-scripts packages-update"
 	},
 	"devDependencies": {
