@@ -56,7 +56,13 @@ registerBlockType('snow-blocks/postslist', {
       </>
     );
   },
-  save: (props) => (
-    <Alert title='This is a React dynamic Block. Please use a headless front-end.' />
-  ),
+  save: (props) => {
+    const { title } = props.attributes;
+    return (
+      <div className='posts-list'>
+        <h2>{title}</h2>
+        <p>Dynamic List</p>
+      </div>
+    );
+  },
 });
