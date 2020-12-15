@@ -2,7 +2,6 @@ import { registerBlockType } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 import useApi from '../../functions/useApi';
 import PostsListsView from './components/PostsListView';
-import Alert from '../Alert/Alert';
 import PostsListInspector from './components/PostsListInspector';
 
 registerBlockType('snow-blocks/postslist', {
@@ -22,11 +21,11 @@ registerBlockType('snow-blocks/postslist', {
     },
     showImage: {
       type: 'string',
-      default: 'yes',
+      default: 'no',
     },
     showDate: {
       type: 'string',
-      default: 'yes',
+      default: 'no',
     },
     showText: {
       type: 'string',
@@ -38,6 +37,7 @@ registerBlockType('snow-blocks/postslist', {
     },
   },
   edit: (props) => {
+    console.log(props);
     const { data, isLoading, isError } = useApi(
       'posts',
       props.attributes.categoryList

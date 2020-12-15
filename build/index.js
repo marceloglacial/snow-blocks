@@ -1737,30 +1737,6 @@ var SWRConfig = _swr_config_context__WEBPACK_IMPORTED_MODULE_2__["default"].Prov
 
 /***/ }),
 
-/***/ "./src/Blocks/Alert/Alert.js":
-/*!***********************************!*\
-  !*** ./src/Blocks/Alert/Alert.js ***!
-  \***********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-
-
-var Alert = function Alert(props) {
-  var title = props.title;
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "alert"
-  }, title || '');
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Alert);
-
-/***/ }),
-
 /***/ "./src/Blocks/Button/Button.js":
 /*!*************************************!*\
   !*** ./src/Blocks/Button/Button.js ***!
@@ -2325,9 +2301,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _functions_useApi__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../functions/useApi */ "./src/functions/useApi.js");
 /* harmony import */ var _components_PostsListView__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/PostsListView */ "./src/Blocks/PostsList/components/PostsListView.js");
-/* harmony import */ var _Alert_Alert__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Alert/Alert */ "./src/Blocks/Alert/Alert.js");
-/* harmony import */ var _components_PostsListInspector__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/PostsListInspector */ "./src/Blocks/PostsList/components/PostsListInspector.js");
-
+/* harmony import */ var _components_PostsListInspector__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/PostsListInspector */ "./src/Blocks/PostsList/components/PostsListInspector.js");
 
 
 
@@ -2352,11 +2326,11 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
     },
     showImage: {
       type: 'string',
-      default: 'yes'
+      default: 'no'
     },
     showDate: {
       type: 'string',
-      default: 'yes'
+      default: 'no'
     },
     showText: {
       type: 'string',
@@ -2367,6 +2341,8 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
     default: 'no'
   }),
   edit: function edit(props) {
+    console.log(props);
+
     var _useApi = Object(_functions_useApi__WEBPACK_IMPORTED_MODULE_4__["default"])('posts', props.attributes.categoryList),
         data = _useApi.data,
         isLoading = _useApi.isLoading,
@@ -2378,7 +2354,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
       isError: isError,
       props: props
     };
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_PostsListInspector__WEBPACK_IMPORTED_MODULE_7__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_PostsListView__WEBPACK_IMPORTED_MODULE_5__["default"], postData));
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_PostsListInspector__WEBPACK_IMPORTED_MODULE_6__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_PostsListView__WEBPACK_IMPORTED_MODULE_5__["default"], postData));
   },
   save: function save(props) {
     var title = props.attributes.title;
