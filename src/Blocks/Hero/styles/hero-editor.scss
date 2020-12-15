@@ -22,6 +22,15 @@
     margin-left: -40vw;
   }
 
+  .hero.hero--full .hero__container {
+    width: 75vw;
+  }
+
+  .hero.hero--full .hero__figure {
+    width: 70vw;
+    left: 44%;
+  }
+
   .hero__close {
     position: absolute;
     top: 2rem;

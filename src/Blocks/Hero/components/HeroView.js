@@ -3,7 +3,6 @@ import HeroTitle from './HeroTitle';
 import HeroImage from './HeroImage';
 import HeroCloseButton from './HeroCloseButton';
 import HeroButton from './HeroButton';
-import '../styles/hero-styles.scss';
 
 const HeroView = (props) => {
   const { env } = props;

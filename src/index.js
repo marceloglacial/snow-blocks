@@ -1,3 +1,7 @@
-import './blocks/Hero/Hero';
-import './blocks/PostsList/PostsList';
-import './styles/styles.scss';
+// Blocks
+import './Blocks/Hero/Hero';
+import './Blocks/PostsList/PostsList';
+
+// Styles
+import './editor.scss';
+import './style.scss';
