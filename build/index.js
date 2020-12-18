@@ -1765,6 +1765,163 @@ var Button = function Button(props) {
 
 /***/ }),
 
+/***/ "./src/Blocks/Forms/Forms.js":
+/*!***********************************!*\
+  !*** ./src/Blocks/Forms/Forms.js ***!
+  \***********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_FormsSelection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/FormsSelection */ "./src/Blocks/Forms/components/FormsSelection.js");
+
+
+
+
+Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('snow-blocks/forms', {
+  title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Forms', 'forms'),
+  category: 'widgets',
+  icon: 'feedback',
+  supports: {
+    html: false
+  },
+  attributes: {
+    url: {
+      type: 'string',
+      default: ''
+    },
+    forms: {
+      type: 'array',
+      default: []
+    },
+    formType: {
+      type: 'string',
+      default: ''
+    }
+  },
+  edit: function edit(props) {
+    var _props$attributes = props.attributes,
+        forms = _props$attributes.forms,
+        formType = _props$attributes.formType;
+    if (!formType) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_FormsSelection__WEBPACK_IMPORTED_MODULE_3__["default"], props);
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "test");
+  },
+  save: function save(props) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "test");
+  }
+});
+
+/***/ }),
+
+/***/ "./src/Blocks/Forms/components/FormsPree.js":
+/*!**************************************************!*\
+  !*** ./src/Blocks/Forms/components/FormsPree.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var FormsPree = function FormsPree(props) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("form", {
+    action: "https://formspree.io/f/{form_id}",
+    method: "post"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
+    htmlFor: "email"
+  }, "Your Email"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
+    name: "Email",
+    id: "email",
+    type: "email"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+    type: "submit"
+  }, "Submit"));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (FormsPree);
+
+/***/ }),
+
+/***/ "./src/Blocks/Forms/components/FormsSelection.js":
+/*!*******************************************************!*\
+  !*** ./src/Blocks/Forms/components/FormsSelection.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _FormsPree__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./FormsPree */ "./src/Blocks/Forms/components/FormsPree.js");
+
+
+
+
+
+var FormsSelection = function FormsSelection(props) {
+  var attributes = props.attributes,
+      setAttributes = props.setAttributes;
+  var url = attributes.url,
+      forms = attributes.forms;
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(''),
+      _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState, 2),
+      isSelected = _useState2[0],
+      setIsSelected = _useState2[1]; // TODO: Add it to WP options
+
+
+  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
+    return setAttributes({
+      forms: [{
+        title: 'Formspree',
+        component: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_FormsPree__WEBPACK_IMPORTED_MODULE_3__["default"], props)
+      }]
+    });
+  }, []);
+
+  var handleSelection = function handleSelection(value) {
+    setIsSelected(value);
+  };
+
+  if (isSelected) return forms.find(function (item) {
+    return item.title === isSelected;
+  }).component;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    className: "forms-selection"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h3", {
+    className: "forms-selection__title"
+  }, "Choose Your Form:"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("form", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("select", {
+    onChange: function onChange(e) {
+      return handleSelection(e.target.value);
+    }
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("option", {
+    value: ""
+  }, "---- choose one ----"), forms.map(function (item, index) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("option", {
+      key: index
+    }, item.title);
+  }))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (FormsSelection);
+
+/***/ }),
+
 /***/ "./src/Blocks/Hero/Hero.js":
 /*!*********************************!*\
   !*** ./src/Blocks/Hero/Hero.js ***!
@@ -2919,11 +3076,13 @@ var useMedia = function useMedia(id) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Blocks_Hero_Hero__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Blocks/Hero/Hero */ "./src/Blocks/Hero/Hero.js");
 /* harmony import */ var _Blocks_PostsList_PostsList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Blocks/PostsList/PostsList */ "./src/Blocks/PostsList/PostsList.js");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_editor_scss__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _Blocks_Forms_Forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Blocks/Forms/Forms */ "./src/Blocks/Forms/Forms.js");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_editor_scss__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_4__);
 // Blocks
+
 
  // Styles
 
