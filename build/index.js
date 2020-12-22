@@ -1774,32 +1774,40 @@ var Button = function Button(props) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
-/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_FormsSelection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/FormsSelection */ "./src/Blocks/Forms/components/FormsSelection.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_FormsSelection__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/FormsSelection */ "./src/Blocks/Forms/components/FormsSelection.js");
+/* harmony import */ var _components_FormsPree__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/FormsPree */ "./src/Blocks/Forms/components/FormsPree.js");
+/* harmony import */ var _components_SendGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/SendGrid */ "./src/Blocks/Forms/components/SendGrid.js");
+
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 
 
-Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('snow-blocks/forms', {
-  title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Forms', 'forms'),
+
+
+Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('snow-blocks/forms', {
+  title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Forms', 'forms'),
   category: 'widgets',
   icon: 'feedback',
   supports: {
     html: false
   },
   attributes: {
-    url: {
+    formUrl: {
       type: 'string',
       default: ''
-    },
-    forms: {
-      type: 'array',
-      default: []
     },
     formType: {
       type: 'string',
@@ -1807,14 +1815,27 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('sno
     }
   },
   edit: function edit(props) {
-    var _props$attributes = props.attributes,
-        forms = _props$attributes.forms,
-        formType = _props$attributes.formType;
-    if (!formType) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_FormsSelection__WEBPACK_IMPORTED_MODULE_3__["default"], props);
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "test");
+    var formType = props.attributes.formType;
+    var forms = {
+      formspree: {
+        title: 'Formspree',
+        component: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_FormsPree__WEBPACK_IMPORTED_MODULE_5__["default"], props)
+      },
+      sendgrid: {
+        title: 'SendGrid',
+        component: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_SendGrid__WEBPACK_IMPORTED_MODULE_6__["default"], props)
+      }
+    };
+
+    var formsData = _objectSpread(_objectSpread({}, props), {}, {
+      forms: forms
+    });
+
+    if (!formType) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_FormsSelection__WEBPACK_IMPORTED_MODULE_4__["default"], formsData);
+    return forms[formType].component;
   },
   save: function save(props) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "test");
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, "test");
   }
 });
 
@@ -1829,21 +1850,60 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('sno
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+
+
 
 
 var FormsPree = function FormsPree(props) {
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("form", {
-    action: "https://formspree.io/f/{form_id}",
+  var attributes = props.attributes,
+      setAttributes = props.setAttributes;
+  var formUrl = attributes.formUrl;
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(formUrl),
+      _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState, 2),
+      url = _useState2[0],
+      setUrl = _useState2[1];
+
+  var handleUrl = function handleUrl(e) {
+    return setUrl(e);
+  };
+
+  var handleSetUrl = function handleSetUrl(e) {
+    return setAttributes({
+      formUrl: url
+    });
+  };
+
+  if (!formUrl) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("label", {
+    htmlFor: "url"
+  }, "Form endpoint"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("input", {
+    name: "url",
+    id: "url",
+    type: "url",
+    onChange: function onChange(e) {
+      return handleUrl(e.target.value);
+    }
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
+    onClick: function onClick(e) {
+      return handleSetUrl(e);
+    }
+  }, "Submit"));
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("form", {
+    action: formUrl,
     method: "post"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h3", null, "Formspree"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("label", {
     htmlFor: "email"
-  }, "Your Email"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
+  }, "Your Email"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("input", {
     name: "Email",
     id: "email",
     type: "email"
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
     type: "submit"
   }, "Submit"));
 };
@@ -1861,64 +1921,61 @@ var FormsPree = function FormsPree(props) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _FormsPree__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./FormsPree */ "./src/Blocks/Forms/components/FormsPree.js");
-
-
-
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 
 
 var FormsSelection = function FormsSelection(props) {
-  var attributes = props.attributes,
-      setAttributes = props.setAttributes;
-  var url = attributes.url,
-      forms = attributes.forms;
-
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(''),
-      _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState, 2),
-      isSelected = _useState2[0],
-      setIsSelected = _useState2[1]; // TODO: Add it to WP options
-
-
-  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
-    return setAttributes({
-      forms: [{
-        title: 'Formspree',
-        component: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_FormsPree__WEBPACK_IMPORTED_MODULE_3__["default"], props)
-      }]
-    });
-  }, []);
+  var setAttributes = props.setAttributes,
+      forms = props.forms;
+  var allTypes = Object.entries(forms);
 
   var handleSelection = function handleSelection(value) {
-    setIsSelected(value);
+    setAttributes({
+      formType: value
+    });
   };
 
-  if (isSelected) return forms.find(function (item) {
-    return item.title === isSelected;
-  }).component;
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "forms-selection"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h3", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h3", {
     className: "forms-selection__title"
-  }, "Choose Your Form:"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("form", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("select", {
+  }, "Choose Your Form:"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("form", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("select", {
     onChange: function onChange(e) {
       return handleSelection(e.target.value);
     }
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("option", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("option", {
     value: ""
-  }, "---- choose one ----"), forms.map(function (item, index) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("option", {
+  }, "---- choose one ----"), allTypes.map(function (item, index) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("option", {
+      value: item[0],
       key: index
-    }, item.title);
+    }, item[1].title);
   }))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (FormsSelection);
+
+/***/ }),
+
+/***/ "./src/Blocks/Forms/components/SendGrid.js":
+/*!*************************************************!*\
+  !*** ./src/Blocks/Forms/components/SendGrid.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var SendGrid = function SendGrid(props) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "SendGrid");
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (SendGrid);
 
 /***/ }),
 

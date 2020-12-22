@@ -1,29 +1,10 @@
-import { useState, useEffect } from 'react';
-import FormsPree from './FormsPree';
-
 const FormsSelection = (props) => {
-  const { attributes, setAttributes } = props;
-  const { url, forms } = attributes;
-  const [isSelected, setIsSelected] = useState('');
-
-  // TODO: Add it to WP options
-  useEffect(() => {
-    return setAttributes({
-      forms: [
-        {
-          title: 'Formspree',
-          component: <FormsPree {...props} />,
-        },
-      ],
-    });
-  }, []);
+  const { setAttributes, forms } = props;
+  const allTypes = Object.entries(forms);
 
   const handleSelection = (value) => {
-    setIsSelected(value);
+    setAttributes({ formType: value });
   };
-
-  if (isSelected)
-    return forms.find((item) => item.title === isSelected).component;
 
   return (
     <div className='forms-selection'>
@@ -31,8 +12,10 @@ const FormsSelection = (props) => {
       <form>
         <select onChange={(e) => handleSelection(e.target.value)}>
           <option value=''>---- choose one ----</option>
-          {forms.map((item, index) => (
-            <option key={index}>{item.title}</option>
+          {allTypes.map((item, index) => (
+            <option value={item[0]} key={index}>
+              {item[1].title}
+            </option>
           ))}
         </select>
       </form>
