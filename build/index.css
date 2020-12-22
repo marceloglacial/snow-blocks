@@ -38,5 +38,20 @@
   border: none;
   box-shadow: 0 20px 50px var(--shadow); }
 
+.snowforms input {
+  padding: 0.5rem 1rem !important;
+  width: 100%; }
+
+.snowforms h3 {
+  margin: 0 !important;
+  font-weight: bold !important; }
+
+.snowforms button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem !important;
+  background-color: white;
+  border: solid 1px grey;
+  border-radius: 0.5rem; }
+
 
 /*# sourceMappingURL=index.css.map*/
