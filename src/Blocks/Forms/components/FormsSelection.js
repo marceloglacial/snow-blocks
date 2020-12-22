@@ -7,7 +7,7 @@ const FormsSelection = (props) => {
   };
 
   return (
-    <div className='forms-selection'>
+    <div className='forms-selection snowforms'>
       <h3 className='forms-selection__title'>Choose Your Form:</h3>
       <form>
         <select onChange={(e) => handleSelection(e.target.value)}>

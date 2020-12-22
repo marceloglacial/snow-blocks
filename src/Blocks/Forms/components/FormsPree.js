@@ -9,25 +9,28 @@ const FormsPree = (props) => {
 
   if (!formUrl)
     return (
-      <>
-        <label htmlFor='url'>Form endpoint</label>
+      <div className='snowforms'>
+        <label className='forms__label' htmlFor='url'>
+          <h3>Form endpoint</h3>
+        </label>
         <input
           name='url'
           id='url'
           type='url'
+          className='forms__input'
           onChange={(e) => handleUrl(e.target.value)}
         />
-        <button onClick={(e) => handleSetUrl(e)}>Submit</button>
-      </>
+        <button className='forms__button' onClick={(e) => handleSetUrl(e)}>
+          Submit
+        </button>
+      </div>
     );
 
   return (
-    <form action={formUrl} method='post'>
+    <div className='snowforms'>
       <h3>Formspree</h3>
-      <label htmlFor='email'>Your Email</label>
-      <input name='Email' id='email' type='email' />
-      <button type='submit'>Submit</button>
-    </form>
+      <input name='url' id='url' type='url' defaultValue={formUrl} />
+    </div>
   );
 };
 export default FormsPree;
