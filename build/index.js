@@ -1784,14 +1784,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _components_FormsSelection__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/FormsSelection */ "./src/Blocks/Forms/components/FormsSelection.js");
 /* harmony import */ var _components_FormsPree__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/FormsPree */ "./src/Blocks/Forms/components/FormsPree.js");
-/* harmony import */ var _components_SendGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/SendGrid */ "./src/Blocks/Forms/components/SendGrid.js");
 
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
 
 
 
@@ -1812,6 +1810,14 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
     formType: {
       type: 'string',
       default: ''
+    },
+    formFields: {
+      type: 'array',
+      default: []
+    },
+    formTitle: {
+      type: 'string',
+      default: ''
     }
   },
   edit: function edit(props) {
@@ -1820,10 +1826,6 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
       formspree: {
         title: 'Formspree',
         component: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_FormsPree__WEBPACK_IMPORTED_MODULE_5__["default"], props)
-      },
-      sendgrid: {
-        title: 'SendGrid',
-        component: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_SendGrid__WEBPACK_IMPORTED_MODULE_6__["default"], props)
       }
     };
 
@@ -1856,6 +1858,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _functions_addField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../functions/addField */ "./src/Blocks/Forms/functions/addField.js");
+
 
 
 
@@ -1863,7 +1867,9 @@ __webpack_require__.r(__webpack_exports__);
 var FormsPree = function FormsPree(props) {
   var attributes = props.attributes,
       setAttributes = props.setAttributes;
-  var formUrl = attributes.formUrl;
+  var formTitle = attributes.formTitle,
+      formUrl = attributes.formUrl,
+      formFields = attributes.formFields;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(formUrl),
       _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState, 2),
@@ -1901,12 +1907,17 @@ var FormsPree = function FormsPree(props) {
   }, "Submit"));
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "snowforms"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h3", null, "Formspree"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("input", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h3", null, formTitle || 'Create Title Component'), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("input", {
     name: "url",
     id: "url",
     type: "url",
     defaultValue: formUrl
-  }));
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
+    type: "button",
+    onClick: function onClick(e) {
+      return Object(_functions_addField__WEBPACK_IMPORTED_MODULE_3__["default"])(formFields.length + 1, 'text', 'Name', '', formFields, setAttributes, e);
+    }
+  }, "Add Input"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (FormsPree);
@@ -1959,24 +1970,32 @@ var FormsSelection = function FormsSelection(props) {
 
 /***/ }),
 
-/***/ "./src/Blocks/Forms/components/SendGrid.js":
-/*!*************************************************!*\
-  !*** ./src/Blocks/Forms/components/SendGrid.js ***!
-  \*************************************************/
+/***/ "./src/Blocks/Forms/functions/addField.js":
+/*!************************************************!*\
+  !*** ./src/Blocks/Forms/functions/addField.js ***!
+  \************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
 
 
-var SendGrid = function SendGrid(props) {
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "SendGrid");
+var addField = function addField(formId, formType, formName, formValue, fields, setInputs) {
+  var updatedFields = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(fields), [{
+    id: formId,
+    type: formType,
+    name: formName,
+    value: formValue
+  }]);
+  return setInputs({
+    formFields: updatedFields
+  });
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (SendGrid);
+/* harmony default export */ __webpack_exports__["default"] = (addField);
 
 /***/ }),
 

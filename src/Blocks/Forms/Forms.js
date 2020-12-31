@@ -2,7 +2,6 @@ import { registerBlockType } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 import FormsSelection from './components/FormsSelection';
 import FormsPree from './components/FormsPree';
-import SendGrid from './components/SendGrid';
 
 registerBlockType('snow-blocks/forms', {
   title: __('Forms', 'forms'),
@@ -20,6 +19,14 @@ registerBlockType('snow-blocks/forms', {
       type: 'string',
       default: '',
     },
+    formFields: {
+      type: 'array',
+      default: [],
+    },
+    formTitle: {
+      type: 'string',
+      default: '',
+    },
   },
   edit: (props) => {
     const { formType } = props.attributes;
@@ -28,10 +35,6 @@ registerBlockType('snow-blocks/forms', {
       formspree: {
         title: 'Formspree',
         component: <FormsPree {...props} />,
-      },
-      sendgrid: {
-        title: 'SendGrid',
-        component: <SendGrid {...props} />,
       },
     };
 
