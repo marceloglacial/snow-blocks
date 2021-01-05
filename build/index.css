@@ -38,20 +38,32 @@
   border: none;
   box-shadow: 0 20px 50px var(--shadow); }
 
-.snowforms input {
-  padding: 0.5rem 1rem !important;
-  width: 100%; }
+.form-editor {
+  display: flex;
+  font-size: 1rem; }
 
-.snowforms h3 {
-  margin: 0 !important;
-  font-weight: bold !important; }
+.form-controls {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  margin-right: 2rem; }
+  .form-controls__button {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem; }
 
-.snowforms button {
-  margin-top: 0.5rem;
-  padding: 0.5rem 1rem !important;
-  background-color: white;
-  border: solid 1px grey;
-  border-radius: 0.5rem; }
+.form-container label {
+  display: block; }
+
+.form__label {
+  display: block;
+  font-weight: bold; }
+
+.form__field {
+  margin-bottom: 1rem; }
+  .form__field:hover {
+    outline: dashed 1px black;
+    outline-offset: 0.5rem; }
 
 
 /*# sourceMappingURL=index.css.map*/

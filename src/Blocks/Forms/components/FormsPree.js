@@ -4,71 +4,98 @@ import InputView from './InputView';
 
 const FormsPree = (props) => {
   const { attributes, setAttributes } = props;
-  const { formTitle, formUrl, formFields } = attributes;
+  const { formUrl, formFields } = attributes;
   const [url, setUrl] = useState(formUrl);
   const handleUrl = (e) => setUrl(e);
   const handleSetUrl = (e) => setAttributes({ formUrl: url });
 
   if (!formUrl)
     return (
-      <div className='snowforms'>
-        <label className='forms__label' htmlFor='url'>
+      <div className='form-container'>
+        <label htmlFor='url'>
           <h3>Form endpoint</h3>
         </label>
         <input
           name='url'
           id='url'
           type='url'
-          className='forms__input'
           onChange={(e) => handleUrl(e.target.value)}
         />
-        <button className='forms__button' onClick={(e) => handleSetUrl(e)}>
-          Add Form
-        </button>
+        <button onClick={(e) => handleSetUrl(e)}>Add Form</button>
       </div>
     );
 
-  console.log(formFields);
+  const inputTypes = [
+    {
+      type: 'text',
+      name: 'Text',
+      label: 'Text',
+    },
+    {
+      type: 'password',
+      name: 'Password',
+      label: 'Password',
+    },
+    {
+      type: 'number',
+      name: 'Number',
+      label: 'Number',
+    },
+    {
+      type: 'file',
+      name: 'File',
+      label: 'File',
+    },
+    {
+      type: 'email',
+      name: 'E-mail',
+      label: 'E-mail',
+      placeholder: 'Type your e-mail',
+    },
+    {
+      type: 'url',
+      name: 'Url',
+      label: 'Url',
+      placeholder: 'http://',
+    },
+    {
+      type: 'textarea',
+      name: 'Message',
+      label: 'Message',
+      placeholder: 'Type your message',
+    },
+    {
+      type: 'submit',
+      name: 'Submit',
+      value: 'Submit',
+    },
+  ];
 
   return (
-    <div className='snowforms'>
-      <h3>{formTitle || 'Create Title Component'}</h3>
-      <input name='url' id='url' type='url' defaultValue={formUrl} />
-      {formFields.map((field) => (
-        <InputView key={field.id} {...field} />
-      ))}
-      <button
-        type='button'
-        onClick={(e) =>
-          addField(
-            formFields.length + 1,
-            'text',
-            'Name',
-            '',
-            formFields,
-            setAttributes,
-            e
-          )
-        }
-      >
-        Add Name
-      </button>
-      <button
-        type='button'
-        onClick={(e) =>
-          addField(
-            formFields.length + 1,
-            'email',
-            'E-mail',
-            '',
-            formFields,
-            setAttributes,
-            e
-          )
-        }
-      >
-        Add E-mail
-      </button>
+    <div className='form-editor'>
+      <div className='form-controls'>
+        {inputTypes.map((type, index) => (
+          <button
+            type='button'
+            className='form-controls__button'
+            onClick={(e) =>
+              addField({
+                ...type,
+                fields: formFields,
+                setInputs: setAttributes,
+              })
+            }
+            key={index}
+          >
+            {type.name}
+          </button>
+        ))}
+      </div>
+      <div className='form-view'>
+        {formFields.map((field) => (
+          <InputView key={field.id} {...field} />
+        ))}
+      </div>
     </div>
   );
 };

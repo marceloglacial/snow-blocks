@@ -1,7 +1,8 @@
-const addField = (formId, formType, formName, formValue, fields, setInputs) => {
+const addField = (props) => {
+  const { type, name, label, placeholder, fields, setInputs } = props;
   const updatedFields = [
     ...fields,
-    { id: formId, type: formType, name: formName, value: formValue },
+    { id: fields.length + 1, type, name, label, placeholder },
   ];
   return setInputs({ formFields: updatedFields });
 };

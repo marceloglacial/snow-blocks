@@ -23,10 +23,6 @@ registerBlockType('snow-blocks/forms', {
       type: 'array',
       default: [],
     },
-    formTitle: {
-      type: 'string',
-      default: '',
-    },
   },
   edit: (props) => {
     const { formType } = props.attributes;
