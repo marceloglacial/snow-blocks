@@ -15,32 +15,15 @@ registerBlockType('snow-blocks/forms', {
       type: 'string',
       default: '',
     },
-    formType: {
-      type: 'string',
-      default: '',
-    },
     formFields: {
       type: 'array',
       default: [],
     },
   },
   edit: (props) => {
-    const { formType } = props.attributes;
-
-    const forms = {
-      formspree: {
-        title: 'Formspree',
-        component: <FormsPree {...props} />,
-      },
-    };
-
-    const formsData = {
-      ...props,
-      forms,
-    };
-
-    if (!formType) return <FormsSelection {...formsData} />;
-    return forms[formType].component;
+    const { formUrl } = props.attributes;
+    if (!formUrl) return <FormsSelection {...props} />;
+    return <FormsPree {...props} />;
   },
   save: (props) => {
     return <p>test</p>;
