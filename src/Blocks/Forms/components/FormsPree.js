@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import addField from '../functions/addField';
+import InputView from './InputView';
 
 const FormsPree = (props) => {
   const { attributes, setAttributes } = props;
@@ -22,15 +23,20 @@ const FormsPree = (props) => {
           onChange={(e) => handleUrl(e.target.value)}
         />
         <button className='forms__button' onClick={(e) => handleSetUrl(e)}>
-          Submit
+          Add Form
         </button>
       </div>
     );
+
+  console.log(formFields);
 
   return (
     <div className='snowforms'>
       <h3>{formTitle || 'Create Title Component'}</h3>
       <input name='url' id='url' type='url' defaultValue={formUrl} />
+      {formFields.map((field) => (
+        <InputView key={field.id} {...field} />
+      ))}
       <button
         type='button'
         onClick={(e) =>
@@ -45,7 +51,23 @@ const FormsPree = (props) => {
           )
         }
       >
-        Add Input
+        Add Name
+      </button>
+      <button
+        type='button'
+        onClick={(e) =>
+          addField(
+            formFields.length + 1,
+            'email',
+            'E-mail',
+            '',
+            formFields,
+            setAttributes,
+            e
+          )
+        }
+      >
+        Add E-mail
       </button>
     </div>
   );

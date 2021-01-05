@@ -1852,13 +1852,18 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _functions_addField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../functions/addField */ "./src/Blocks/Forms/functions/addField.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _functions_addField__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../functions/addField */ "./src/Blocks/Forms/functions/addField.js");
+/* harmony import */ var _InputView__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./InputView */ "./src/Blocks/Forms/components/InputView.js");
+
+
 
 
 
@@ -1871,8 +1876,8 @@ var FormsPree = function FormsPree(props) {
       formUrl = attributes.formUrl,
       formFields = attributes.formFields;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(formUrl),
-      _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState, 2),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(formUrl),
+      _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default()(_useState, 2),
       url = _useState2[0],
       setUrl = _useState2[1];
 
@@ -1886,12 +1891,12 @@ var FormsPree = function FormsPree(props) {
     });
   };
 
-  if (!formUrl) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  if (!formUrl) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
     className: "snowforms"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("label", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("label", {
     className: "forms__label",
     htmlFor: "url"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h3", null, "Form endpoint")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("input", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("h3", null, "Form endpoint")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("input", {
     name: "url",
     id: "url",
     type: "url",
@@ -1899,25 +1904,35 @@ var FormsPree = function FormsPree(props) {
     onChange: function onChange(e) {
       return handleUrl(e.target.value);
     }
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("button", {
     className: "forms__button",
     onClick: function onClick(e) {
       return handleSetUrl(e);
     }
-  }, "Submit"));
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }, "Add Form"));
+  console.log(formFields);
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
     className: "snowforms"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h3", null, formTitle || 'Create Title Component'), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("input", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("h3", null, formTitle || 'Create Title Component'), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("input", {
     name: "url",
     id: "url",
     type: "url",
     defaultValue: formUrl
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
+  }), formFields.map(function (field) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_InputView__WEBPACK_IMPORTED_MODULE_5__["default"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+      key: field.id
+    }, field));
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("button", {
     type: "button",
     onClick: function onClick(e) {
-      return Object(_functions_addField__WEBPACK_IMPORTED_MODULE_3__["default"])(formFields.length + 1, 'text', 'Name', '', formFields, setAttributes, e);
+      return Object(_functions_addField__WEBPACK_IMPORTED_MODULE_4__["default"])(formFields.length + 1, 'text', 'Name', '', formFields, setAttributes, e);
     }
-  }, "Add Input"));
+  }, "Add Name"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("button", {
+    type: "button",
+    onClick: function onClick(e) {
+      return Object(_functions_addField__WEBPACK_IMPORTED_MODULE_4__["default"])(formFields.length + 1, 'email', 'E-mail', '', formFields, setAttributes, e);
+    }
+  }, "Add E-mail"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (FormsPree);
@@ -1967,6 +1982,38 @@ var FormsSelection = function FormsSelection(props) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (FormsSelection);
+
+/***/ }),
+
+/***/ "./src/Blocks/Forms/components/InputView.js":
+/*!**************************************************!*\
+  !*** ./src/Blocks/Forms/components/InputView.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var InputView = function InputView(props) {
+  var id = props.id,
+      type = props.type,
+      name = props.name,
+      value = props.value;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "form__control"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", null, name), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
+    id: id,
+    type: type,
+    name: name,
+    defaultValue: value
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (InputView);
 
 /***/ }),
 
