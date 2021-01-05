@@ -15,6 +15,7 @@ const InputView = (props) => {
           name={name}
           placeholder={placeholder}
           defaultValue={value}
+          className={`form__${type === 'submit' ? 'button' : 'input'}`}
         />
       )}
     </div>

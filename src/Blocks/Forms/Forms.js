@@ -1,7 +1,7 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 import FormsSelection from './components/FormsSelection';
-import FormsPree from './components/FormsPree';
+import FormEditor from './components/FormEditor';
 
 registerBlockType('snow-blocks/forms', {
   title: __('Forms', 'forms'),
@@ -23,7 +23,7 @@ registerBlockType('snow-blocks/forms', {
   edit: (props) => {
     const { formUrl } = props.attributes;
     if (!formUrl) return <FormsSelection {...props} />;
-    return <FormsPree {...props} />;
+    return <FormEditor {...props} />;
   },
   save: (props) => {
     return <p>test</p>;

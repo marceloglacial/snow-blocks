@@ -10,15 +10,15 @@ const FormsSelection = (props) => {
       onSubmit={(e) => handleSelection(e)}
     >
       <label htmlFor='formUrl' className='form__title'>
-        URL for Form Submition:
+        URL Form Endpoint:
       </label>
       <input
         type='url'
         id='formUrl'
-        placeholder='https://'
+        placeholder='E.G.: https://formspree.io/f/xxxxxxx'
         className='form__input'
       />
-      <input className='form__button' type='submit' />
+      <input className='form__button' type='submit' value='Add form' />
     </form>
   );
 };
