@@ -55,7 +55,26 @@
   margin-bottom: 1rem; }
 
 .form__field {
-  padding-bottom: 0.5rem; }
+  position: relative;
+  z-index: 0;
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.75rem; }
+  .form__field:hover, .form__field:active, .form__field:focus {
+    outline: solid 0.5rem rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.1); }
+
+.form__field-controls {
+  display: none; }
+
+.form__field:hover .form__field-controls {
+  display: block;
+  z-index: 10; }
+
+.form__field-controls {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0.5rem; }
 
 .form__input {
   padding: 0.1rem 0.5rem;
@@ -64,7 +83,8 @@
 .form__label {
   display: block;
   font-size: 1rem;
-  font-weight: bold; }
+  font-weight: bold;
+  text-transform: capitalize; }
 
 .form__button {
   font-size: 1rem;
@@ -88,6 +108,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem; }
+  .form__container.form__container--controls .form__button {
+    text-transform: capitalize; }
 
 
 /*# sourceMappingURL=index.css.map*/

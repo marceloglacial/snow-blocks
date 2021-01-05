@@ -4,46 +4,35 @@ const FormControls = (props) => {
   const inputTypes = [
     {
       type: 'text',
-      name: 'Text',
-      label: 'Text',
     },
     {
       type: 'password',
-      name: 'Password',
-      label: 'Password',
     },
     {
       type: 'email',
-      name: 'E-mail',
       label: 'E-mail',
       placeholder: 'Type your e-mail',
     },
     {
       type: 'number',
-      name: 'Number',
-      label: 'Number',
     },
     {
       type: 'file',
-      name: 'File',
-      label: 'File',
     },
     {
       type: 'url',
-      name: 'Url',
-      label: 'Url',
       placeholder: 'http://',
     },
     {
       type: 'textarea',
-      name: 'Message',
-      label: 'Message',
       placeholder: 'Type your message',
     },
     {
+      type: 'checkbox',
+    },
+
+    {
       type: 'submit',
-      name: 'Submit',
-      value: 'Submit',
     },
   ];
 
@@ -66,7 +55,7 @@ const FormControls = (props) => {
           onClick={(e) => addField(type)}
           key={index}
         >
-          {type.name}
+          {type.label || type.type}
         </button>
       ))}
     </div>

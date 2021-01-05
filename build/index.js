@@ -1837,40 +1837,27 @@ var FormControls = function FormControls(props) {
       setAttributes = props.setAttributes;
   var formFields = attributes.formFields;
   var inputTypes = [{
-    type: 'text',
-    name: 'Text',
-    label: 'Text'
+    type: 'text'
   }, {
-    type: 'password',
-    name: 'Password',
-    label: 'Password'
+    type: 'password'
   }, {
     type: 'email',
-    name: 'E-mail',
     label: 'E-mail',
     placeholder: 'Type your e-mail'
   }, {
-    type: 'number',
-    name: 'Number',
-    label: 'Number'
+    type: 'number'
   }, {
-    type: 'file',
-    name: 'File',
-    label: 'File'
+    type: 'file'
   }, {
     type: 'url',
-    name: 'Url',
-    label: 'Url',
     placeholder: 'http://'
   }, {
     type: 'textarea',
-    name: 'Message',
-    label: 'Message',
     placeholder: 'Type your message'
   }, {
-    type: 'submit',
-    name: 'Submit',
-    value: 'Submit'
+    type: 'checkbox'
+  }, {
+    type: 'submit'
   }];
 
   var addField = function addField(props) {
@@ -1902,7 +1889,7 @@ var FormControls = function FormControls(props) {
         return addField(type);
       },
       key: index
-    }, type.name);
+    }, type.label || type.type);
   }));
 };
 
@@ -2017,26 +2004,41 @@ var InputView = function InputView(props) {
       placeholder = props.placeholder,
       value = props.value,
       label = props.label;
+  var noLabelItems = ['submit', 'checkbox'];
+  var noLabel = noLabelItems.find(function (item) {
+    return item === type;
+  });
   var fieldType = {
     textarea: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("textarea", {
       id: id,
       type: type,
       name: name,
       placeholder: placeholder
-    })
+    }),
+    checkbox: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
+      type: "checkbox",
+      id: id,
+      name: name,
+      defaultValue: value
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
+      htmlFor: id
+    }, label || type))
   };
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "form__field"
-  }, label && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
+  }, !noLabel && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
+    htmlFor: id,
     className: "form__label"
-  }, label), fieldType[type] || Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
+  }, label || type), fieldType[type] || Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
     id: id,
     type: type,
-    name: name,
+    name: name || type,
     placeholder: placeholder,
     defaultValue: value,
-    className: "form__".concat(type === 'submit' ? 'button' : 'input')
-  }));
+    className: "form__".concat(noLabel ? 'button' : 'input')
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "form__field-controls"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", null, "Up"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", null, "Down"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", null, "Remove")));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (InputView);
