@@ -1,5 +1,7 @@
 # Snow Blocks
 
+Headless Blocks for WordPress. 
+
 ## Installation
 
 1. Upload the plugin files to the `/wp-content/plugins/snowblocks` directory, or install the plugin through the WordPress plugins screen directly.
