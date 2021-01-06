@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 const FormControls = (props) => {
   const { attributes, setAttributes } = props;
   const { formFields } = attributes;
@@ -40,7 +42,7 @@ const FormControls = (props) => {
     const { type, name, label, placeholder } = props;
     const updatedFields = [
       ...formFields,
-      { id: formFields.length + 1, type, name, label, placeholder },
+      { id: uuidv4(), type, name, label, placeholder },
     ];
     return setAttributes({ formFields: updatedFields });
   };
