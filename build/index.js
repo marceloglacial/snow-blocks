@@ -2687,8 +2687,7 @@ var FormControls = function FormControls(props) {
     type: 'password'
   }, {
     type: 'email',
-    label: 'E-mail',
-    placeholder: 'Type your e-mail'
+    label: 'E-mail'
   }, {
     type: 'number'
   }, {
@@ -2697,11 +2696,11 @@ var FormControls = function FormControls(props) {
     type: 'url',
     placeholder: 'http://'
   }, {
-    type: 'textarea',
-    placeholder: 'Type your message'
-  }, {
-    type: 'checkbox'
-  }, {
+    type: 'textarea'
+  }, // {
+  //   type: 'checkbox',
+  // },
+  {
     type: 'submit'
   }];
 
@@ -2806,10 +2805,9 @@ var FormEditor = function FormEditor(props) {
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "form__title"
   }, "Form View"), formFields.map(function (field, index) {
-    var fieldProps = _objectSpread(_objectSpread({
-      index: index,
-      formFields: formFields
-    }, field), inputControls);
+    var fieldProps = _objectSpread(_objectSpread(_objectSpread({
+      index: index
+    }, field), inputControls), props);
 
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_InputView__WEBPACK_IMPORTED_MODULE_5__["default"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
       key: field.id
@@ -2877,8 +2875,14 @@ var FormsSelection = function FormsSelection(props) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
+
+
 
 
 var InputView = function InputView(props) {
@@ -2888,55 +2892,96 @@ var InputView = function InputView(props) {
       name = props.name,
       placeholder = props.placeholder,
       value = props.value,
+      _props$required = props.required,
+      required = _props$required === void 0 ? false : _props$required,
       label = props.label,
       removeField = props.removeField,
       moveField = props.moveField,
-      formFields = props.formFields;
+      attributes = props.attributes,
+      setAttributes = props.setAttributes;
+  var formFields = attributes.formFields;
   var noLabelItems = ['submit', 'checkbox'];
   var noLabel = noLabelItems.find(function (item) {
     return item === type;
   });
+
+  var updateField = function updateField(index, item, content) {
+    var updated = formFields.slice();
+    updated[index][item] = content;
+    return setAttributes({
+      formFields: _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(updated)
+    });
+  };
+
   var fieldType = {
-    textarea: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("textarea", {
+    textarea: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("textarea", {
       id: id,
       type: type,
       name: name,
       placeholder: placeholder
     }),
-    checkbox: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
+    checkbox: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("input", {
       type: "checkbox",
       id: id,
       name: name,
       defaultValue: value
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("label", {
       htmlFor: id
-    }, label || type))
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["PlainText"], {
+      defaultValue: label || type,
+      onChange: function onChange(content) {
+        return updateField(index, 'label', content);
+      }
+    }))),
+    submit: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
+      className: "form__button"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["PlainText"], {
+      defaultValue: label || type,
+      onChange: function onChange(content) {
+        return updateField(index, 'label', content);
+      }
+    }))
   };
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "form__field"
-  }, !noLabel && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
+  }, !noLabel && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("label", {
     htmlFor: id,
     className: "form__label"
-  }, label || type), fieldType[type] || Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["PlainText"], {
+    defaultValue: label || type,
+    onChange: function onChange(content) {
+      return updateField(index, 'label', content);
+    }
+  })), fieldType[type] || Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("input", {
     id: id,
     type: type,
     name: name || type,
     placeholder: placeholder,
     defaultValue: value,
     className: "form__".concat(noLabel ? 'button' : 'input')
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "form__field-controls"
-  }, index !== 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+  }, !noLabel && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("input", {
+    type: "checkbox",
+    id: "isRequired".concat(id),
+    name: "isRequired".concat(id),
+    onChange: function onChange() {
+      return updateField(index, 'required', !required);
+    },
+    checked: required
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("label", {
+    htmlFor: "isRequired"
+  }, "Is Required ")), index !== 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
     className: "form__button form__button--up",
     onClick: function onClick() {
       return moveField(index, index - 1);
     }
-  }, "Up"), index !== formFields.length - 1 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+  }, "Up"), index !== formFields.length - 1 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
     className: "form__button form__button--down",
     onClick: function onClick() {
       return moveField(index, index + 1);
     }
-  }, "Down"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+  }, "Down"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
     className: "form__button form__button--remove",
     onClick: function onClick() {
       return removeField(id);

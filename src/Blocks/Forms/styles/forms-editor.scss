@@ -59,6 +59,12 @@
 .form__button {
   font-size: 1rem;
   padding: 0.5rem;
+  width: auto;
+
+  .block-editor-plain-text {
+    width: unset;
+    text-align: center;
+  }
 }
 
 .form__container.form__container--selection {
@@ -85,5 +91,15 @@
 
   .form__button {
     text-transform: capitalize;
+  }
+}
+
+.block-editor-plain-text {
+  background: unset;
+  text-transform: capitalize;
+
+  &:hover {
+    outline: dashed 1px grey;
+    width: auto;
   }
 }
