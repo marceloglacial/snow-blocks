@@ -127,4 +127,12 @@
   text-transform: capitalize;
 }
 
+.block-editor-plain-text {
+  background: unset;
+}
+.block-editor-plain-text:hover {
+  outline: dashed 1px grey;
+  width: auto;
+}
+
 /*# sourceMappingURL=index.css.map*/

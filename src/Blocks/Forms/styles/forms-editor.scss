@@ -87,3 +87,12 @@
     text-transform: capitalize;
   }
 }
+
+.block-editor-plain-text {
+  background: unset;
+
+  &:hover {
+    outline: dashed 1px grey;
+    width: auto;
+  }
+}
