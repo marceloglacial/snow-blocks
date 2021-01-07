@@ -8,7 +8,7 @@ const InputView = (props) => {
     name,
     placeholder,
     value,
-    required,
+    required = false,
     label,
     removeField,
     moveField,
@@ -19,9 +19,9 @@ const InputView = (props) => {
   const noLabelItems = ['submit', 'checkbox'];
   const noLabel = noLabelItems.find((item) => item === type);
 
-  const updateField = (index, content) => {
+  const updateField = (index, item, content) => {
     const updated = formFields.slice();
-    updated[index].label = content;
+    updated[index][item] = content;
     return setAttributes({ formFields: [...updated] });
   };
 
@@ -35,7 +35,7 @@ const InputView = (props) => {
         <label htmlFor={id}>
           <PlainText
             defaultValue={label || type}
-            onChange={(content) => updateField(index, content)}
+            onChange={(content) => updateField(index, 'label', content)}
           />
         </label>
       </>
@@ -48,7 +48,7 @@ const InputView = (props) => {
         <label htmlFor={id} className='form__label'>
           <PlainText
             defaultValue={label || type}
-            onChange={(content) => updateField(index, content)}
+            onChange={(content) => updateField(index, 'label', content)}
           />
         </label>
       )}
@@ -65,9 +65,10 @@ const InputView = (props) => {
       <div className='form__field-controls'>
         <input
           type='checkbox'
-          id={`isRequired`}
-          name={isRequired}
-          defaultValue={required}
+          id={`isRequired${id}`}
+          name={`isRequired${id}`}
+          onChange={() => updateField(index, 'required', !required)}
+          checked={required}
         />
         <label htmlFor={`isRequired`}>Is Required </label>
 

@@ -2891,7 +2891,8 @@ var InputView = function InputView(props) {
       name = props.name,
       placeholder = props.placeholder,
       value = props.value,
-      required = props.required,
+      _props$required = props.required,
+      required = _props$required === void 0 ? false : _props$required,
       label = props.label,
       removeField = props.removeField,
       moveField = props.moveField,
@@ -2903,9 +2904,9 @@ var InputView = function InputView(props) {
     return item === type;
   });
 
-  var updateField = function updateField(index, content) {
+  var updateField = function updateField(index, item, content) {
     var updated = formFields.slice();
-    updated[index].label = content;
+    updated[index][item] = content;
     return setAttributes({
       formFields: _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(updated)
     });
@@ -2928,7 +2929,7 @@ var InputView = function InputView(props) {
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["PlainText"], {
       defaultValue: label || type,
       onChange: function onChange(content) {
-        return updateField(index, content);
+        return updateField(index, 'label', content);
       }
     })))
   };
@@ -2940,7 +2941,7 @@ var InputView = function InputView(props) {
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["PlainText"], {
     defaultValue: label || type,
     onChange: function onChange(content) {
-      return updateField(index, content);
+      return updateField(index, 'label', content);
     }
   })), fieldType[type] || Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("input", {
     id: id,
@@ -2953,9 +2954,12 @@ var InputView = function InputView(props) {
     className: "form__field-controls"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("input", {
     type: "checkbox",
-    id: "isRequired",
-    name: isRequired,
-    defaultValue: required
+    id: "isRequired".concat(id),
+    name: "isRequired".concat(id),
+    onChange: function onChange() {
+      return updateField(index, 'required', !required);
+    },
+    checked: required
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("label", {
     htmlFor: "isRequired"
   }, "Is Required "), index !== 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
