@@ -24,9 +24,9 @@ const FormEditor = (props) => {
         {formFields.map((field, index) => {
           const fieldProps = {
             index,
-            formFields,
             ...field,
             ...inputControls,
+            ...props,
           };
           return <InputView key={field.id} {...fieldProps} />;
         })}

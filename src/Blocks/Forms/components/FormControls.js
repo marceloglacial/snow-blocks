@@ -13,7 +13,6 @@ const FormControls = (props) => {
     {
       type: 'email',
       label: 'E-mail',
-      placeholder: 'Type your e-mail',
     },
     {
       type: 'number',
@@ -27,12 +26,10 @@ const FormControls = (props) => {
     },
     {
       type: 'textarea',
-      placeholder: 'Type your message',
     },
-    {
-      type: 'checkbox',
-    },
-
+    // {
+    //   type: 'checkbox',
+    // },
     {
       type: 'submit',
     },

@@ -1,3 +1,5 @@
+import { PlainText } from '@wordpress/block-editor';
+
 const InputView = (props) => {
   const {
     id,
@@ -6,13 +8,23 @@ const InputView = (props) => {
     name,
     placeholder,
     value,
+    required = false,
     label,
     removeField,
     moveField,
-    formFields,
+    attributes,
+    setAttributes,
   } = props;
+  const { formFields } = attributes;
   const noLabelItems = ['submit', 'checkbox'];
   const noLabel = noLabelItems.find((item) => item === type);
+
+  const updateField = (index, item, content) => {
+    const updated = formFields.slice();
+    updated[index][item] = content;
+    return setAttributes({ formFields: [...updated] });
+  };
+
   const fieldType = {
     textarea: (
       <textarea id={id} type={type} name={name} placeholder={placeholder} />
@@ -20,15 +32,32 @@ const InputView = (props) => {
     checkbox: (
       <>
         <input type='checkbox' id={id} name={name} defaultValue={value} />
-        <label htmlFor={id}>{label || type}</label>
+        <label htmlFor={id}>
+          <PlainText
+            defaultValue={label || type}
+            onChange={(content) => updateField(index, 'label', content)}
+          />
+        </label>
       </>
     ),
+    submit: (
+      <button className='form__button'>
+        <PlainText
+          defaultValue={label || type}
+          onChange={(content) => updateField(index, 'label', content)}
+        />
+      </button>
+    ),
   };
+
   return (
     <div className='form__field'>
       {!noLabel && (
         <label htmlFor={id} className='form__label'>
-          {label || type}
+          <PlainText
+            defaultValue={label || type}
+            onChange={(content) => updateField(index, 'label', content)}
+          />
         </label>
       )}
       {fieldType[type] || (
@@ -42,6 +71,19 @@ const InputView = (props) => {
         />
       )}
       <div className='form__field-controls'>
+        {!noLabel && (
+          <>
+            <input
+              type='checkbox'
+              id={`isRequired${id}`}
+              name={`isRequired${id}`}
+              onChange={() => updateField(index, 'required', !required)}
+              checked={required}
+            />
+            <label htmlFor={`isRequired`}>Is Required </label>
+          </>
+        )}
+
         {index !== 0 && (
           <button
             className='form__button form__button--up'
