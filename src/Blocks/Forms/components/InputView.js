@@ -40,6 +40,14 @@ const InputView = (props) => {
         </label>
       </>
     ),
+    submit: (
+      <button className='form__button'>
+        <PlainText
+          defaultValue={label || type}
+          onChange={(content) => updateField(index, 'label', content)}
+        />
+      </button>
+    ),
   };
 
   return (
@@ -63,14 +71,18 @@ const InputView = (props) => {
         />
       )}
       <div className='form__field-controls'>
-        <input
-          type='checkbox'
-          id={`isRequired${id}`}
-          name={`isRequired${id}`}
-          onChange={() => updateField(index, 'required', !required)}
-          checked={required}
-        />
-        <label htmlFor={`isRequired`}>Is Required </label>
+        {!noLabel && (
+          <>
+            <input
+              type='checkbox'
+              id={`isRequired${id}`}
+              name={`isRequired${id}`}
+              onChange={() => updateField(index, 'required', !required)}
+              checked={required}
+            />
+            <label htmlFor={`isRequired`}>Is Required </label>
+          </>
+        )}
 
         {index !== 0 && (
           <button

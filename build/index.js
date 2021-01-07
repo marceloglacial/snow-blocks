@@ -2697,9 +2697,10 @@ var FormControls = function FormControls(props) {
     placeholder: 'http://'
   }, {
     type: 'textarea'
-  }, {
-    type: 'checkbox'
-  }, {
+  }, // {
+  //   type: 'checkbox',
+  // },
+  {
     type: 'submit'
   }];
 
@@ -2931,7 +2932,15 @@ var InputView = function InputView(props) {
       onChange: function onChange(content) {
         return updateField(index, 'label', content);
       }
-    })))
+    }))),
+    submit: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
+      className: "form__button"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["PlainText"], {
+      defaultValue: label || type,
+      onChange: function onChange(content) {
+        return updateField(index, 'label', content);
+      }
+    }))
   };
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "form__field"
@@ -2952,7 +2961,7 @@ var InputView = function InputView(props) {
     className: "form__".concat(noLabel ? 'button' : 'input')
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "form__field-controls"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("input", {
+  }, !noLabel && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("input", {
     type: "checkbox",
     id: "isRequired".concat(id),
     name: "isRequired".concat(id),
@@ -2962,7 +2971,7 @@ var InputView = function InputView(props) {
     checked: required
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("label", {
     htmlFor: "isRequired"
-  }, "Is Required "), index !== 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
+  }, "Is Required ")), index !== 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
     className: "form__button form__button--up",
     onClick: function onClick() {
       return moveField(index, index - 1);

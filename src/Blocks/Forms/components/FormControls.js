@@ -27,9 +27,9 @@ const FormControls = (props) => {
     {
       type: 'textarea',
     },
-    {
-      type: 'checkbox',
-    },
+    // {
+    //   type: 'checkbox',
+    // },
     {
       type: 'submit',
     },
