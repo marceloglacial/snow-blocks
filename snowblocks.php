@@ -71,50 +71,50 @@ add_action( 'init', 'create_block_snowblocks_block_init' );
  * @see set available core blocks https://github.com/WordPress/gutenberg/tree/master/packages/block-library/src
  *
  */
-function set_allowed_blocks($final_blocks, $post)
-{
-    // Register core blocks
-    $core_blocks = array(
-        'core/heading',
-        'core/gallery',
-        'core/image',
-        'core/list',
-        'core/paragraph',
-        'core/quote',
-        'core/table',
-		'core/code',
-        'core/embed',
-    );
+// function set_allowed_blocks($final_blocks, $post)
+// {
+//     // Register core blocks
+//     $core_blocks = array(
+//         'core/heading',
+//         'core/gallery',
+//         'core/image',
+//         'core/list',
+//         'core/paragraph',
+//         'core/quote',
+//         'core/table',
+// 		'core/code',
+//         'core/embed',
+//     );
 
-    // Register custom blocks
-    $custom_blocks = array(
-        'snow-blocks/hero',
-        'snow-blocks/postslist',
-        'snow-blocks/forms',
-    );
+//     // Register custom blocks
+//     $custom_blocks = array(
+//         'snow-blocks/hero',
+//         'snow-blocks/postslist',
+//         'snow-blocks/forms',
+//     );
 
-    // Register admin specific blocks
-    $admin_blocks = array();
+//     // Register admin specific blocks
+//     $admin_blocks = array();
 
-    if (current_user_can('administrator')) {
-        $admin_blocks = array(
-            'core/html',
-            'core/shortcode',
-        );
-    }
+//     if (current_user_can('administrator')) {
+//         $admin_blocks = array(
+//             'core/html',
+//             'core/shortcode',
+//         );
+//     }
 
-    // Specify block groupings available on specific post types
-    switch ($post->post_type) {
-        case 'cu_accordion':
-            $final_blocks = array_merge($core_blocks);
-            break;
-        default:
-            $final_blocks = array_merge($core_blocks, $custom_blocks, $admin_blocks);
-    }
+//     // Specify block groupings available on specific post types
+//     switch ($post->post_type) {
+//         case 'cu_accordion':
+//             $final_blocks = array_merge($core_blocks);
+//             break;
+//         default:
+//             $final_blocks = array_merge($core_blocks, $custom_blocks, $admin_blocks);
+//     }
 
-    return $final_blocks;
-}
-add_filter('allowed_block_types', 'set_allowed_blocks', 10, 2);
+//     return $final_blocks;
+// }
+// add_filter('allowed_block_types', 'set_allowed_blocks', 10, 2);
 
 
 // Add blocks to the API
