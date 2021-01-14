@@ -13,12 +13,12 @@ const FormsSelection = (props) => {
       onSubmit={(e) => handleSelection(e)}
     >
       <label htmlFor='formUrl' className='form__title'>
-        URL Form Endpoint:
+        TypeForm Form url
       </label>
       <input
         type='url'
         id='formUrl'
-        placeholder='https://'
+        placeholder='E.G.: https://username.typeform.com/to/XxXxXXX'
         className='form__input'
       />
       <input className='form__button' type='submit' value='Add form' />

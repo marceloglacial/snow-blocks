@@ -1908,10 +1908,10 @@ var FormsSelection = function FormsSelection(props) {
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
     htmlFor: "formUrl",
     className: "form__title"
-  }, "URL Form Endpoint:"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
+  }, "TypeForm Form url"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
     type: "url",
     id: "formUrl",
-    placeholder: "https://",
+    placeholder: "E.G.: https://username.typeform.com/to/XxXxXXX",
     className: "form__input"
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
     className: "form__button",
