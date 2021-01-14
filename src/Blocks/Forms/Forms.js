@@ -26,6 +26,6 @@ registerBlockType('snow-blocks/forms', {
     return <FormView {...props} />;
   },
   save: (props) => {
-    return <p>test</p>;
+    return <FormView {...props} />;
   },
 });

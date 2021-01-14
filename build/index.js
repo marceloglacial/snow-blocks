@@ -1741,6 +1741,30 @@ var SWRConfig = _swr_config_context__WEBPACK_IMPORTED_MODULE_2__["default"].Prov
 
 /***/ }),
 
+/***/ "./src/Blocks/Alert/Alert.js":
+/*!***********************************!*\
+  !*** ./src/Blocks/Alert/Alert.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var Alert = function Alert(props) {
+  var title = props.title;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "alert"
+  }, title || '');
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Alert);
+
+/***/ }),
+
 /***/ "./src/Blocks/Button/Button.js":
 /*!*************************************!*\
   !*** ./src/Blocks/Button/Button.js ***!
@@ -1814,7 +1838,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('sno
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_FormView__WEBPACK_IMPORTED_MODULE_4__["default"], props);
   },
   save: function save(props) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "test");
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_FormView__WEBPACK_IMPORTED_MODULE_4__["default"], props);
   }
 });
 
@@ -2476,8 +2500,6 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
     default: 'no'
   }),
   edit: function edit(props) {
-    console.log(props);
-
     var _useApi = Object(_functions_useApi__WEBPACK_IMPORTED_MODULE_4__["default"])('posts', props.attributes.categoryList),
         data = _useApi.data,
         isLoading = _useApi.isLoading,
@@ -2784,6 +2806,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PostListImage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PostListImage */ "./src/Blocks/PostsList/components/PostListImage.js");
 /* harmony import */ var _PostListEmpty__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PostListEmpty */ "./src/Blocks/PostsList/components/PostListEmpty.js");
 /* harmony import */ var _functions_formatDate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../functions/formatDate */ "./src/functions/formatDate.js");
+/* harmony import */ var _Alert_Alert__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../Alert/Alert */ "./src/Blocks/Alert/Alert.js");
+
 
 
 
@@ -2800,7 +2824,9 @@ var PostsListsView = function PostsListsView(props) {
       showText = _props$props$attribut.showText,
       showDate = _props$props$attribut.showDate;
   if (isLoading) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_PostListLoading__WEBPACK_IMPORTED_MODULE_2__["default"], null);
-  if (isError) return 'Error ...';
+  if (isError) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_Alert_Alert__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    title: "Error! Please active your permalinks."
+  });
   var hasData = data.length !== 0;
 
   if (!hasData) {
