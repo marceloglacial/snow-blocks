@@ -3,13 +3,14 @@ import PostListLoading from './PostListLoading';
 import PostListImage from './PostListImage';
 import PostListEmpty from './PostListEmpty';
 import formatDate from '../../../functions/formatDate';
+import Alert from '../../Alert/Alert';
 
 const PostsListsView = (props) => {
   const { data, isLoading, isError } = props;
   const { showImage, showText, showDate } = props.props.attributes;
 
   if (isLoading) return <PostListLoading />;
-  if (isError) return 'Error ...';
+  if (isError) return <Alert title='Error! Please active your permalinks.' />;
 
   const hasData = data.length !== 0;
   if (!hasData) {
