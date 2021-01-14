@@ -2,7 +2,10 @@ const FormsSelection = (props) => {
   const { setAttributes } = props;
   const handleSelection = (e) => {
     e.preventDefault();
-    setAttributes({ formUrl: e.target.formUrl.value });
+    const url = e.target.formUrl.value;
+    const domain = new URL(url).pathname;
+    setAttributes({ formKey: domain.split('/to/')[1] });
+    setAttributes({ formUrl: url });
   };
   return (
     <form
@@ -15,7 +18,7 @@ const FormsSelection = (props) => {
       <input
         type='url'
         id='formUrl'
-        placeholder='E.G.: https://formspree.io/f/xxxxxxx'
+        placeholder='https://'
         className='form__input'
       />
       <input className='form__button' type='submit' value='Add form' />
