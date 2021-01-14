@@ -37,7 +37,6 @@ registerBlockType('snow-blocks/postslist', {
     },
   },
   edit: (props) => {
-    console.log(props);
     const { data, isLoading, isError } = useApi(
       'posts',
       props.attributes.categoryList
