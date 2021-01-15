@@ -1,7 +1,7 @@
 const FormView = (props) => (
   <iframe
     width='100%'
-    height='500'
+    height='600'
     scrolling='no'
     frameBorder='no'
     allow='autoplay'

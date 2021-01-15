@@ -13,7 +13,7 @@ const FormsSelection = (props) => {
       onSubmit={(e) => handleSelection(e)}
     >
       <label htmlFor='formUrl' className='form__title'>
-        TypeForm Form url
+        Form url
       </label>
       <input
         type='url'

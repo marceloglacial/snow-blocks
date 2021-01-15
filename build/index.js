@@ -1860,7 +1860,7 @@ __webpack_require__.r(__webpack_exports__);
 var FormView = function FormView(props) {
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("iframe", {
     width: "100%",
-    height: "500",
+    height: "600",
     scrolling: "no",
     frameBorder: "no",
     allow: "autoplay",
@@ -1908,7 +1908,7 @@ var FormsSelection = function FormsSelection(props) {
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
     htmlFor: "formUrl",
     className: "form__title"
-  }, "TypeForm Form url"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
+  }, "Form url"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
     type: "url",
     id: "formUrl",
     placeholder: "E.G.: https://username.typeform.com/to/XxXxXXX",
