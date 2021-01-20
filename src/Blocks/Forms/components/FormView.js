@@ -1,11 +1,2 @@
-const FormView = (props) => (
-  <iframe
-    width='100%'
-    height='600'
-    scrolling='no'
-    frameBorder='no'
-    allow='autoplay'
-    src={props.attributes.formUrl}
-  ></iframe>
-);
+const FormView = (props) => <p>{props.attributes.formUrl}</p>;
 export default FormView;

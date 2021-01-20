@@ -1858,14 +1858,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var FormView = function FormView(props) {
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("iframe", {
-    width: "100%",
-    height: "600",
-    scrolling: "no",
-    frameBorder: "no",
-    allow: "autoplay",
-    src: props.attributes.formUrl
-  });
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, props.attributes.formUrl);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (FormView);
