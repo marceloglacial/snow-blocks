@@ -90,7 +90,8 @@ function set_allowed_blocks($final_blocks, $post) {
     $custom_blocks = array(
         'snow-blocks/hero',
         'snow-blocks/postslist',
-        'snow-blocks/forms',
+		'snow-blocks/forms',
+		'snow-blocks/instagram'
     );
 
     // Register admin specific blocks
