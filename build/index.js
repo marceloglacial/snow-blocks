@@ -472,6 +472,2094 @@ function dequal(foo, bar) {
 
 /***/ }),
 
+/***/ "./node_modules/postscribe/dist/postscribe.js":
+/*!****************************************************!*\
+  !*** ./node_modules/postscribe/dist/postscribe.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * @file postscribe
+ * @description Asynchronously write javascript, even with document.write.
+ * @version v2.0.8
+ * @see {@link https://krux.github.io/postscribe}
+ * @license MIT
+ * @author Derek Brans
+ * @copyright 2016 Krux Digital, Inc
+ */
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(true)
+		module.exports = factory();
+	else {}
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+/******/
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _postscribe = __webpack_require__(1);
+	
+	var _postscribe2 = _interopRequireDefault(_postscribe);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	module.exports = _postscribe2['default'];
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	exports['default'] = postscribe;
+	
+	var _writeStream = __webpack_require__(2);
+	
+	var _writeStream2 = _interopRequireDefault(_writeStream);
+	
+	var _utils = __webpack_require__(4);
+	
+	var utils = _interopRequireWildcard(_utils);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	/**
+	 * A function that intentionally does nothing.
+	 */
+	function doNothing() {}
+	
+	/**
+	 * Available options and defaults.
+	 *
+	 * @type {Object}
+	 */
+	var OPTIONS = {
+	  /**
+	   * Called when an async script has loaded.
+	   */
+	  afterAsync: doNothing,
+	
+	  /**
+	   * Called immediately before removing from the write queue.
+	   */
+	  afterDequeue: doNothing,
+	
+	  /**
+	   * Called sync after a stream's first thread release.
+	   */
+	  afterStreamStart: doNothing,
+	
+	  /**
+	   * Called after writing buffered document.write calls.
+	   */
+	  afterWrite: doNothing,
+	
+	  /**
+	   * Allows disabling the autoFix feature of prescribe
+	   */
+	  autoFix: true,
+	
+	  /**
+	   * Called immediately before adding to the write queue.
+	   */
+	  beforeEnqueue: doNothing,
+	
+	  /**
+	   * Called before writing a token.
+	   *
+	   * @param {Object} tok The token
+	   */
+	  beforeWriteToken: function beforeWriteToken(tok) {
+	    return tok;
+	  },
+	
+	  /**
+	   * Called before writing buffered document.write calls.
+	   *
+	   * @param {String} str The string
+	   */
+	  beforeWrite: function beforeWrite(str) {
+	    return str;
+	  },
+	
+	  /**
+	   * Called when evaluation is finished.
+	   */
+	  done: doNothing,
+	
+	  /**
+	   * Called when a write results in an error.
+	   *
+	   * @param {Error} e The error
+	   */
+	  error: function error(e) {
+	    throw new Error(e.msg);
+	  },
+	
+	
+	  /**
+	   * Whether to let scripts w/ async attribute set fall out of the queue.
+	   */
+	  releaseAsync: false
+	};
+	
+	var nextId = 0;
+	var queue = [];
+	var active = null;
+	
+	function nextStream() {
+	  var args = queue.shift();
+	  if (args) {
+	    var options = utils.last(args);
+	
+	    options.afterDequeue();
+	    args.stream = runStream.apply(undefined, args);
+	    options.afterStreamStart();
+	  }
+	}
+	
+	function runStream(el, html, options) {
+	  active = new _writeStream2['default'](el, options);
+	
+	  // Identify this stream.
+	  active.id = nextId++;
+	  active.name = options.name || active.id;
+	  postscribe.streams[active.name] = active;
+	
+	  // Override document.write.
+	  var doc = el.ownerDocument;
+	
+	  var stash = {
+	    close: doc.close,
+	    open: doc.open,
+	    write: doc.write,
+	    writeln: doc.writeln
+	  };
+	
+	  function _write(str) {
+	    str = options.beforeWrite(str);
+	    active.write(str);
+	    options.afterWrite(str);
+	  }
+	
+	  _extends(doc, {
+	    close: doNothing,
+	    open: doNothing,
+	    write: function write() {
+	      for (var _len = arguments.length, str = Array(_len), _key = 0; _key < _len; _key++) {
+	        str[_key] = arguments[_key];
+	      }
+	
+	      return _write(str.join(''));
+	    },
+	    writeln: function writeln() {
+	      for (var _len2 = arguments.length, str = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+	        str[_key2] = arguments[_key2];
+	      }
+	
+	      return _write(str.join('') + '\n');
+	    }
+	  });
+	
+	  // Override window.onerror
+	  var oldOnError = active.win.onerror || doNothing;
+	
+	  // This works together with the try/catch around WriteStream::insertScript
+	  // In modern browsers, exceptions in tag scripts go directly to top level
+	  active.win.onerror = function (msg, url, line) {
+	    options.error({ msg: msg + ' - ' + url + ': ' + line });
+	    oldOnError.apply(active.win, [msg, url, line]);
+	  };
+	
+	  // Write to the stream
+	  active.write(html, function () {
+	    // restore document.write
+	    _extends(doc, stash);
+	
+	    // restore window.onerror
+	    active.win.onerror = oldOnError;
+	
+	    options.done();
+	    active = null;
+	    nextStream();
+	  });
+	
+	  return active;
+	}
+	
+	function postscribe(el, html, options) {
+	  if (utils.isFunction(options)) {
+	    options = { done: options };
+	  } else if (options === 'clear') {
+	    queue = [];
+	    active = null;
+	    nextId = 0;
+	    return;
+	  }
+	
+	  options = utils.defaults(options, OPTIONS);
+	
+	  // id selector
+	  if (/^#/.test(el)) {
+	    el = window.document.getElementById(el.substr(1));
+	  } else {
+	    el = el.jquery ? el[0] : el;
+	  }
+	
+	  var args = [el, html, options];
+	
+	  el.postscribe = {
+	    cancel: function cancel() {
+	      if (args.stream) {
+	        args.stream.abort();
+	      } else {
+	        args[1] = doNothing;
+	      }
+	    }
+	  };
+	
+	  options.beforeEnqueue(args);
+	  queue.push(args);
+	
+	  if (!active) {
+	    nextStream();
+	  }
+	
+	  return el.postscribe;
+	}
+	
+	_extends(postscribe, {
+	  // Streams by name.
+	  streams: {},
+	  // Queue of streams.
+	  queue: queue,
+	  // Expose internal classes.
+	  WriteStream: _writeStream2['default']
+	});
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _prescribe = __webpack_require__(3);
+	
+	var _prescribe2 = _interopRequireDefault(_prescribe);
+	
+	var _utils = __webpack_require__(4);
+	
+	var utils = _interopRequireWildcard(_utils);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	/**
+	 * Turn on to debug how each chunk affected the DOM.
+	 * @type {boolean}
+	 */
+	var DEBUG_CHUNK = false;
+	
+	/**
+	 * Prefix for data attributes on DOM elements.
+	 * @type {string}
+	 */
+	var BASEATTR = 'data-ps-';
+	
+	/**
+	 * ID for the style proxy
+	 * @type {string}
+	 */
+	var PROXY_STYLE = 'ps-style';
+	
+	/**
+	 * ID for the script proxy
+	 * @type {string}
+	 */
+	var PROXY_SCRIPT = 'ps-script';
+	
+	/**
+	 * Get data attributes
+	 *
+	 * @param {Object} el The DOM element.
+	 * @param {String} name The attribute name.
+	 * @returns {String}
+	 */
+	function getData(el, name) {
+	  var attr = BASEATTR + name;
+	
+	  var val = el.getAttribute(attr);
+	
+	  // IE 8 returns a number if it's a number
+	  return !utils.existy(val) ? val : String(val);
+	}
+	
+	/**
+	 * Set data attributes
+	 *
+	 * @param {Object} el The DOM element.
+	 * @param {String} name The attribute name.
+	 * @param {null|*} value The attribute value.
+	 */
+	function setData(el, name) {
+	  var value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+	
+	  var attr = BASEATTR + name;
+	
+	  if (utils.existy(value) && value !== '') {
+	    el.setAttribute(attr, value);
+	  } else {
+	    el.removeAttribute(attr);
+	  }
+	}
+	
+	/**
+	 * Stream static html to an element, where "static html" denotes "html
+	 * without scripts".
+	 *
+	 * This class maintains a *history of writes devoid of any attributes* or
+	 * "proxy history".
+	 *
+	 * Injecting the proxy history into a temporary div has no side-effects,
+	 * other than to create proxy elements for previously written elements.
+	 *
+	 * Given the `staticHtml` of a new write, a `tempDiv`'s innerHTML is set to
+	 * `proxy_history + staticHtml`.
+	 * The *structure* of `tempDiv`'s contents, (i.e., the placement of new nodes
+	 * beside or inside of proxy elements), reflects the DOM structure that would
+	 * have resulted if all writes had been squashed into a single write.
+	 *
+	 * For each descendent `node` of `tempDiv` whose parentNode is a *proxy*,
+	 * `node` is appended to the corresponding *real* element within the DOM.
+	 *
+	 * Proxy elements are mapped to *actual* elements in the DOM by injecting a
+	 * `data-id` attribute into each start tag in `staticHtml`.
+	 *
+	 */
+	
+	var WriteStream = function () {
+	  /**
+	   * Constructor.
+	   *
+	   * @param {Object} root The root element
+	   * @param {?Object} options The options
+	   */
+	  function WriteStream(root) {
+	    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	
+	    _classCallCheck(this, WriteStream);
+	
+	    this.root = root;
+	    this.options = options;
+	    this.doc = root.ownerDocument;
+	    this.win = this.doc.defaultView || this.doc.parentWindow;
+	    this.parser = new _prescribe2['default']('', { autoFix: options.autoFix });
+	
+	    // Actual elements by id.
+	    this.actuals = [root];
+	
+	    // Embodies the "structure" of what's been written so far,
+	    // devoid of attributes.
+	    this.proxyHistory = '';
+	
+	    // Create a proxy of the root element.
+	    this.proxyRoot = this.doc.createElement(root.nodeName);
+	
+	    this.scriptStack = [];
+	    this.writeQueue = [];
+	
+	    setData(this.proxyRoot, 'proxyof', 0);
+	  }
+	
+	  /**
+	   * Writes the given strings.
+	   *
+	   * @param {...String} str The strings to write
+	   */
+	
+	
+	  WriteStream.prototype.write = function write() {
+	    var _writeQueue;
+	
+	    (_writeQueue = this.writeQueue).push.apply(_writeQueue, arguments);
+	
+	    // Process writes
+	    // When new script gets pushed or pending this will stop
+	    // because new writeQueue gets pushed
+	    while (!this.deferredRemote && this.writeQueue.length) {
+	      var arg = this.writeQueue.shift();
+	
+	      if (utils.isFunction(arg)) {
+	        this._callFunction(arg);
+	      } else {
+	        this._writeImpl(arg);
+	      }
+	    }
+	  };
+	
+	  /**
+	   * Calls the given function.
+	   *
+	   * @param {Function} fn The function to call
+	   * @private
+	   */
+	
+	
+	  WriteStream.prototype._callFunction = function _callFunction(fn) {
+	    var tok = { type: 'function', value: fn.name || fn.toString() };
+	    this._onScriptStart(tok);
+	    fn.call(this.win, this.doc);
+	    this._onScriptDone(tok);
+	  };
+	
+	  /**
+	   * The write implementation
+	   *
+	   * @param {String} html The HTML to write.
+	   * @private
+	   */
+	
+	
+	  WriteStream.prototype._writeImpl = function _writeImpl(html) {
+	    this.parser.append(html);
+	
+	    var tok = void 0;
+	    var script = void 0;
+	    var style = void 0;
+	    var tokens = [];
+	
+	    // stop if we see a script token
+	    while ((tok = this.parser.readToken()) && !(script = utils.isScript(tok)) && !(style = utils.isStyle(tok))) {
+	      tok = this.options.beforeWriteToken(tok);
+	
+	      if (tok) {
+	        tokens.push(tok);
+	      }
+	    }
+	
+	    if (tokens.length > 0) {
+	      this._writeStaticTokens(tokens);
+	    }
+	
+	    if (script) {
+	      this._handleScriptToken(tok);
+	    }
+	
+	    if (style) {
+	      this._handleStyleToken(tok);
+	    }
+	  };
+	
+	  /**
+	   * Write contiguous non-script tokens (a chunk)
+	   *
+	   * @param {Array<Object>} tokens The tokens
+	   * @returns {{tokens, raw, actual, proxy}|null}
+	   * @private
+	   */
+	
+	
+	  WriteStream.prototype._writeStaticTokens = function _writeStaticTokens(tokens) {
+	    var chunk = this._buildChunk(tokens);
+	
+	    if (!chunk.actual) {
+	      // e.g., no tokens, or a noscript that got ignored
+	      return null;
+	    }
+	
+	    chunk.html = this.proxyHistory + chunk.actual;
+	    this.proxyHistory += chunk.proxy;
+	    this.proxyRoot.innerHTML = chunk.html;
+	
+	    if (DEBUG_CHUNK) {
+	      chunk.proxyInnerHTML = this.proxyRoot.innerHTML;
+	    }
+	
+	    this._walkChunk();
+	
+	    if (DEBUG_CHUNK) {
+	      chunk.actualInnerHTML = this.root.innerHTML;
+	    }
+	
+	    return chunk;
+	  };
+	
+	  /**
+	   * Build a chunk.
+	   *
+	   * @param {Array<Object>} tokens The tokens to use.
+	   * @returns {{tokens: *, raw: string, actual: string, proxy: string}}
+	   * @private
+	   */
+	
+	
+	  WriteStream.prototype._buildChunk = function _buildChunk(tokens) {
+	    var nextId = this.actuals.length;
+	
+	    // The raw html of this chunk.
+	    var raw = [];
+	
+	    // The html to create the nodes in the tokens (with id's injected).
+	    var actual = [];
+	
+	    // Html that can later be used to proxy the nodes in the tokens.
+	    var proxy = [];
+	
+	    var len = tokens.length;
+	    for (var i = 0; i < len; i++) {
+	      var tok = tokens[i];
+	      var tokenRaw = tok.toString();
+	
+	      raw.push(tokenRaw);
+	
+	      if (tok.attrs) {
+	        // tok.attrs <==> startTag or atomicTag or cursor
+	        // Ignore noscript tags. They are atomic, so we don't have to worry about children.
+	        if (!/^noscript$/i.test(tok.tagName)) {
+	          var id = nextId++;
+	
+	          // Actual: inject id attribute: replace '>' at end of start tag with id attribute + '>'
+	          actual.push(tokenRaw.replace(/(\/?>)/, ' ' + BASEATTR + 'id=' + id + ' $1'));
+	
+	          // Don't proxy scripts: they have no bearing on DOM structure.
+	          if (tok.attrs.id !== PROXY_SCRIPT && tok.attrs.id !== PROXY_STYLE) {
+	            // Proxy: strip all attributes and inject proxyof attribute
+	            proxy.push(
+	            // ignore atomic tags (e.g., style): they have no "structural" effect
+	            tok.type === 'atomicTag' ? '' : '<' + tok.tagName + ' ' + BASEATTR + 'proxyof=' + id + (tok.unary ? ' />' : '>'));
+	          }
+	        }
+	      } else {
+	        // Visit any other type of token
+	        // Actual: append.
+	        actual.push(tokenRaw);
+	
+	        // Proxy: append endTags. Ignore everything else.
+	        proxy.push(tok.type === 'endTag' ? tokenRaw : '');
+	      }
+	    }
+	
+	    return {
+	      tokens: tokens,
+	      raw: raw.join(''),
+	      actual: actual.join(''),
+	      proxy: proxy.join('')
+	    };
+	  };
+	
+	  /**
+	   * Walk the chunks.
+	   *
+	   * @private
+	   */
+	
+	
+	  WriteStream.prototype._walkChunk = function _walkChunk() {
+	    var node = void 0;
+	    var stack = [this.proxyRoot];
+	
+	    // use shift/unshift so that children are walked in document order
+	    while (utils.existy(node = stack.shift())) {
+	      var isElement = node.nodeType === 1;
+	      var isProxy = isElement && getData(node, 'proxyof');
+	
+	      // Ignore proxies
+	      if (!isProxy) {
+	        if (isElement) {
+	          // New actual element: register it and remove the the id attr.
+	          this.actuals[getData(node, 'id')] = node;
+	          setData(node, 'id');
+	        }
+	
+	        // Is node's parent a proxy?
+	        var parentIsProxyOf = node.parentNode && getData(node.parentNode, 'proxyof');
+	        if (parentIsProxyOf) {
+	          // Move node under actual parent.
+	          this.actuals[parentIsProxyOf].appendChild(node);
+	        }
+	      }
+	
+	      // prepend childNodes to stack
+	      stack.unshift.apply(stack, utils.toArray(node.childNodes));
+	    }
+	  };
+	
+	  /**
+	   * Handles Script tokens
+	   *
+	   * @param {Object} tok The token
+	   */
+	
+	
+	  WriteStream.prototype._handleScriptToken = function _handleScriptToken(tok) {
+	    var _this = this;
+	
+	    var remainder = this.parser.clear();
+	
+	    if (remainder) {
+	      // Write remainder immediately behind this script.
+	      this.writeQueue.unshift(remainder);
+	    }
+	
+	    tok.src = tok.attrs.src || tok.attrs.SRC;
+	
+	    tok = this.options.beforeWriteToken(tok);
+	    if (!tok) {
+	      // User has removed this token
+	      return;
+	    }
+	
+	    if (tok.src && this.scriptStack.length) {
+	      // Defer this script until scriptStack is empty.
+	      // Assumption 1: This script will not start executing until
+	      // scriptStack is empty.
+	      this.deferredRemote = tok;
+	    } else {
+	      this._onScriptStart(tok);
+	    }
+	
+	    // Put the script node in the DOM.
+	    this._writeScriptToken(tok, function () {
+	      _this._onScriptDone(tok);
+	    });
+	  };
+	
+	  /**
+	   * Handles style tokens
+	   *
+	   * @param {Object} tok The token
+	   */
+	
+	
+	  WriteStream.prototype._handleStyleToken = function _handleStyleToken(tok) {
+	    var remainder = this.parser.clear();
+	
+	    if (remainder) {
+	      // Write remainder immediately behind this style.
+	      this.writeQueue.unshift(remainder);
+	    }
+	
+	    tok.type = tok.attrs.type || tok.attrs.TYPE || 'text/css';
+	
+	    tok = this.options.beforeWriteToken(tok);
+	
+	    if (tok) {
+	      // Put the style node in the DOM.
+	      this._writeStyleToken(tok);
+	    }
+	
+	    if (remainder) {
+	      this.write();
+	    }
+	  };
+	
+	  /**
+	   * Build a style and insert it into the DOM.
+	   *
+	   * @param {Object} tok The token
+	   */
+	
+	
+	  WriteStream.prototype._writeStyleToken = function _writeStyleToken(tok) {
+	    var el = this._buildStyle(tok);
+	
+	    this._insertCursor(el, PROXY_STYLE);
+	
+	    // Set content
+	    if (tok.content) {
+	      if (el.styleSheet && !el.sheet) {
+	        el.styleSheet.cssText = tok.content;
+	      } else {
+	        el.appendChild(this.doc.createTextNode(tok.content));
+	      }
+	    }
+	  };
+	
+	  /**
+	   * Build a style element from an atomic style token.
+	   *
+	   * @param {Object} tok The token
+	   * @returns {Element}
+	   */
+	
+	
+	  WriteStream.prototype._buildStyle = function _buildStyle(tok) {
+	    var el = this.doc.createElement(tok.tagName);
+	
+	    el.setAttribute('type', tok.type);
+	
+	    // Set attributes
+	    utils.eachKey(tok.attrs, function (name, value) {
+	      el.setAttribute(name, value);
+	    });
+	
+	    return el;
+	  };
+	
+	  /**
+	   * Append a span to the stream. That span will act as a cursor
+	   * (i.e. insertion point) for the element.
+	   *
+	   * @param {Object} el The element
+	   * @param {string} which The type of proxy element
+	   */
+	
+	
+	  WriteStream.prototype._insertCursor = function _insertCursor(el, which) {
+	    this._writeImpl('<span id="' + which + '"/>');
+	
+	    var cursor = this.doc.getElementById(which);
+	
+	    if (cursor) {
+	      cursor.parentNode.replaceChild(el, cursor);
+	    }
+	  };
+	
+	  /**
+	   * Called when a script is started.
+	   *
+	   * @param {Object} tok The token
+	   * @private
+	   */
+	
+	
+	  WriteStream.prototype._onScriptStart = function _onScriptStart(tok) {
+	    tok.outerWrites = this.writeQueue;
+	    this.writeQueue = [];
+	    this.scriptStack.unshift(tok);
+	  };
+	
+	  /**
+	   * Called when a script is done.
+	   *
+	   * @param {Object} tok The token
+	   * @private
+	   */
+	
+	
+	  WriteStream.prototype._onScriptDone = function _onScriptDone(tok) {
+	    // Pop script and check nesting.
+	    if (tok !== this.scriptStack[0]) {
+	      this.options.error({ msg: 'Bad script nesting or script finished twice' });
+	      return;
+	    }
+	
+	    this.scriptStack.shift();
+	
+	    // Append outer writes to queue and process them.
+	    this.write.apply(this, tok.outerWrites);
+	
+	    // Check for pending remote
+	
+	    // Assumption 2: if remote_script1 writes remote_script2 then
+	    // the we notice remote_script1 finishes before remote_script2 starts.
+	    // I think this is equivalent to assumption 1
+	    if (!this.scriptStack.length && this.deferredRemote) {
+	      this._onScriptStart(this.deferredRemote);
+	      this.deferredRemote = null;
+	    }
+	  };
+	
+	  /**
+	   * Build a script and insert it into the DOM.
+	   * Done is called once script has executed.
+	   *
+	   * @param {Object} tok The token
+	   * @param {Function} done The callback when complete
+	   */
+	
+	
+	  WriteStream.prototype._writeScriptToken = function _writeScriptToken(tok, done) {
+	    var el = this._buildScript(tok);
+	    var asyncRelease = this._shouldRelease(el);
+	    var afterAsync = this.options.afterAsync;
+	
+	    if (tok.src) {
+	      // Fix for attribute "SRC" (capitalized). IE does not recognize it.
+	      el.src = tok.src;
+	      this._scriptLoadHandler(el, !asyncRelease ? function () {
+	        done();
+	        afterAsync();
+	      } : afterAsync);
+	    }
+	
+	    try {
+	      this._insertCursor(el, PROXY_SCRIPT);
+	      if (!el.src || asyncRelease) {
+	        done();
+	      }
+	    } catch (e) {
+	      this.options.error(e);
+	      done();
+	    }
+	  };
+	
+	  /**
+	   * Build a script element from an atomic script token.
+	   *
+	   * @param {Object} tok The token
+	   * @returns {Element}
+	   */
+	
+	
+	  WriteStream.prototype._buildScript = function _buildScript(tok) {
+	    var el = this.doc.createElement(tok.tagName);
+	
+	    // Set attributes
+	    utils.eachKey(tok.attrs, function (name, value) {
+	      el.setAttribute(name, value);
+	    });
+	
+	    // Set content
+	    if (tok.content) {
+	      el.text = tok.content;
+	    }
+	
+	    return el;
+	  };
+	
+	  /**
+	   * Setup the script load handler on an element.
+	   *
+	   * @param {Object} el The element
+	   * @param {Function} done The callback
+	   * @private
+	   */
+	
+	
+	  WriteStream.prototype._scriptLoadHandler = function _scriptLoadHandler(el, done) {
+	    function cleanup() {
+	      el = el.onload = el.onreadystatechange = el.onerror = null;
+	    }
+	
+	    var error = this.options.error;
+	
+	    function success() {
+	      cleanup();
+	      if (done != null) {
+	        done();
+	      }
+	      done = null;
+	    }
+	
+	    function failure(err) {
+	      cleanup();
+	      error(err);
+	      if (done != null) {
+	        done();
+	      }
+	      done = null;
+	    }
+	
+	    function reattachEventListener(el, evt) {
+	      var handler = el['on' + evt];
+	      if (handler != null) {
+	        el['_on' + evt] = handler;
+	      }
+	    }
+	
+	    reattachEventListener(el, 'load');
+	    reattachEventListener(el, 'error');
+	
+	    _extends(el, {
+	      onload: function onload() {
+	        if (el._onload) {
+	          try {
+	            el._onload.apply(this, Array.prototype.slice.call(arguments, 0));
+	          } catch (err) {
+	            failure({ msg: 'onload handler failed ' + err + ' @ ' + el.src });
+	          }
+	        }
+	        success();
+	      },
+	      onerror: function onerror() {
+	        if (el._onerror) {
+	          try {
+	            el._onerror.apply(this, Array.prototype.slice.call(arguments, 0));
+	          } catch (err) {
+	            failure({ msg: 'onerror handler failed ' + err + ' @ ' + el.src });
+	            return;
+	          }
+	        }
+	        failure({ msg: 'remote script failed ' + el.src });
+	      },
+	      onreadystatechange: function onreadystatechange() {
+	        if (/^(loaded|complete)$/.test(el.readyState)) {
+	          success();
+	        }
+	      }
+	    });
+	  };
+	
+	  /**
+	   * Determines whether to release.
+	   *
+	   * @param {Object} el The element
+	   * @returns {boolean}
+	   * @private
+	   */
+	
+	
+	  WriteStream.prototype._shouldRelease = function _shouldRelease(el) {
+	    var isScript = /^script$/i.test(el.nodeName);
+	    return !isScript || !!(this.options.releaseAsync && el.src && el.hasAttribute('async'));
+	  };
+	
+	  return WriteStream;
+	}();
+	
+	exports['default'] = WriteStream;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * @file prescribe
+	 * @description Tiny, forgiving HTML parser
+	 * @version vundefined
+	 * @see {@link https://github.com/krux/prescribe/}
+	 * @license MIT
+	 * @author Derek Brans
+	 * @copyright 2016 Krux Digital, Inc
+	 */
+	(function webpackUniversalModuleDefinition(root, factory) {
+		if(true)
+			module.exports = factory();
+		else {}
+	})(this, function() {
+	return /******/ (function(modules) { // webpackBootstrap
+	/******/ 	// The module cache
+	/******/ 	var installedModules = {};
+	
+	/******/ 	// The require function
+	/******/ 	function __webpack_require__(moduleId) {
+	
+	/******/ 		// Check if module is in cache
+	/******/ 		if(installedModules[moduleId])
+	/******/ 			return installedModules[moduleId].exports;
+	
+	/******/ 		// Create a new module (and put it into the cache)
+	/******/ 		var module = installedModules[moduleId] = {
+	/******/ 			exports: {},
+	/******/ 			id: moduleId,
+	/******/ 			loaded: false
+	/******/ 		};
+	
+	/******/ 		// Execute the module function
+	/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+	
+	/******/ 		// Flag the module as loaded
+	/******/ 		module.loaded = true;
+	
+	/******/ 		// Return the exports of the module
+	/******/ 		return module.exports;
+	/******/ 	}
+	
+	
+	/******/ 	// expose the modules object (__webpack_modules__)
+	/******/ 	__webpack_require__.m = modules;
+	
+	/******/ 	// expose the module cache
+	/******/ 	__webpack_require__.c = installedModules;
+	
+	/******/ 	// __webpack_public_path__
+	/******/ 	__webpack_require__.p = "";
+	
+	/******/ 	// Load entry module and return exports
+	/******/ 	return __webpack_require__(0);
+	/******/ })
+	/************************************************************************/
+	/******/ ([
+	/* 0 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		var _HtmlParser = __webpack_require__(1);
+	
+		var _HtmlParser2 = _interopRequireDefault(_HtmlParser);
+	
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+		module.exports = _HtmlParser2['default'];
+	
+	/***/ },
+	/* 1 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		exports.__esModule = true;
+	
+		var _supports = __webpack_require__(2);
+	
+		var supports = _interopRequireWildcard(_supports);
+	
+		var _streamReaders = __webpack_require__(3);
+	
+		var streamReaders = _interopRequireWildcard(_streamReaders);
+	
+		var _fixedReadTokenFactory = __webpack_require__(6);
+	
+		var _fixedReadTokenFactory2 = _interopRequireDefault(_fixedReadTokenFactory);
+	
+		var _utils = __webpack_require__(5);
+	
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+		function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+	
+		function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+		/**
+		 * Detection regular expressions.
+		 *
+		 * Order of detection matters: detection of one can only
+		 * succeed if detection of previous didn't
+	
+		 * @type {Object}
+		 */
+		var detect = {
+		  comment: /^<!--/,
+		  endTag: /^<\//,
+		  atomicTag: /^<\s*(script|style|noscript|iframe|textarea)[\s\/>]/i,
+		  startTag: /^</,
+		  chars: /^[^<]/
+		};
+	
+		/**
+		 * HtmlParser provides the capability to parse HTML and return tokens
+		 * representing the tags and content.
+		 */
+	
+		var HtmlParser = function () {
+		  /**
+		   * Constructor.
+		   *
+		   * @param {string} stream The initial parse stream contents.
+		   * @param {Object} options The options
+		   * @param {boolean} options.autoFix Set to true to automatically fix errors
+		   */
+		  function HtmlParser() {
+		    var _this = this;
+	
+		    var stream = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+		    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	
+		    _classCallCheck(this, HtmlParser);
+	
+		    this.stream = stream;
+	
+		    var fix = false;
+		    var fixedTokenOptions = {};
+	
+		    for (var key in supports) {
+		      if (supports.hasOwnProperty(key)) {
+		        if (options.autoFix) {
+		          fixedTokenOptions[key + 'Fix'] = true; // !supports[key];
+		        }
+		        fix = fix || fixedTokenOptions[key + 'Fix'];
+		      }
+		    }
+	
+		    if (fix) {
+		      this._readToken = (0, _fixedReadTokenFactory2['default'])(this, fixedTokenOptions, function () {
+		        return _this._readTokenImpl();
+		      });
+		      this._peekToken = (0, _fixedReadTokenFactory2['default'])(this, fixedTokenOptions, function () {
+		        return _this._peekTokenImpl();
+		      });
+		    } else {
+		      this._readToken = this._readTokenImpl;
+		      this._peekToken = this._peekTokenImpl;
+		    }
+		  }
+	
+		  /**
+		   * Appends the given string to the parse stream.
+		   *
+		   * @param {string} str The string to append
+		   */
+	
+	
+		  HtmlParser.prototype.append = function append(str) {
+		    this.stream += str;
+		  };
+	
+		  /**
+		   * Prepends the given string to the parse stream.
+		   *
+		   * @param {string} str The string to prepend
+		   */
+	
+	
+		  HtmlParser.prototype.prepend = function prepend(str) {
+		    this.stream = str + this.stream;
+		  };
+	
+		  /**
+		   * The implementation of the token reading.
+		   *
+		   * @private
+		   * @returns {?Token}
+		   */
+	
+	
+		  HtmlParser.prototype._readTokenImpl = function _readTokenImpl() {
+		    var token = this._peekTokenImpl();
+		    if (token) {
+		      this.stream = this.stream.slice(token.length);
+		      return token;
+		    }
+		  };
+	
+		  /**
+		   * The implementation of token peeking.
+		   *
+		   * @returns {?Token}
+		   */
+	
+	
+		  HtmlParser.prototype._peekTokenImpl = function _peekTokenImpl() {
+		    for (var type in detect) {
+		      if (detect.hasOwnProperty(type)) {
+		        if (detect[type].test(this.stream)) {
+		          var token = streamReaders[type](this.stream);
+	
+		          if (token) {
+		            if (token.type === 'startTag' && /script|style/i.test(token.tagName)) {
+		              return null;
+		            } else {
+		              token.text = this.stream.substr(0, token.length);
+		              return token;
+		            }
+		          }
+		        }
+		      }
+		    }
+		  };
+	
+		  /**
+		   * The public token peeking interface.  Delegates to the basic token peeking
+		   * or a version that performs fixups depending on the `autoFix` setting in
+		   * options.
+		   *
+		   * @returns {object}
+		   */
+	
+	
+		  HtmlParser.prototype.peekToken = function peekToken() {
+		    return this._peekToken();
+		  };
+	
+		  /**
+		   * The public token reading interface.  Delegates to the basic token reading
+		   * or a version that performs fixups depending on the `autoFix` setting in
+		   * options.
+		   *
+		   * @returns {object}
+		   */
+	
+	
+		  HtmlParser.prototype.readToken = function readToken() {
+		    return this._readToken();
+		  };
+	
+		  /**
+		   * Read tokens and hand to the given handlers.
+		   *
+		   * @param {Object} handlers The handlers to use for the different tokens.
+		   */
+	
+	
+		  HtmlParser.prototype.readTokens = function readTokens(handlers) {
+		    var tok = void 0;
+		    while (tok = this.readToken()) {
+		      // continue until we get an explicit "false" return
+		      if (handlers[tok.type] && handlers[tok.type](tok) === false) {
+		        return;
+		      }
+		    }
+		  };
+	
+		  /**
+		   * Clears the parse stream.
+		   *
+		   * @returns {string} The contents of the parse stream before clearing.
+		   */
+	
+	
+		  HtmlParser.prototype.clear = function clear() {
+		    var rest = this.stream;
+		    this.stream = '';
+		    return rest;
+		  };
+	
+		  /**
+		   * Returns the rest of the parse stream.
+		   *
+		   * @returns {string} The contents of the parse stream.
+		   */
+	
+	
+		  HtmlParser.prototype.rest = function rest() {
+		    return this.stream;
+		  };
+	
+		  return HtmlParser;
+		}();
+	
+		exports['default'] = HtmlParser;
+	
+	
+		HtmlParser.tokenToString = function (tok) {
+		  return tok.toString();
+		};
+	
+		HtmlParser.escapeAttributes = function (attrs) {
+		  var escapedAttrs = {};
+	
+		  for (var name in attrs) {
+		    if (attrs.hasOwnProperty(name)) {
+		      escapedAttrs[name] = (0, _utils.escapeQuotes)(attrs[name], null);
+		    }
+		  }
+	
+		  return escapedAttrs;
+		};
+	
+		HtmlParser.supports = supports;
+	
+		for (var key in supports) {
+		  if (supports.hasOwnProperty(key)) {
+		    HtmlParser.browserHasFlaw = HtmlParser.browserHasFlaw || !supports[key] && key;
+		  }
+		}
+	
+	/***/ },
+	/* 2 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		exports.__esModule = true;
+		var tagSoup = false;
+		var selfClose = false;
+	
+		var work = window.document.createElement('div');
+	
+		try {
+		  var html = '<P><I></P></I>';
+		  work.innerHTML = html;
+		  exports.tagSoup = tagSoup = work.innerHTML !== html;
+		} catch (e) {
+		  exports.tagSoup = tagSoup = false;
+		}
+	
+		try {
+		  work.innerHTML = '<P><i><P></P></i></P>';
+		  exports.selfClose = selfClose = work.childNodes.length === 2;
+		} catch (e) {
+		  exports.selfClose = selfClose = false;
+		}
+	
+		work = null;
+	
+		exports.tagSoup = tagSoup;
+		exports.selfClose = selfClose;
+	
+	/***/ },
+	/* 3 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		exports.__esModule = true;
+	
+		var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+		exports.comment = comment;
+		exports.chars = chars;
+		exports.startTag = startTag;
+		exports.atomicTag = atomicTag;
+		exports.endTag = endTag;
+	
+		var _tokens = __webpack_require__(4);
+	
+		/**
+		 * Regular Expressions for parsing tags and attributes
+		 *
+		 * @type {Object}
+		 */
+		var REGEXES = {
+		  startTag: /^<([\-A-Za-z0-9_]+)((?:\s+[\w\-]+(?:\s*=?\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/,
+		  endTag: /^<\/([\-A-Za-z0-9_]+)[^>]*>/,
+		  attr: /(?:([\-A-Za-z0-9_]+)\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))|(?:([\-A-Za-z0-9_]+)(\s|$)+)/g,
+		  fillAttr: /^(checked|compact|declare|defer|disabled|ismap|multiple|nohref|noresize|noshade|nowrap|readonly|selected)$/i
+		};
+	
+		/**
+		 * Reads a comment token
+		 *
+		 * @param {string} stream The input stream
+		 * @returns {CommentToken}
+		 */
+		function comment(stream) {
+		  var index = stream.indexOf('-->');
+		  if (index >= 0) {
+		    return new _tokens.CommentToken(stream.substr(4, index - 1), index + 3);
+		  }
+		}
+	
+		/**
+		 * Reads non-tag characters.
+		 *
+		 * @param {string} stream The input stream
+		 * @returns {CharsToken}
+		 */
+		function chars(stream) {
+		  var index = stream.indexOf('<');
+		  return new _tokens.CharsToken(index >= 0 ? index : stream.length);
+		}
+	
+		/**
+		 * Reads start tag token.
+		 *
+		 * @param {string} stream The input stream
+		 * @returns {StartTagToken}
+		 */
+		function startTag(stream) {
+		  var endTagIndex = stream.indexOf('>');
+		  if (endTagIndex !== -1) {
+		    var match = stream.match(REGEXES.startTag);
+		    if (match) {
+		      var _ret = function () {
+		        var attrs = {};
+		        var booleanAttrs = {};
+		        var rest = match[2];
+	
+		        match[2].replace(REGEXES.attr, function (match, name) {
+		          if (!(arguments[2] || arguments[3] || arguments[4] || arguments[5])) {
+		            attrs[name] = '';
+		          } else if (arguments[5]) {
+		            attrs[arguments[5]] = '';
+		            booleanAttrs[arguments[5]] = true;
+		          } else {
+		            attrs[name] = arguments[2] || arguments[3] || arguments[4] || REGEXES.fillAttr.test(name) && name || '';
+		          }
+	
+		          rest = rest.replace(match, '');
+		        });
+	
+		        return {
+		          v: new _tokens.StartTagToken(match[1], match[0].length, attrs, booleanAttrs, !!match[3], rest.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, ''))
+		        };
+		      }();
+	
+		      if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+		    }
+		  }
+		}
+	
+		/**
+		 * Reads atomic tag token.
+		 *
+		 * @param {string} stream The input stream
+		 * @returns {AtomicTagToken}
+		 */
+		function atomicTag(stream) {
+		  var start = startTag(stream);
+		  if (start) {
+		    var rest = stream.slice(start.length);
+		    // for optimization, we check first just for the end tag
+		    if (rest.match(new RegExp('<\/\\s*' + start.tagName + '\\s*>', 'i'))) {
+		      // capturing the content is inefficient, so we do it inside the if
+		      var match = rest.match(new RegExp('([\\s\\S]*?)<\/\\s*' + start.tagName + '\\s*>', 'i'));
+		      if (match) {
+		        return new _tokens.AtomicTagToken(start.tagName, match[0].length + start.length, start.attrs, start.booleanAttrs, match[1]);
+		      }
+		    }
+		  }
+		}
+	
+		/**
+		 * Reads an end tag token.
+		 *
+		 * @param {string} stream The input stream
+		 * @returns {EndTagToken}
+		 */
+		function endTag(stream) {
+		  var match = stream.match(REGEXES.endTag);
+		  if (match) {
+		    return new _tokens.EndTagToken(match[1], match[0].length);
+		  }
+		}
+	
+	/***/ },
+	/* 4 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		exports.__esModule = true;
+		exports.EndTagToken = exports.AtomicTagToken = exports.StartTagToken = exports.TagToken = exports.CharsToken = exports.CommentToken = exports.Token = undefined;
+	
+		var _utils = __webpack_require__(5);
+	
+		function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+		/**
+		 * Token is a base class for all token types parsed.  Note we don't actually
+		 * use intheritance due to IE8's non-existent ES5 support.
+		 */
+		var Token =
+		/**
+		 * Constructor.
+		 *
+		 * @param {string} type The type of the Token.
+		 * @param {Number} length The length of the Token text.
+		 */
+		exports.Token = function Token(type, length) {
+		  _classCallCheck(this, Token);
+	
+		  this.type = type;
+		  this.length = length;
+		  this.text = '';
+		};
+	
+		/**
+		 * CommentToken represents comment tags.
+		 */
+	
+	
+		var CommentToken = exports.CommentToken = function () {
+		  /**
+		   * Constructor.
+		   *
+		   * @param {string} content The content of the comment
+		   * @param {Number} length The length of the Token text.
+		   */
+		  function CommentToken(content, length) {
+		    _classCallCheck(this, CommentToken);
+	
+		    this.type = 'comment';
+		    this.length = length || (content ? content.length : 0);
+		    this.text = '';
+		    this.content = content;
+		  }
+	
+		  CommentToken.prototype.toString = function toString() {
+		    return '<!--' + this.content;
+		  };
+	
+		  return CommentToken;
+		}();
+	
+		/**
+		 * CharsToken represents non-tag characters.
+		 */
+	
+	
+		var CharsToken = exports.CharsToken = function () {
+		  /**
+		   * Constructor.
+		   *
+		   * @param {Number} length The length of the Token text.
+		   */
+		  function CharsToken(length) {
+		    _classCallCheck(this, CharsToken);
+	
+		    this.type = 'chars';
+		    this.length = length;
+		    this.text = '';
+		  }
+	
+		  CharsToken.prototype.toString = function toString() {
+		    return this.text;
+		  };
+	
+		  return CharsToken;
+		}();
+	
+		/**
+		 * TagToken is a base class for all tag-based Tokens.
+		 */
+	
+	
+		var TagToken = exports.TagToken = function () {
+		  /**
+		   * Constructor.
+		   *
+		   * @param {string} type The type of the token.
+		   * @param {string} tagName The tag name.
+		   * @param {Number} length The length of the Token text.
+		   * @param {Object} attrs The dictionary of attributes and values
+		   * @param {Object} booleanAttrs If an entry has 'true' then the attribute
+		   *                              is a boolean attribute
+		   */
+		  function TagToken(type, tagName, length, attrs, booleanAttrs) {
+		    _classCallCheck(this, TagToken);
+	
+		    this.type = type;
+		    this.length = length;
+		    this.text = '';
+		    this.tagName = tagName;
+		    this.attrs = attrs;
+		    this.booleanAttrs = booleanAttrs;
+		    this.unary = false;
+		    this.html5Unary = false;
+		  }
+	
+		  /**
+		   * Formats the given token tag.
+		   *
+		   * @param {TagToken} tok The TagToken to format.
+		   * @param {?string} [content=null] The content of the token.
+		   * @returns {string} The formatted tag.
+		   */
+	
+	
+		  TagToken.formatTag = function formatTag(tok) {
+		    var content = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+	
+		    var str = '<' + tok.tagName;
+		    for (var key in tok.attrs) {
+		      if (tok.attrs.hasOwnProperty(key)) {
+		        str += ' ' + key;
+	
+		        var val = tok.attrs[key];
+		        if (typeof tok.booleanAttrs === 'undefined' || typeof tok.booleanAttrs[key] === 'undefined') {
+		          str += '="' + (0, _utils.escapeQuotes)(val) + '"';
+		        }
+		      }
+		    }
+	
+		    if (tok.rest) {
+		      str += ' ' + tok.rest;
+		    }
+	
+		    if (tok.unary && !tok.html5Unary) {
+		      str += '/>';
+		    } else {
+		      str += '>';
+		    }
+	
+		    if (content !== undefined && content !== null) {
+		      str += content + '</' + tok.tagName + '>';
+		    }
+	
+		    return str;
+		  };
+	
+		  return TagToken;
+		}();
+	
+		/**
+		 * StartTagToken represents a start token.
+		 */
+	
+	
+		var StartTagToken = exports.StartTagToken = function () {
+		  /**
+		   * Constructor.
+		   *
+		   * @param {string} tagName The tag name.
+		   * @param {Number} length The length of the Token text
+		   * @param {Object} attrs The dictionary of attributes and values
+		   * @param {Object} booleanAttrs If an entry has 'true' then the attribute
+		   *                              is a boolean attribute
+		   * @param {boolean} unary True if the tag is a unary tag
+		   * @param {string} rest The rest of the content.
+		   */
+		  function StartTagToken(tagName, length, attrs, booleanAttrs, unary, rest) {
+		    _classCallCheck(this, StartTagToken);
+	
+		    this.type = 'startTag';
+		    this.length = length;
+		    this.text = '';
+		    this.tagName = tagName;
+		    this.attrs = attrs;
+		    this.booleanAttrs = booleanAttrs;
+		    this.html5Unary = false;
+		    this.unary = unary;
+		    this.rest = rest;
+		  }
+	
+		  StartTagToken.prototype.toString = function toString() {
+		    return TagToken.formatTag(this);
+		  };
+	
+		  return StartTagToken;
+		}();
+	
+		/**
+		 * AtomicTagToken represents an atomic tag.
+		 */
+	
+	
+		var AtomicTagToken = exports.AtomicTagToken = function () {
+		  /**
+		   * Constructor.
+		   *
+		   * @param {string} tagName The name of the tag.
+		   * @param {Number} length The length of the tag text.
+		   * @param {Object} attrs The attributes.
+		   * @param {Object} booleanAttrs If an entry has 'true' then the attribute
+		   *                              is a boolean attribute
+		   * @param {string} content The content of the tag.
+		   */
+		  function AtomicTagToken(tagName, length, attrs, booleanAttrs, content) {
+		    _classCallCheck(this, AtomicTagToken);
+	
+		    this.type = 'atomicTag';
+		    this.length = length;
+		    this.text = '';
+		    this.tagName = tagName;
+		    this.attrs = attrs;
+		    this.booleanAttrs = booleanAttrs;
+		    this.unary = false;
+		    this.html5Unary = false;
+		    this.content = content;
+		  }
+	
+		  AtomicTagToken.prototype.toString = function toString() {
+		    return TagToken.formatTag(this, this.content);
+		  };
+	
+		  return AtomicTagToken;
+		}();
+	
+		/**
+		 * EndTagToken represents an end tag.
+		 */
+	
+	
+		var EndTagToken = exports.EndTagToken = function () {
+		  /**
+		   * Constructor.
+		   *
+		   * @param {string} tagName The name of the tag.
+		   * @param {Number} length The length of the tag text.
+		   */
+		  function EndTagToken(tagName, length) {
+		    _classCallCheck(this, EndTagToken);
+	
+		    this.type = 'endTag';
+		    this.length = length;
+		    this.text = '';
+		    this.tagName = tagName;
+		  }
+	
+		  EndTagToken.prototype.toString = function toString() {
+		    return '</' + this.tagName + '>';
+		  };
+	
+		  return EndTagToken;
+		}();
+	
+	/***/ },
+	/* 5 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		exports.__esModule = true;
+		exports.escapeQuotes = escapeQuotes;
+	
+		/**
+		 * Escape quotes in the given value.
+		 *
+		 * @param {string} value The value to escape.
+		 * @param {string} [defaultValue=''] The default value to return if value is falsy.
+		 * @returns {string}
+		 */
+		function escapeQuotes(value) {
+		  var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+	
+		  // There's no lookback in JS, so /(^|[^\\])"/ only matches the first of two `"`s.
+		  // Instead, just match anything before a double-quote and escape if it's not already escaped.
+		  return !value ? defaultValue : value.replace(/([^"]*)"/g, function (_, prefix) {
+		    return (/\\/.test(prefix) ? prefix + '"' : prefix + '\\"'
+		    );
+		  });
+		}
+	
+	/***/ },
+	/* 6 */
+	/***/ function(module, exports) {
+	
+		'use strict';
+	
+		exports.__esModule = true;
+		exports['default'] = fixedReadTokenFactory;
+		/**
+		 * Empty Elements - HTML 4.01
+		 *
+		 * @type {RegExp}
+		 */
+		var EMPTY = /^(AREA|BASE|BASEFONT|BR|COL|FRAME|HR|IMG|INPUT|ISINDEX|LINK|META|PARAM|EMBED)$/i;
+	
+		/**
+		 * Elements that you can intentionally leave open (and which close themselves)
+		 *
+		 * @type {RegExp}
+		 */
+		var CLOSESELF = /^(COLGROUP|DD|DT|LI|OPTIONS|P|TD|TFOOT|TH|THEAD|TR)$/i;
+	
+		/**
+		 * Corrects a token.
+		 *
+		 * @param {Token} tok The token to correct
+		 * @returns {Token} The corrected token
+		 */
+		function correct(tok) {
+		  if (tok && tok.type === 'startTag') {
+		    tok.unary = EMPTY.test(tok.tagName) || tok.unary;
+		    tok.html5Unary = !/\/>$/.test(tok.text);
+		  }
+		  return tok;
+		}
+	
+		/**
+		 * Peeks at the next token in the parser.
+		 *
+		 * @param {HtmlParser} parser The parser
+		 * @param {Function} readTokenImpl The underlying readToken implementation
+		 * @returns {Token} The next token
+		 */
+		function peekToken(parser, readTokenImpl) {
+		  var tmp = parser.stream;
+		  var tok = correct(readTokenImpl());
+		  parser.stream = tmp;
+		  return tok;
+		}
+	
+		/**
+		 * Closes the last token.
+		 *
+		 * @param {HtmlParser} parser The parser
+		 * @param {Array<Token>} stack The stack
+		 */
+		function closeLast(parser, stack) {
+		  var tok = stack.pop();
+	
+		  // prepend close tag to stream.
+		  parser.prepend('</' + tok.tagName + '>');
+		}
+	
+		/**
+		 * Create a new token stack.
+		 *
+		 * @returns {Array<Token>}
+		 */
+		function newStack() {
+		  var stack = [];
+	
+		  stack.last = function () {
+		    return this[this.length - 1];
+		  };
+	
+		  stack.lastTagNameEq = function (tagName) {
+		    var last = this.last();
+		    return last && last.tagName && last.tagName.toUpperCase() === tagName.toUpperCase();
+		  };
+	
+		  stack.containsTagName = function (tagName) {
+		    for (var i = 0, tok; tok = this[i]; i++) {
+		      if (tok.tagName === tagName) {
+		        return true;
+		      }
+		    }
+		    return false;
+		  };
+	
+		  return stack;
+		}
+	
+		/**
+		 * Return a readToken implementation that fixes input.
+		 *
+		 * @param {HtmlParser} parser The parser
+		 * @param {Object} options Options for fixing
+		 * @param {boolean} options.tagSoupFix True to fix tag soup scenarios
+		 * @param {boolean} options.selfCloseFix True to fix self-closing tags
+		 * @param {Function} readTokenImpl The underlying readToken implementation
+		 * @returns {Function}
+		 */
+		function fixedReadTokenFactory(parser, options, readTokenImpl) {
+		  var stack = newStack();
+	
+		  var handlers = {
+		    startTag: function startTag(tok) {
+		      var tagName = tok.tagName;
+	
+		      if (tagName.toUpperCase() === 'TR' && stack.lastTagNameEq('TABLE')) {
+		        parser.prepend('<TBODY>');
+		        prepareNextToken();
+		      } else if (options.selfCloseFix && CLOSESELF.test(tagName) && stack.containsTagName(tagName)) {
+		        if (stack.lastTagNameEq(tagName)) {
+		          closeLast(parser, stack);
+		        } else {
+		          parser.prepend('</' + tok.tagName + '>');
+		          prepareNextToken();
+		        }
+		      } else if (!tok.unary) {
+		        stack.push(tok);
+		      }
+		    },
+		    endTag: function endTag(tok) {
+		      var last = stack.last();
+		      if (last) {
+		        if (options.tagSoupFix && !stack.lastTagNameEq(tok.tagName)) {
+		          // cleanup tag soup
+		          closeLast(parser, stack);
+		        } else {
+		          stack.pop();
+		        }
+		      } else if (options.tagSoupFix) {
+		        // cleanup tag soup part 2: skip this token
+		        readTokenImpl();
+		        prepareNextToken();
+		      }
+		    }
+		  };
+	
+		  function prepareNextToken() {
+		    var tok = peekToken(parser, readTokenImpl);
+		    if (tok && handlers[tok.type]) {
+		      handlers[tok.type](tok);
+		    }
+		  }
+	
+		  return function fixedReadToken() {
+		    prepareNextToken();
+		    return correct(readTokenImpl());
+		  };
+		}
+	
+	/***/ }
+	/******/ ])
+	});
+	;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	exports.existy = existy;
+	exports.isFunction = isFunction;
+	exports.each = each;
+	exports.eachKey = eachKey;
+	exports.defaults = defaults;
+	exports.toArray = toArray;
+	exports.last = last;
+	exports.isTag = isTag;
+	exports.isScript = isScript;
+	exports.isStyle = isStyle;
+	/**
+	 * Determine if the thing is not undefined and not null.
+	 *
+	 * @param {*} thing The thing to test
+	 * @returns {boolean} True if the thing is not undefined and not null.
+	 */
+	function existy(thing) {
+	  return thing !== void 0 && thing !== null;
+	}
+	
+	/**
+	 * Is this a function?
+	 *
+	 * @param {*} x The variable to test
+	 * @returns {boolean} True if the variable is a function
+	 */
+	function isFunction(x) {
+	  return 'function' === typeof x;
+	}
+	
+	/**
+	 * Loop over each item in an array-like value.
+	 *
+	 * @param {Array<*>} arr The array to loop over
+	 * @param {Function} fn The function to call
+	 * @param {?Object} target The object to bind to the function
+	 */
+	function each(arr, fn, target) {
+	  var i = void 0;
+	  var len = arr && arr.length || 0;
+	  for (i = 0; i < len; i++) {
+	    fn.call(target, arr[i], i);
+	  }
+	}
+	
+	/**
+	 * Loop over each key/value pair in a hash.
+	 *
+	 * @param {Object} obj The object
+	 * @param {Function} fn The function to call
+	 * @param {?Object} target The object to bind to the function
+	 */
+	function eachKey(obj, fn, target) {
+	  for (var key in obj) {
+	    if (obj.hasOwnProperty(key)) {
+	      fn.call(target, key, obj[key]);
+	    }
+	  }
+	}
+	
+	/**
+	 * Set default options where some option was not specified.
+	 *
+	 * @param {Object} options The destination
+	 * @param {Object} _defaults The defaults
+	 * @returns {Object}
+	 */
+	function defaults(options, _defaults) {
+	  options = options || {};
+	  eachKey(_defaults, function (key, val) {
+	    if (!existy(options[key])) {
+	      options[key] = val;
+	    }
+	  });
+	  return options;
+	}
+	
+	/**
+	 * Convert value (e.g., a NodeList) to an array.
+	 *
+	 * @param {*} obj The object
+	 * @returns {Array<*>}
+	 */
+	function toArray(obj) {
+	  try {
+	    return Array.prototype.slice.call(obj);
+	  } catch (e) {
+	    var _ret = function () {
+	      var ret = [];
+	      each(obj, function (val) {
+	        ret.push(val);
+	      });
+	      return {
+	        v: ret
+	      };
+	    }();
+	
+	    if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+	  }
+	}
+	
+	/**
+	 * Get the last item in an array
+	 *
+	 * @param {Array<*>} array The array
+	 * @returns {*} The last item in the array
+	 */
+	function last(array) {
+	  return array[array.length - 1];
+	}
+	
+	/**
+	 * Test if token is a script tag.
+	 *
+	 * @param {Object} tok The token
+	 * @param {String} tag The tag name
+	 * @returns {boolean} True if the token is a script tag
+	 */
+	function isTag(tok, tag) {
+	  return !tok || !(tok.type === 'startTag' || tok.type === 'atomicTag') || !('tagName' in tok) ? !1 : !!~tok.tagName.toLowerCase().indexOf(tag);
+	}
+	
+	/**
+	 * Test if token is a script tag.
+	 *
+	 * @param {Object} tok The token
+	 * @returns {boolean} True if the token is a script tag
+	 */
+	function isScript(tok) {
+	  return isTag(tok, 'script');
+	}
+	
+	/**
+	 * Test if token is a style tag.
+	 *
+	 * @param {Object} tok The token
+	 * @returns {boolean} True if the token is a style tag
+	 */
+	function isStyle(tok) {
+	  return isTag(tok, 'style');
+	}
+
+/***/ }
+/******/ ])
+});
+;
+//# sourceMappingURL=postscribe.js.map
+
+/***/ }),
+
 /***/ "./node_modules/swr/esm/cache.js":
 /*!***************************************!*\
   !*** ./node_modules/swr/esm/cache.js ***!
@@ -1741,6 +3829,845 @@ var SWRConfig = _swr_config_context__WEBPACK_IMPORTED_MODULE_2__["default"].Prov
 
 /***/ }),
 
+/***/ "./node_modules/uuid/dist/esm-browser/index.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/index.js ***!
+  \*****************************************************/
+/*! exports provided: v1, v3, v4, v5, NIL, version, validate, stringify, parse */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _v1_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./v1.js */ "./node_modules/uuid/dist/esm-browser/v1.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "v1", function() { return _v1_js__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+/* harmony import */ var _v3_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./v3.js */ "./node_modules/uuid/dist/esm-browser/v3.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "v3", function() { return _v3_js__WEBPACK_IMPORTED_MODULE_1__["default"]; });
+
+/* harmony import */ var _v4_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./v4.js */ "./node_modules/uuid/dist/esm-browser/v4.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "v4", function() { return _v4_js__WEBPACK_IMPORTED_MODULE_2__["default"]; });
+
+/* harmony import */ var _v5_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./v5.js */ "./node_modules/uuid/dist/esm-browser/v5.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "v5", function() { return _v5_js__WEBPACK_IMPORTED_MODULE_3__["default"]; });
+
+/* harmony import */ var _nil_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./nil.js */ "./node_modules/uuid/dist/esm-browser/nil.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NIL", function() { return _nil_js__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./version.js */ "./node_modules/uuid/dist/esm-browser/version.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "version", function() { return _version_js__WEBPACK_IMPORTED_MODULE_5__["default"]; });
+
+/* harmony import */ var _validate_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./validate.js */ "./node_modules/uuid/dist/esm-browser/validate.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "validate", function() { return _validate_js__WEBPACK_IMPORTED_MODULE_6__["default"]; });
+
+/* harmony import */ var _stringify_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./stringify.js */ "./node_modules/uuid/dist/esm-browser/stringify.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "stringify", function() { return _stringify_js__WEBPACK_IMPORTED_MODULE_7__["default"]; });
+
+/* harmony import */ var _parse_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./parse.js */ "./node_modules/uuid/dist/esm-browser/parse.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parse", function() { return _parse_js__WEBPACK_IMPORTED_MODULE_8__["default"]; });
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/md5.js":
+/*!***************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/md5.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/*
+ * Browser-compatible JavaScript MD5
+ *
+ * Modification of JavaScript MD5
+ * https://github.com/blueimp/JavaScript-MD5
+ *
+ * Copyright 2011, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * https://opensource.org/licenses/MIT
+ *
+ * Based on
+ * A JavaScript implementation of the RSA Data Security, Inc. MD5 Message
+ * Digest Algorithm, as defined in RFC 1321.
+ * Version 2.2 Copyright (C) Paul Johnston 1999 - 2009
+ * Other contributors: Greg Holt, Andrew Kepert, Ydnar, Lostinet
+ * Distributed under the BSD License
+ * See http://pajhome.org.uk/crypt/md5 for more info.
+ */
+function md5(bytes) {
+  if (typeof bytes === 'string') {
+    var msg = unescape(encodeURIComponent(bytes)); // UTF8 escape
+
+    bytes = new Uint8Array(msg.length);
+
+    for (var i = 0; i < msg.length; ++i) {
+      bytes[i] = msg.charCodeAt(i);
+    }
+  }
+
+  return md5ToHexEncodedArray(wordsToMd5(bytesToWords(bytes), bytes.length * 8));
+}
+/*
+ * Convert an array of little-endian words to an array of bytes
+ */
+
+
+function md5ToHexEncodedArray(input) {
+  var output = [];
+  var length32 = input.length * 32;
+  var hexTab = '0123456789abcdef';
+
+  for (var i = 0; i < length32; i += 8) {
+    var x = input[i >> 5] >>> i % 32 & 0xff;
+    var hex = parseInt(hexTab.charAt(x >>> 4 & 0x0f) + hexTab.charAt(x & 0x0f), 16);
+    output.push(hex);
+  }
+
+  return output;
+}
+/**
+ * Calculate output length with padding and bit length
+ */
+
+
+function getOutputLength(inputLength8) {
+  return (inputLength8 + 64 >>> 9 << 4) + 14 + 1;
+}
+/*
+ * Calculate the MD5 of an array of little-endian words, and a bit length.
+ */
+
+
+function wordsToMd5(x, len) {
+  /* append padding */
+  x[len >> 5] |= 0x80 << len % 32;
+  x[getOutputLength(len) - 1] = len;
+  var a = 1732584193;
+  var b = -271733879;
+  var c = -1732584194;
+  var d = 271733878;
+
+  for (var i = 0; i < x.length; i += 16) {
+    var olda = a;
+    var oldb = b;
+    var oldc = c;
+    var oldd = d;
+    a = md5ff(a, b, c, d, x[i], 7, -680876936);
+    d = md5ff(d, a, b, c, x[i + 1], 12, -389564586);
+    c = md5ff(c, d, a, b, x[i + 2], 17, 606105819);
+    b = md5ff(b, c, d, a, x[i + 3], 22, -1044525330);
+    a = md5ff(a, b, c, d, x[i + 4], 7, -176418897);
+    d = md5ff(d, a, b, c, x[i + 5], 12, 1200080426);
+    c = md5ff(c, d, a, b, x[i + 6], 17, -1473231341);
+    b = md5ff(b, c, d, a, x[i + 7], 22, -45705983);
+    a = md5ff(a, b, c, d, x[i + 8], 7, 1770035416);
+    d = md5ff(d, a, b, c, x[i + 9], 12, -1958414417);
+    c = md5ff(c, d, a, b, x[i + 10], 17, -42063);
+    b = md5ff(b, c, d, a, x[i + 11], 22, -1990404162);
+    a = md5ff(a, b, c, d, x[i + 12], 7, 1804603682);
+    d = md5ff(d, a, b, c, x[i + 13], 12, -40341101);
+    c = md5ff(c, d, a, b, x[i + 14], 17, -1502002290);
+    b = md5ff(b, c, d, a, x[i + 15], 22, 1236535329);
+    a = md5gg(a, b, c, d, x[i + 1], 5, -165796510);
+    d = md5gg(d, a, b, c, x[i + 6], 9, -1069501632);
+    c = md5gg(c, d, a, b, x[i + 11], 14, 643717713);
+    b = md5gg(b, c, d, a, x[i], 20, -373897302);
+    a = md5gg(a, b, c, d, x[i + 5], 5, -701558691);
+    d = md5gg(d, a, b, c, x[i + 10], 9, 38016083);
+    c = md5gg(c, d, a, b, x[i + 15], 14, -660478335);
+    b = md5gg(b, c, d, a, x[i + 4], 20, -405537848);
+    a = md5gg(a, b, c, d, x[i + 9], 5, 568446438);
+    d = md5gg(d, a, b, c, x[i + 14], 9, -1019803690);
+    c = md5gg(c, d, a, b, x[i + 3], 14, -187363961);
+    b = md5gg(b, c, d, a, x[i + 8], 20, 1163531501);
+    a = md5gg(a, b, c, d, x[i + 13], 5, -1444681467);
+    d = md5gg(d, a, b, c, x[i + 2], 9, -51403784);
+    c = md5gg(c, d, a, b, x[i + 7], 14, 1735328473);
+    b = md5gg(b, c, d, a, x[i + 12], 20, -1926607734);
+    a = md5hh(a, b, c, d, x[i + 5], 4, -378558);
+    d = md5hh(d, a, b, c, x[i + 8], 11, -2022574463);
+    c = md5hh(c, d, a, b, x[i + 11], 16, 1839030562);
+    b = md5hh(b, c, d, a, x[i + 14], 23, -35309556);
+    a = md5hh(a, b, c, d, x[i + 1], 4, -1530992060);
+    d = md5hh(d, a, b, c, x[i + 4], 11, 1272893353);
+    c = md5hh(c, d, a, b, x[i + 7], 16, -155497632);
+    b = md5hh(b, c, d, a, x[i + 10], 23, -1094730640);
+    a = md5hh(a, b, c, d, x[i + 13], 4, 681279174);
+    d = md5hh(d, a, b, c, x[i], 11, -358537222);
+    c = md5hh(c, d, a, b, x[i + 3], 16, -722521979);
+    b = md5hh(b, c, d, a, x[i + 6], 23, 76029189);
+    a = md5hh(a, b, c, d, x[i + 9], 4, -640364487);
+    d = md5hh(d, a, b, c, x[i + 12], 11, -421815835);
+    c = md5hh(c, d, a, b, x[i + 15], 16, 530742520);
+    b = md5hh(b, c, d, a, x[i + 2], 23, -995338651);
+    a = md5ii(a, b, c, d, x[i], 6, -198630844);
+    d = md5ii(d, a, b, c, x[i + 7], 10, 1126891415);
+    c = md5ii(c, d, a, b, x[i + 14], 15, -1416354905);
+    b = md5ii(b, c, d, a, x[i + 5], 21, -57434055);
+    a = md5ii(a, b, c, d, x[i + 12], 6, 1700485571);
+    d = md5ii(d, a, b, c, x[i + 3], 10, -1894986606);
+    c = md5ii(c, d, a, b, x[i + 10], 15, -1051523);
+    b = md5ii(b, c, d, a, x[i + 1], 21, -2054922799);
+    a = md5ii(a, b, c, d, x[i + 8], 6, 1873313359);
+    d = md5ii(d, a, b, c, x[i + 15], 10, -30611744);
+    c = md5ii(c, d, a, b, x[i + 6], 15, -1560198380);
+    b = md5ii(b, c, d, a, x[i + 13], 21, 1309151649);
+    a = md5ii(a, b, c, d, x[i + 4], 6, -145523070);
+    d = md5ii(d, a, b, c, x[i + 11], 10, -1120210379);
+    c = md5ii(c, d, a, b, x[i + 2], 15, 718787259);
+    b = md5ii(b, c, d, a, x[i + 9], 21, -343485551);
+    a = safeAdd(a, olda);
+    b = safeAdd(b, oldb);
+    c = safeAdd(c, oldc);
+    d = safeAdd(d, oldd);
+  }
+
+  return [a, b, c, d];
+}
+/*
+ * Convert an array bytes to an array of little-endian words
+ * Characters >255 have their high-byte silently ignored.
+ */
+
+
+function bytesToWords(input) {
+  if (input.length === 0) {
+    return [];
+  }
+
+  var length8 = input.length * 8;
+  var output = new Uint32Array(getOutputLength(length8));
+
+  for (var i = 0; i < length8; i += 8) {
+    output[i >> 5] |= (input[i / 8] & 0xff) << i % 32;
+  }
+
+  return output;
+}
+/*
+ * Add integers, wrapping at 2^32. This uses 16-bit operations internally
+ * to work around bugs in some JS interpreters.
+ */
+
+
+function safeAdd(x, y) {
+  var lsw = (x & 0xffff) + (y & 0xffff);
+  var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
+  return msw << 16 | lsw & 0xffff;
+}
+/*
+ * Bitwise rotate a 32-bit number to the left.
+ */
+
+
+function bitRotateLeft(num, cnt) {
+  return num << cnt | num >>> 32 - cnt;
+}
+/*
+ * These functions implement the four basic operations the algorithm uses.
+ */
+
+
+function md5cmn(q, a, b, x, s, t) {
+  return safeAdd(bitRotateLeft(safeAdd(safeAdd(a, q), safeAdd(x, t)), s), b);
+}
+
+function md5ff(a, b, c, d, x, s, t) {
+  return md5cmn(b & c | ~b & d, a, b, x, s, t);
+}
+
+function md5gg(a, b, c, d, x, s, t) {
+  return md5cmn(b & d | c & ~d, a, b, x, s, t);
+}
+
+function md5hh(a, b, c, d, x, s, t) {
+  return md5cmn(b ^ c ^ d, a, b, x, s, t);
+}
+
+function md5ii(a, b, c, d, x, s, t) {
+  return md5cmn(c ^ (b | ~d), a, b, x, s, t);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (md5);
+
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/nil.js":
+/*!***************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/nil.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ('00000000-0000-0000-0000-000000000000');
+
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/parse.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/parse.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _validate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./validate.js */ "./node_modules/uuid/dist/esm-browser/validate.js");
+
+
+function parse(uuid) {
+  if (!Object(_validate_js__WEBPACK_IMPORTED_MODULE_0__["default"])(uuid)) {
+    throw TypeError('Invalid UUID');
+  }
+
+  var v;
+  var arr = new Uint8Array(16); // Parse ########-....-....-....-............
+
+  arr[0] = (v = parseInt(uuid.slice(0, 8), 16)) >>> 24;
+  arr[1] = v >>> 16 & 0xff;
+  arr[2] = v >>> 8 & 0xff;
+  arr[3] = v & 0xff; // Parse ........-####-....-....-............
+
+  arr[4] = (v = parseInt(uuid.slice(9, 13), 16)) >>> 8;
+  arr[5] = v & 0xff; // Parse ........-....-####-....-............
+
+  arr[6] = (v = parseInt(uuid.slice(14, 18), 16)) >>> 8;
+  arr[7] = v & 0xff; // Parse ........-....-....-####-............
+
+  arr[8] = (v = parseInt(uuid.slice(19, 23), 16)) >>> 8;
+  arr[9] = v & 0xff; // Parse ........-....-....-....-############
+  // (Use "/" to avoid 32-bit truncation when bit-shifting high-order bytes)
+
+  arr[10] = (v = parseInt(uuid.slice(24, 36), 16)) / 0x10000000000 & 0xff;
+  arr[11] = v / 0x100000000 & 0xff;
+  arr[12] = v >>> 24 & 0xff;
+  arr[13] = v >>> 16 & 0xff;
+  arr[14] = v >>> 8 & 0xff;
+  arr[15] = v & 0xff;
+  return arr;
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (parse);
+
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/regex.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/regex.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i);
+
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/rng.js":
+/*!***************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/rng.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return rng; });
+// Unique ID creation requires a high quality random # generator. In the browser we therefore
+// require the crypto API and do not support built-in fallback to lower quality random number
+// generators (like Math.random()).
+var getRandomValues;
+var rnds8 = new Uint8Array(16);
+function rng() {
+  // lazy load so that environments that need to polyfill have a chance to do so
+  if (!getRandomValues) {
+    // getRandomValues needs to be invoked in a context where "this" is a Crypto implementation. Also,
+    // find the complete implementation of crypto (msCrypto) on IE11.
+    getRandomValues = typeof crypto !== 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || typeof msCrypto !== 'undefined' && typeof msCrypto.getRandomValues === 'function' && msCrypto.getRandomValues.bind(msCrypto);
+
+    if (!getRandomValues) {
+      throw new Error('crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported');
+    }
+  }
+
+  return getRandomValues(rnds8);
+}
+
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/sha1.js":
+/*!****************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/sha1.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// Adapted from Chris Veness' SHA1 code at
+// http://www.movable-type.co.uk/scripts/sha1.html
+function f(s, x, y, z) {
+  switch (s) {
+    case 0:
+      return x & y ^ ~x & z;
+
+    case 1:
+      return x ^ y ^ z;
+
+    case 2:
+      return x & y ^ x & z ^ y & z;
+
+    case 3:
+      return x ^ y ^ z;
+  }
+}
+
+function ROTL(x, n) {
+  return x << n | x >>> 32 - n;
+}
+
+function sha1(bytes) {
+  var K = [0x5a827999, 0x6ed9eba1, 0x8f1bbcdc, 0xca62c1d6];
+  var H = [0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476, 0xc3d2e1f0];
+
+  if (typeof bytes === 'string') {
+    var msg = unescape(encodeURIComponent(bytes)); // UTF8 escape
+
+    bytes = [];
+
+    for (var i = 0; i < msg.length; ++i) {
+      bytes.push(msg.charCodeAt(i));
+    }
+  } else if (!Array.isArray(bytes)) {
+    // Convert Array-like to Array
+    bytes = Array.prototype.slice.call(bytes);
+  }
+
+  bytes.push(0x80);
+  var l = bytes.length / 4 + 2;
+  var N = Math.ceil(l / 16);
+  var M = new Array(N);
+
+  for (var _i = 0; _i < N; ++_i) {
+    var arr = new Uint32Array(16);
+
+    for (var j = 0; j < 16; ++j) {
+      arr[j] = bytes[_i * 64 + j * 4] << 24 | bytes[_i * 64 + j * 4 + 1] << 16 | bytes[_i * 64 + j * 4 + 2] << 8 | bytes[_i * 64 + j * 4 + 3];
+    }
+
+    M[_i] = arr;
+  }
+
+  M[N - 1][14] = (bytes.length - 1) * 8 / Math.pow(2, 32);
+  M[N - 1][14] = Math.floor(M[N - 1][14]);
+  M[N - 1][15] = (bytes.length - 1) * 8 & 0xffffffff;
+
+  for (var _i2 = 0; _i2 < N; ++_i2) {
+    var W = new Uint32Array(80);
+
+    for (var t = 0; t < 16; ++t) {
+      W[t] = M[_i2][t];
+    }
+
+    for (var _t = 16; _t < 80; ++_t) {
+      W[_t] = ROTL(W[_t - 3] ^ W[_t - 8] ^ W[_t - 14] ^ W[_t - 16], 1);
+    }
+
+    var a = H[0];
+    var b = H[1];
+    var c = H[2];
+    var d = H[3];
+    var e = H[4];
+
+    for (var _t2 = 0; _t2 < 80; ++_t2) {
+      var s = Math.floor(_t2 / 20);
+      var T = ROTL(a, 5) + f(s, b, c, d) + e + K[s] + W[_t2] >>> 0;
+      e = d;
+      d = c;
+      c = ROTL(b, 30) >>> 0;
+      b = a;
+      a = T;
+    }
+
+    H[0] = H[0] + a >>> 0;
+    H[1] = H[1] + b >>> 0;
+    H[2] = H[2] + c >>> 0;
+    H[3] = H[3] + d >>> 0;
+    H[4] = H[4] + e >>> 0;
+  }
+
+  return [H[0] >> 24 & 0xff, H[0] >> 16 & 0xff, H[0] >> 8 & 0xff, H[0] & 0xff, H[1] >> 24 & 0xff, H[1] >> 16 & 0xff, H[1] >> 8 & 0xff, H[1] & 0xff, H[2] >> 24 & 0xff, H[2] >> 16 & 0xff, H[2] >> 8 & 0xff, H[2] & 0xff, H[3] >> 24 & 0xff, H[3] >> 16 & 0xff, H[3] >> 8 & 0xff, H[3] & 0xff, H[4] >> 24 & 0xff, H[4] >> 16 & 0xff, H[4] >> 8 & 0xff, H[4] & 0xff];
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (sha1);
+
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/stringify.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/stringify.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _validate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./validate.js */ "./node_modules/uuid/dist/esm-browser/validate.js");
+
+/**
+ * Convert array of 16 byte values to UUID string format of the form:
+ * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+ */
+
+var byteToHex = [];
+
+for (var i = 0; i < 256; ++i) {
+  byteToHex.push((i + 0x100).toString(16).substr(1));
+}
+
+function stringify(arr) {
+  var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  // Note: Be careful editing this code!  It's been tuned for performance
+  // and works in ways you may not expect. See https://github.com/uuidjs/uuid/pull/434
+  var uuid = (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + '-' + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + '-' + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + '-' + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + '-' + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]]).toLowerCase(); // Consistency check for valid UUID.  If this throws, it's likely due to one
+  // of the following:
+  // - One or more input array values don't map to a hex octet (leading to
+  // "undefined" in the uuid)
+  // - Invalid input values for the RFC `version` or `variant` fields
+
+  if (!Object(_validate_js__WEBPACK_IMPORTED_MODULE_0__["default"])(uuid)) {
+    throw TypeError('Stringified UUID is invalid');
+  }
+
+  return uuid;
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (stringify);
+
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/v1.js":
+/*!**************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/v1.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _rng_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./rng.js */ "./node_modules/uuid/dist/esm-browser/rng.js");
+/* harmony import */ var _stringify_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./stringify.js */ "./node_modules/uuid/dist/esm-browser/stringify.js");
+
+ // **`v1()` - Generate time-based UUID**
+//
+// Inspired by https://github.com/LiosK/UUID.js
+// and http://docs.python.org/library/uuid.html
+
+var _nodeId;
+
+var _clockseq; // Previous uuid creation time
+
+
+var _lastMSecs = 0;
+var _lastNSecs = 0; // See https://github.com/uuidjs/uuid for API details
+
+function v1(options, buf, offset) {
+  var i = buf && offset || 0;
+  var b = buf || new Array(16);
+  options = options || {};
+  var node = options.node || _nodeId;
+  var clockseq = options.clockseq !== undefined ? options.clockseq : _clockseq; // node and clockseq need to be initialized to random values if they're not
+  // specified.  We do this lazily to minimize issues related to insufficient
+  // system entropy.  See #189
+
+  if (node == null || clockseq == null) {
+    var seedBytes = options.random || (options.rng || _rng_js__WEBPACK_IMPORTED_MODULE_0__["default"])();
+
+    if (node == null) {
+      // Per 4.5, create and 48-bit node id, (47 random bits + multicast bit = 1)
+      node = _nodeId = [seedBytes[0] | 0x01, seedBytes[1], seedBytes[2], seedBytes[3], seedBytes[4], seedBytes[5]];
+    }
+
+    if (clockseq == null) {
+      // Per 4.2.2, randomize (14 bit) clockseq
+      clockseq = _clockseq = (seedBytes[6] << 8 | seedBytes[7]) & 0x3fff;
+    }
+  } // UUID timestamps are 100 nano-second units since the Gregorian epoch,
+  // (1582-10-15 00:00).  JSNumbers aren't precise enough for this, so
+  // time is handled internally as 'msecs' (integer milliseconds) and 'nsecs'
+  // (100-nanoseconds offset from msecs) since unix epoch, 1970-01-01 00:00.
+
+
+  var msecs = options.msecs !== undefined ? options.msecs : Date.now(); // Per 4.2.1.2, use count of uuid's generated during the current clock
+  // cycle to simulate higher resolution clock
+
+  var nsecs = options.nsecs !== undefined ? options.nsecs : _lastNSecs + 1; // Time since last uuid creation (in msecs)
+
+  var dt = msecs - _lastMSecs + (nsecs - _lastNSecs) / 10000; // Per 4.2.1.2, Bump clockseq on clock regression
+
+  if (dt < 0 && options.clockseq === undefined) {
+    clockseq = clockseq + 1 & 0x3fff;
+  } // Reset nsecs if clock regresses (new clockseq) or we've moved onto a new
+  // time interval
+
+
+  if ((dt < 0 || msecs > _lastMSecs) && options.nsecs === undefined) {
+    nsecs = 0;
+  } // Per 4.2.1.2 Throw error if too many uuids are requested
+
+
+  if (nsecs >= 10000) {
+    throw new Error("uuid.v1(): Can't create more than 10M uuids/sec");
+  }
+
+  _lastMSecs = msecs;
+  _lastNSecs = nsecs;
+  _clockseq = clockseq; // Per 4.1.4 - Convert from unix epoch to Gregorian epoch
+
+  msecs += 12219292800000; // `time_low`
+
+  var tl = ((msecs & 0xfffffff) * 10000 + nsecs) % 0x100000000;
+  b[i++] = tl >>> 24 & 0xff;
+  b[i++] = tl >>> 16 & 0xff;
+  b[i++] = tl >>> 8 & 0xff;
+  b[i++] = tl & 0xff; // `time_mid`
+
+  var tmh = msecs / 0x100000000 * 10000 & 0xfffffff;
+  b[i++] = tmh >>> 8 & 0xff;
+  b[i++] = tmh & 0xff; // `time_high_and_version`
+
+  b[i++] = tmh >>> 24 & 0xf | 0x10; // include version
+
+  b[i++] = tmh >>> 16 & 0xff; // `clock_seq_hi_and_reserved` (Per 4.2.2 - include variant)
+
+  b[i++] = clockseq >>> 8 | 0x80; // `clock_seq_low`
+
+  b[i++] = clockseq & 0xff; // `node`
+
+  for (var n = 0; n < 6; ++n) {
+    b[i + n] = node[n];
+  }
+
+  return buf || Object(_stringify_js__WEBPACK_IMPORTED_MODULE_1__["default"])(b);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (v1);
+
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/v3.js":
+/*!**************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/v3.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _v35_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./v35.js */ "./node_modules/uuid/dist/esm-browser/v35.js");
+/* harmony import */ var _md5_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./md5.js */ "./node_modules/uuid/dist/esm-browser/md5.js");
+
+
+var v3 = Object(_v35_js__WEBPACK_IMPORTED_MODULE_0__["default"])('v3', 0x30, _md5_js__WEBPACK_IMPORTED_MODULE_1__["default"]);
+/* harmony default export */ __webpack_exports__["default"] = (v3);
+
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/v35.js":
+/*!***************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/v35.js ***!
+  \***************************************************/
+/*! exports provided: DNS, URL, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DNS", function() { return DNS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "URL", function() { return URL; });
+/* harmony import */ var _stringify_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./stringify.js */ "./node_modules/uuid/dist/esm-browser/stringify.js");
+/* harmony import */ var _parse_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./parse.js */ "./node_modules/uuid/dist/esm-browser/parse.js");
+
+
+
+function stringToBytes(str) {
+  str = unescape(encodeURIComponent(str)); // UTF8 escape
+
+  var bytes = [];
+
+  for (var i = 0; i < str.length; ++i) {
+    bytes.push(str.charCodeAt(i));
+  }
+
+  return bytes;
+}
+
+var DNS = '6ba7b810-9dad-11d1-80b4-00c04fd430c8';
+var URL = '6ba7b811-9dad-11d1-80b4-00c04fd430c8';
+/* harmony default export */ __webpack_exports__["default"] = (function (name, version, hashfunc) {
+  function generateUUID(value, namespace, buf, offset) {
+    if (typeof value === 'string') {
+      value = stringToBytes(value);
+    }
+
+    if (typeof namespace === 'string') {
+      namespace = Object(_parse_js__WEBPACK_IMPORTED_MODULE_1__["default"])(namespace);
+    }
+
+    if (namespace.length !== 16) {
+      throw TypeError('Namespace must be array-like (16 iterable integer values, 0-255)');
+    } // Compute hash of namespace and value, Per 4.3
+    // Future: Use spread syntax when supported on all platforms, e.g. `bytes =
+    // hashfunc([...namespace, ... value])`
+
+
+    var bytes = new Uint8Array(16 + value.length);
+    bytes.set(namespace);
+    bytes.set(value, namespace.length);
+    bytes = hashfunc(bytes);
+    bytes[6] = bytes[6] & 0x0f | version;
+    bytes[8] = bytes[8] & 0x3f | 0x80;
+
+    if (buf) {
+      offset = offset || 0;
+
+      for (var i = 0; i < 16; ++i) {
+        buf[offset + i] = bytes[i];
+      }
+
+      return buf;
+    }
+
+    return Object(_stringify_js__WEBPACK_IMPORTED_MODULE_0__["default"])(bytes);
+  } // Function#name is not settable on some platforms (#270)
+
+
+  try {
+    generateUUID.name = name; // eslint-disable-next-line no-empty
+  } catch (err) {} // For CommonJS default export support
+
+
+  generateUUID.DNS = DNS;
+  generateUUID.URL = URL;
+  return generateUUID;
+});
+
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/v4.js":
+/*!**************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/v4.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _rng_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./rng.js */ "./node_modules/uuid/dist/esm-browser/rng.js");
+/* harmony import */ var _stringify_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./stringify.js */ "./node_modules/uuid/dist/esm-browser/stringify.js");
+
+
+
+function v4(options, buf, offset) {
+  options = options || {};
+  var rnds = options.random || (options.rng || _rng_js__WEBPACK_IMPORTED_MODULE_0__["default"])(); // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+
+  rnds[6] = rnds[6] & 0x0f | 0x40;
+  rnds[8] = rnds[8] & 0x3f | 0x80; // Copy bytes to buffer, if provided
+
+  if (buf) {
+    offset = offset || 0;
+
+    for (var i = 0; i < 16; ++i) {
+      buf[offset + i] = rnds[i];
+    }
+
+    return buf;
+  }
+
+  return Object(_stringify_js__WEBPACK_IMPORTED_MODULE_1__["default"])(rnds);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (v4);
+
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/v5.js":
+/*!**************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/v5.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _v35_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./v35.js */ "./node_modules/uuid/dist/esm-browser/v35.js");
+/* harmony import */ var _sha1_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sha1.js */ "./node_modules/uuid/dist/esm-browser/sha1.js");
+
+
+var v5 = Object(_v35_js__WEBPACK_IMPORTED_MODULE_0__["default"])('v5', 0x50, _sha1_js__WEBPACK_IMPORTED_MODULE_1__["default"]);
+/* harmony default export */ __webpack_exports__["default"] = (v5);
+
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/validate.js":
+/*!********************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/validate.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _regex_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./regex.js */ "./node_modules/uuid/dist/esm-browser/regex.js");
+
+
+function validate(uuid) {
+  return typeof uuid === 'string' && _regex_js__WEBPACK_IMPORTED_MODULE_0__["default"].test(uuid);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (validate);
+
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/version.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/version.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _validate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./validate.js */ "./node_modules/uuid/dist/esm-browser/validate.js");
+
+
+function version(uuid) {
+  if (!Object(_validate_js__WEBPACK_IMPORTED_MODULE_0__["default"])(uuid)) {
+    throw TypeError('Invalid UUID');
+  }
+
+  return parseInt(uuid.substr(14, 1), 16);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (version);
+
+/***/ }),
+
 /***/ "./src/Blocks/Alert/Alert.js":
 /*!***********************************!*\
   !*** ./src/Blocks/Alert/Alert.js ***!
@@ -1810,10 +4737,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _components_FormsSelection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/FormsSelection */ "./src/Blocks/Forms/components/FormsSelection.js");
 /* harmony import */ var _components_FormView__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/FormView */ "./src/Blocks/Forms/components/FormView.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _hooks_useScript__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../hooks/useScript */ "./src/hooks/useScript.js");
 
 
 
 
+
+
+
+
+var _require = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/esm-browser/index.js"),
+    uuidv4 = _require.v4;
 
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('snow-blocks/forms', {
   title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Forms', 'forms'),
@@ -1830,10 +4766,23 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('sno
     formKey: {
       type: 'string',
       default: ''
+    },
+    formId: {
+      type: 'string',
+      default: ''
     }
   },
   edit: function edit(props) {
-    var formUrl = props.attributes.formUrl;
+    var attributes = props.attributes,
+        setAttributes = props.setAttributes;
+    var formUrl = attributes.formUrl,
+        formId = attributes.formId;
+    Object(react__WEBPACK_IMPORTED_MODULE_5__["useEffect"])(function () {
+      setAttributes({
+        formId: uuidv4()
+      });
+    }, []);
+    Object(_hooks_useScript__WEBPACK_IMPORTED_MODULE_6__["default"])(formId, "<script src=\"https://unpkg.com/formiojs@latest/dist/formio.embed.js?src=".concat(formUrl, "\"></script>"));
     if (!formUrl) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_FormsSelection__WEBPACK_IMPORTED_MODULE_3__["default"], props);
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_FormView__WEBPACK_IMPORTED_MODULE_4__["default"], props);
   },
@@ -1858,7 +4807,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var FormView = function FormView(props) {
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, props.attributes.formUrl);
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    id: props.attributes.formId
+  });
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (FormView);
@@ -2451,7 +5402,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _functions_useApi__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../functions/useApi */ "./src/functions/useApi.js");
+/* harmony import */ var _hooks_useApi__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../hooks/useApi */ "./src/hooks/useApi.js");
 /* harmony import */ var _components_PostsListView__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/PostsListView */ "./src/Blocks/PostsList/components/PostsListView.js");
 /* harmony import */ var _components_PostsListInspector__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/PostsListInspector */ "./src/Blocks/PostsList/components/PostsListInspector.js");
 
@@ -2493,7 +5444,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
     default: 'no'
   }),
   edit: function edit(props) {
-    var _useApi = Object(_functions_useApi__WEBPACK_IMPORTED_MODULE_4__["default"])('posts', props.attributes.categoryList),
+    var _useApi = Object(_hooks_useApi__WEBPACK_IMPORTED_MODULE_4__["default"])('posts', props.attributes.categoryList),
         data = _useApi.data,
         isLoading = _useApi.isLoading,
         isError = _useApi.isError;
@@ -2558,12 +5509,12 @@ var PostListEmpty = function PostListEmpty(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _functions_useMedia__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../functions/useMedia */ "./src/functions/useMedia.js");
+/* harmony import */ var _hooks_useMedia__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hooks/useMedia */ "./src/hooks/useMedia.js");
 
 
 
 var PostListImage = function PostListImage(props) {
-  var _useMedia = Object(_functions_useMedia__WEBPACK_IMPORTED_MODULE_1__["default"])(props.featured_media),
+  var _useMedia = Object(_hooks_useMedia__WEBPACK_IMPORTED_MODULE_1__["default"])(props.featured_media),
       media = _useMedia.media,
       isLoading = _useMedia.isLoading;
 
@@ -2628,7 +5579,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _functions_useCategory__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../functions/useCategory */ "./src/functions/useCategory.js");
+/* harmony import */ var _hooks_useCategory__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../hooks/useCategory */ "./src/hooks/useCategory.js");
 
 
 
@@ -2645,7 +5596,7 @@ var PostsListInspector = function PostsListInspector(props) {
       showDate = attributes.showDate,
       categoryList = attributes.categoryList;
 
-  var _useCategory = Object(_functions_useCategory__WEBPACK_IMPORTED_MODULE_6__["default"])(),
+  var _useCategory = Object(_hooks_useCategory__WEBPACK_IMPORTED_MODULE_6__["default"])(),
       categories = _useCategory.categories,
       isLoading = _useCategory.isLoading,
       isError = _useCategory.isError; // Loading States
@@ -2966,17 +5917,17 @@ var getSlug = function getSlug(link) {
 
 /***/ }),
 
-/***/ "./src/functions/useApi.js":
-/*!*********************************!*\
-  !*** ./src/functions/useApi.js ***!
-  \*********************************/
+/***/ "./src/hooks/useApi.js":
+/*!*****************************!*\
+  !*** ./src/hooks/useApi.js ***!
+  \*****************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swr */ "./node_modules/swr/esm/index.js");
-/* harmony import */ var _fetcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./fetcher */ "./src/functions/fetcher.js");
+/* harmony import */ var _functions_fetcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../functions/fetcher */ "./src/functions/fetcher.js");
 
  //
 // WIP: HANDLE ERROR
@@ -2987,7 +5938,7 @@ var useApi = function useApi(type, categories) {
     return item;
   })) : '';
 
-  var _useSWR = Object(swr__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(window.location.origin, "/wp-json/wp/v2/").concat(type).concat(hasCategories), _fetcher__WEBPACK_IMPORTED_MODULE_1__["default"]),
+  var _useSWR = Object(swr__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(window.location.origin, "/wp-json/wp/v2/").concat(type).concat(hasCategories), _functions_fetcher__WEBPACK_IMPORTED_MODULE_1__["default"]),
       data = _useSWR.data,
       error = _useSWR.error;
 
@@ -3002,22 +5953,22 @@ var useApi = function useApi(type, categories) {
 
 /***/ }),
 
-/***/ "./src/functions/useCategory.js":
-/*!**************************************!*\
-  !*** ./src/functions/useCategory.js ***!
-  \**************************************/
+/***/ "./src/hooks/useCategory.js":
+/*!**********************************!*\
+  !*** ./src/hooks/useCategory.js ***!
+  \**********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swr */ "./node_modules/swr/esm/index.js");
-/* harmony import */ var _fetcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./fetcher */ "./src/functions/fetcher.js");
+/* harmony import */ var _functions_fetcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../functions/fetcher */ "./src/functions/fetcher.js");
 
 
 
 var useCategory = function useCategory(id) {
-  var _useSWR = Object(swr__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(window.location.origin, "/wp-json/wp/v2/categories/").concat(id || ''), _fetcher__WEBPACK_IMPORTED_MODULE_1__["default"]),
+  var _useSWR = Object(swr__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(window.location.origin, "/wp-json/wp/v2/categories/").concat(id || ''), _functions_fetcher__WEBPACK_IMPORTED_MODULE_1__["default"]),
       data = _useSWR.data,
       error = _useSWR.error;
 
@@ -3032,22 +5983,22 @@ var useCategory = function useCategory(id) {
 
 /***/ }),
 
-/***/ "./src/functions/useMedia.js":
-/*!***********************************!*\
-  !*** ./src/functions/useMedia.js ***!
-  \***********************************/
+/***/ "./src/hooks/useMedia.js":
+/*!*******************************!*\
+  !*** ./src/hooks/useMedia.js ***!
+  \*******************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swr */ "./node_modules/swr/esm/index.js");
-/* harmony import */ var _fetcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./fetcher */ "./src/functions/fetcher.js");
+/* harmony import */ var _functions_fetcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../functions/fetcher */ "./src/functions/fetcher.js");
 
 
 
 var useMedia = function useMedia(id) {
-  var _useSWR = Object(swr__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(window.location.origin, "/wp-json/wp/v2/media/").concat(id), _fetcher__WEBPACK_IMPORTED_MODULE_1__["default"]),
+  var _useSWR = Object(swr__WEBPACK_IMPORTED_MODULE_0__["default"])("".concat(window.location.origin, "/wp-json/wp/v2/media/").concat(id), _functions_fetcher__WEBPACK_IMPORTED_MODULE_1__["default"]),
       data = _useSWR.data,
       error = _useSWR.error;
 
@@ -3059,6 +6010,32 @@ var useMedia = function useMedia(id) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (useMedia);
+
+/***/ }),
+
+/***/ "./src/hooks/useScript.js":
+/*!********************************!*\
+  !*** ./src/hooks/useScript.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var postscribe__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! postscribe */ "./node_modules/postscribe/dist/postscribe.js");
+/* harmony import */ var postscribe__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(postscribe__WEBPACK_IMPORTED_MODULE_1__);
+
+ // TODO: Get a better way to render the script without a package
+
+var useScript = function useScript(containerId, script) {
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    postscribe__WEBPACK_IMPORTED_MODULE_1___default()("#".concat(containerId), script);
+  }, []);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (useScript);
 
 /***/ }),
 

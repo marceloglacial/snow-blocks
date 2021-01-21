@@ -2,6 +2,10 @@ import { registerBlockType } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 import FormsSelection from './components/FormsSelection';
 import FormView from './components/FormView';
+import { useEffect } from 'react';
+import useScript from '../../hooks/useScript';
+
+const { v4: uuidv4 } = require('uuid');
 
 registerBlockType('snow-blocks/forms', {
   title: __('Forms', 'forms'),
@@ -19,9 +23,24 @@ registerBlockType('snow-blocks/forms', {
       type: 'string',
       default: '',
     },
+    formId: {
+      type: 'string',
+      default: '',
+    },
   },
   edit: (props) => {
-    const { formUrl } = props.attributes;
+    const { attributes, setAttributes } = props;
+    const { formUrl, formId } = attributes;
+
+    useEffect(() => {
+      setAttributes({ formId: uuidv4() });
+    }, []);
+
+    useScript(
+      formId,
+      `<script src="https://unpkg.com/formiojs@latest/dist/formio.embed.js?src=${formUrl}"></script>`
+    );
+
     if (!formUrl) return <FormsSelection {...props} />;
     return <FormView {...props} />;
   },
