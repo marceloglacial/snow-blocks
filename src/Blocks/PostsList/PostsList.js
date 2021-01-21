@@ -1,6 +1,6 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
-import useApi from '../../functions/useApi';
+import useApi from '../../hooks/useApi';
 import PostsListsView from './components/PostsListView';
 import PostsListInspector from './components/PostsListInspector';
 

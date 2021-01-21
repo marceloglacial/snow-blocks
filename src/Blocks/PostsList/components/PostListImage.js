@@ -1,4 +1,4 @@
-import useMedia from '../../../functions/useMedia';
+import useMedia from '../../../hooks/useMedia';
 
 const PostListImage = (props) => {
   const { media, isLoading } = useMedia(props.featured_media);

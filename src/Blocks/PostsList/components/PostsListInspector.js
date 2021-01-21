@@ -6,7 +6,7 @@ import {
   RadioControl,
   CheckboxControl,
 } from '@wordpress/components';
-import useCategory from '../../../functions/useCategory';
+import useCategory from '../../../hooks/useCategory';
 
 const PostsListInspector = (props) => {
   const { attributes, setAttributes } = props;
