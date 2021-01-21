@@ -4769,7 +4769,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('sno
     },
     formId: {
       type: 'string',
-      default: ''
+      default: uuidv4()
     }
   },
   edit: function edit(props) {
@@ -4777,13 +4777,13 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('sno
         setAttributes = props.setAttributes;
     var formUrl = attributes.formUrl,
         formId = attributes.formId;
+    if (!formUrl) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_FormsSelection__WEBPACK_IMPORTED_MODULE_3__["default"], props);
     Object(react__WEBPACK_IMPORTED_MODULE_5__["useEffect"])(function () {
       setAttributes({
         formId: uuidv4()
       });
     }, []);
     Object(_hooks_useScript__WEBPACK_IMPORTED_MODULE_6__["default"])(formId, "<script src=\"https://unpkg.com/formiojs@latest/dist/formio.embed.js?src=".concat(formUrl, "\"></script>"));
-    if (!formUrl) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_FormsSelection__WEBPACK_IMPORTED_MODULE_3__["default"], props);
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_FormView__WEBPACK_IMPORTED_MODULE_4__["default"], props);
   },
   save: function save(props) {
