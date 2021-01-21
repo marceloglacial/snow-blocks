@@ -25,12 +25,14 @@ registerBlockType('snow-blocks/forms', {
     },
     formId: {
       type: 'string',
-      default: '',
+      default: uuidv4(),
     },
   },
   edit: (props) => {
     const { attributes, setAttributes } = props;
     const { formUrl, formId } = attributes;
+
+    if (!formUrl) return <FormsSelection {...props} />;
 
     useEffect(() => {
       setAttributes({ formId: uuidv4() });
@@ -41,7 +43,6 @@ registerBlockType('snow-blocks/forms', {
       `<script src="https://unpkg.com/formiojs@latest/dist/formio.embed.js?src=${formUrl}"></script>`
     );
 
-    if (!formUrl) return <FormsSelection {...props} />;
     return <FormView {...props} />;
   },
   save: (props) => {
