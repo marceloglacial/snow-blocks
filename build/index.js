@@ -5400,8 +5400,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_InstagramFeedSelection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/InstagramFeedSelection */ "./src/Blocks/InstagramFeed/components/InstagramFeedSelection.js");
-/* harmony import */ var _components_InstagramFeedView__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/InstagramFeedView */ "./src/Blocks/InstagramFeed/components/InstagramFeedView.js");
+/* harmony import */ var _components_InstagramFeedInspector__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/InstagramFeedInspector */ "./src/Blocks/InstagramFeed/components/InstagramFeedInspector.js");
+/* harmony import */ var _components_InstagramFeedSelection__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/InstagramFeedSelection */ "./src/Blocks/InstagramFeed/components/InstagramFeedSelection.js");
+/* harmony import */ var _components_InstagramFeedView__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/InstagramFeedView */ "./src/Blocks/InstagramFeed/components/InstagramFeedView.js");
+
 
 
 
@@ -5417,16 +5419,83 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('sno
   attributes: {
     userID: {
       type: 'string'
+    },
+    itemsNumber: {
+      type: 'string',
+      default: '6'
+    },
+    imageType: {
+      type: 'string',
+      default: 'default'
     }
   },
   edit: function edit(props) {
-    if (!props.attributes.userID) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_InstagramFeedSelection__WEBPACK_IMPORTED_MODULE_3__["default"], props);
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_InstagramFeedView__WEBPACK_IMPORTED_MODULE_4__["default"], props);
+    if (!props.attributes.userID) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_InstagramFeedSelection__WEBPACK_IMPORTED_MODULE_4__["default"], props);
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_InstagramFeedInspector__WEBPACK_IMPORTED_MODULE_3__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_InstagramFeedView__WEBPACK_IMPORTED_MODULE_5__["default"], props));
   },
   save: function save(props) {
     return null;
   }
 });
+
+/***/ }),
+
+/***/ "./src/Blocks/InstagramFeed/components/InstagramFeedInspector.js":
+/*!***********************************************************************!*\
+  !*** ./src/Blocks/InstagramFeed/components/InstagramFeedInspector.js ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+var InstagramFeedInspector = function InstagramFeedInspector(props) {
+  var attributes = props.attributes,
+      setAttributes = props.setAttributes;
+  var itemsNumber = attributes.itemsNumber,
+      imageType = attributes.imageType;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
+    title: "Number of Posts"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
+    type: "number",
+    min: 1,
+    max: 20,
+    defaultValue: itemsNumber,
+    onChange: function onChange(e) {
+      return setAttributes({
+        itemsNumber: e.target.value
+      });
+    }
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
+    title: "Image Type"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["RadioControl"], {
+    selected: imageType,
+    options: [{
+      label: 'Default',
+      value: 'default'
+    }, {
+      label: 'Thumbnail',
+      value: 'thumbnail'
+    }],
+    onChange: function onChange(option) {
+      setAttributes({
+        imageType: option
+      });
+    }
+  })));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (InstagramFeedInspector);
 
 /***/ }),
 
@@ -5498,7 +5567,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var InstagramFeedView = function InstagramFeedView(props) {
-  var url = "https://www.instagram.com/graphql/query/?query_hash=42323d64886122307be10013ad2dcc44&variables={\"id\":".concat(props.attributes.userID, ",\"first\":6}");
+  var _props$attributes = props.attributes,
+      userID = _props$attributes.userID,
+      itemsNumber = _props$attributes.itemsNumber,
+      imageType = _props$attributes.imageType;
+  var url = "https://www.instagram.com/graphql/query/?query_hash=42323d64886122307be10013ad2dcc44&variables={\"id\":".concat(userID, ",\"first\":").concat(itemsNumber, "}");
 
   var _useRest = Object(_hooks_useRest__WEBPACK_IMPORTED_MODULE_1__["default"])(url),
       data = _useRest.data,
@@ -5507,6 +5580,7 @@ var InstagramFeedView = function InstagramFeedView(props) {
 
   if (isError) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "Error!");
   if (isLoading) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "Loading ...");
+  if (!data.data) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "No items.");
   var array = data.data.user.edge_owner_to_timeline_media.edges;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "row row-cols-1 row-cols-md-2 g-4"
@@ -5514,25 +5588,28 @@ var InstagramFeedView = function InstagramFeedView(props) {
     var _item$node = item.node,
         id = _item$node.id,
         display_url = _item$node.display_url,
+        thumbnail_src = _item$node.thumbnail_src,
         edge_media_to_caption = _item$node.edge_media_to_caption,
         shortcode = _item$node.shortcode;
     var title = edge_media_to_caption.edges[0];
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
-      href: "https://www.instagram.com/p/".concat(shortcode),
-      target: "_blank",
+    var imageSrc = imageType !== 'default' ? thumbnail_src : display_url;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "col",
       key: id
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "col"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "card"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
-      src: display_url,
+      src: imageSrc,
+      alt: "",
       className: "card__image"
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "card__body"
     }, title && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "card__title"
-    }, title.node.text)))));
+    }, title.node.text), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+      href: "https://www.instagram.com/p/".concat(shortcode),
+      target: "_blank"
+    }, "Original Post"))));
   }));
 };
 
