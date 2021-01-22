@@ -11,17 +11,21 @@ const InstagramFeedView = (props) => {
   return (
     <div className={`row row-cols-1 row-cols-md-2 g-4`}>
       {array.map((item) => {
-        const { id, display_url, edge_media_to_caption } = item.node;
+        const { id, display_url, edge_media_to_caption, shortcode } = item.node;
         const title = edge_media_to_caption.edges[0];
         return (
-          <div className={`col`} key={id}>
-            <div className='card'>
-              <img src={display_url} className='card__image' />
-              <div className={`card__body`}>
-                {title && <div className='card__title'>{title.node.text}</div>}
+          <a href={`https://www.instagram.com/p/${shortcode}`} target='_blank'>
+            <div className={`col`} key={id}>
+              <div className='card'>
+                <img src={display_url} className='card__image' />
+                <div className={`card__body`}>
+                  {title && (
+                    <div className='card__title'>{title.node.text}</div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          </a>
         );
       })}
     </div>

@@ -5514,9 +5514,13 @@ var InstagramFeedView = function InstagramFeedView(props) {
     var _item$node = item.node,
         id = _item$node.id,
         display_url = _item$node.display_url,
-        edge_media_to_caption = _item$node.edge_media_to_caption;
+        edge_media_to_caption = _item$node.edge_media_to_caption,
+        shortcode = _item$node.shortcode;
     var title = edge_media_to_caption.edges[0];
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+      href: "https://www.instagram.com/p/".concat(shortcode),
+      target: "_blank"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "col",
       key: id
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
@@ -5528,7 +5532,7 @@ var InstagramFeedView = function InstagramFeedView(props) {
       className: "card__body"
     }, title && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "card__title"
-    }, title.node.text))));
+    }, title.node.text)))));
   }));
 };
 
