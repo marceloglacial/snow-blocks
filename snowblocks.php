@@ -91,7 +91,6 @@ function set_allowed_blocks($final_blocks, $post) {
         'snow-blocks/hero',
         'snow-blocks/postslist',
 		'snow-blocks/forms',
-		'snow-blocks/instagram'
     );
 
     // Register admin specific blocks
