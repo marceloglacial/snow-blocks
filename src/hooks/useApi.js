@@ -1,10 +1,6 @@
 import useSWR from 'swr';
 import fetcher from '../functions/fetcher';
 
-//
-// WIP: HANDLE ERROR
-//
-
 const useApi = (type, categories) => {
   const hasCategories =
     categories.length !== 0

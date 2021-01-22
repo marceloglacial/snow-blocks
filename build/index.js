@@ -5385,10 +5385,10 @@ var HeroView = function HeroView(props) {
 
 /***/ }),
 
-/***/ "./src/Blocks/Instagram/Instagram.js":
-/*!*******************************************!*\
-  !*** ./src/Blocks/Instagram/Instagram.js ***!
-  \*******************************************/
+/***/ "./src/Blocks/InstagramFeed/InstagramFeed.js":
+/*!***************************************************!*\
+  !*** ./src/Blocks/InstagramFeed/InstagramFeed.js ***!
+  \***************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5400,44 +5400,109 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_InstagramPostSelecion__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/InstagramPostSelecion */ "./src/Blocks/Instagram/components/InstagramPostSelecion.js");
-/* harmony import */ var _components_InstagramPostView__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/InstagramPostView */ "./src/Blocks/Instagram/components/InstagramPostView.js");
-/* harmony import */ var _hooks_useScript__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../hooks/useScript */ "./src/hooks/useScript.js");
+/* harmony import */ var _components_InstagramFeedInspector__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/InstagramFeedInspector */ "./src/Blocks/InstagramFeed/components/InstagramFeedInspector.js");
+/* harmony import */ var _components_InstagramFeedSelection__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/InstagramFeedSelection */ "./src/Blocks/InstagramFeed/components/InstagramFeedSelection.js");
+/* harmony import */ var _components_InstagramFeedView__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/InstagramFeedView */ "./src/Blocks/InstagramFeed/components/InstagramFeedView.js");
 
 
 
 
 
 
-Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('snow-blocks/instagram', {
-  title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Instagram Post', 'instagram'),
+Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('snow-blocks/instagram-feed', {
+  title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Instagram Feed', 'instagramfeed'),
   category: 'widgets',
   icon: 'heart',
   supports: {
     html: false
   },
   attributes: {
-    url: {
+    userID: {
+      type: 'string'
+    },
+    itemsNumber: {
       type: 'string',
-      default: ''
+      default: '6'
+    },
+    imageType: {
+      type: 'string',
+      default: 'default'
     }
   },
   edit: function edit(props) {
-    if (!props.attributes.url) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_InstagramPostSelecion__WEBPACK_IMPORTED_MODULE_3__["default"], props);
-    Object(_hooks_useScript__WEBPACK_IMPORTED_MODULE_5__["default"])('instagram-container', "<script src=\"//www.instagram.com/embed.js\"></script>");
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_InstagramPostView__WEBPACK_IMPORTED_MODULE_4__["default"], props);
+    if (!props.attributes.userID) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_InstagramFeedSelection__WEBPACK_IMPORTED_MODULE_4__["default"], props);
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_InstagramFeedInspector__WEBPACK_IMPORTED_MODULE_3__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_InstagramFeedView__WEBPACK_IMPORTED_MODULE_5__["default"], props));
   },
   save: function save(props) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_InstagramPostView__WEBPACK_IMPORTED_MODULE_4__["default"], props);
+    return null;
   }
 });
 
 /***/ }),
 
-/***/ "./src/Blocks/Instagram/components/InstagramPostSelecion.js":
-/*!******************************************************************!*\
-  !*** ./src/Blocks/Instagram/components/InstagramPostSelecion.js ***!
-  \******************************************************************/
+/***/ "./src/Blocks/InstagramFeed/components/InstagramFeedInspector.js":
+/*!***********************************************************************!*\
+  !*** ./src/Blocks/InstagramFeed/components/InstagramFeedInspector.js ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+var InstagramFeedInspector = function InstagramFeedInspector(props) {
+  var attributes = props.attributes,
+      setAttributes = props.setAttributes;
+  var itemsNumber = attributes.itemsNumber,
+      imageType = attributes.imageType;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
+    title: "Number of Posts"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
+    type: "number",
+    min: 1,
+    max: 20,
+    defaultValue: itemsNumber,
+    onChange: function onChange(e) {
+      return setAttributes({
+        itemsNumber: e.target.value
+      });
+    }
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
+    title: "Image Type"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["RadioControl"], {
+    selected: imageType,
+    options: [{
+      label: 'Default',
+      value: 'default'
+    }, {
+      label: 'Thumbnail',
+      value: 'thumbnail'
+    }],
+    onChange: function onChange(option) {
+      setAttributes({
+        imageType: option
+      });
+    }
+  })));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (InstagramFeedInspector);
+
+/***/ }),
+
+/***/ "./src/Blocks/InstagramFeed/components/InstagramFeedSelection.js":
+/*!***********************************************************************!*\
+  !*** ./src/Blocks/InstagramFeed/components/InstagramFeedSelection.js ***!
+  \***********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5447,14 +5512,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 
 
-var InstagramPostSelecion = function InstagramPostSelecion(props) {
+var InstagramFeedSelection = function InstagramFeedSelection(props) {
   var setAttributes = props.setAttributes;
 
   var handleSelection = function handleSelection(e) {
     e.preventDefault();
-    var url = e.target.formUrl.value;
+    var userID = e.target.formID.value;
     setAttributes({
-      url: url
+      userID: userID
     });
   };
 
@@ -5464,28 +5529,32 @@ var InstagramPostSelecion = function InstagramPostSelecion(props) {
       return handleSelection(e);
     }
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
-    htmlFor: "formUrl",
+    htmlFor: "formID",
     className: "form__title"
-  }, "Instagram Post URL"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
-    type: "url",
-    id: "formUrl",
-    placeholder: "https://",
-    className: "form__input"
+  }, "Instagram User ID (", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+    href: "https://www.instafollowers.co/find-instagram-user-id",
+    target: "_blank"
+  }, "Find yours here"), ")"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
+    type: "text",
+    id: "formID",
+    placeholder: "Ex: 530654",
+    className: "form__input",
+    required: true
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
     className: "form__button",
     type: "submit",
-    value: "Add form"
+    value: "Add UserID"
   }));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (InstagramPostSelecion);
+/* harmony default export */ __webpack_exports__["default"] = (InstagramFeedSelection);
 
 /***/ }),
 
-/***/ "./src/Blocks/Instagram/components/InstagramPostView.js":
-/*!**************************************************************!*\
-  !*** ./src/Blocks/Instagram/components/InstagramPostView.js ***!
-  \**************************************************************/
+/***/ "./src/Blocks/InstagramFeed/components/InstagramFeedView.js":
+/*!******************************************************************!*\
+  !*** ./src/Blocks/InstagramFeed/components/InstagramFeedView.js ***!
+  \******************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5493,21 +5562,58 @@ var InstagramPostSelecion = function InstagramPostSelecion(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _hooks_useRest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../hooks/useRest */ "./src/hooks/useRest.js");
 
 
-var InstagramPostView = function InstagramPostView(props) {
+
+var InstagramFeedView = function InstagramFeedView(props) {
+  var _props$attributes = props.attributes,
+      userID = _props$attributes.userID,
+      itemsNumber = _props$attributes.itemsNumber,
+      imageType = _props$attributes.imageType;
+  var url = "https://www.instagram.com/graphql/query/?query_hash=42323d64886122307be10013ad2dcc44&variables={\"id\":".concat(userID, ",\"first\":").concat(itemsNumber, "}");
+
+  var _useRest = Object(_hooks_useRest__WEBPACK_IMPORTED_MODULE_1__["default"])(url),
+      data = _useRest.data,
+      isLoading = _useRest.isLoading,
+      isError = _useRest.isError;
+
+  if (isError) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "Error!");
+  if (isLoading) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "Loading ...");
+  if (!data.data) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "No items.");
+  var array = data.data.user.edge_owner_to_timeline_media.edges;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    id: "instagram-container"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("blockquote", {
-    id: "instagram-media",
-    className: "instagram-media",
-    "data-instgrm-captioned": true,
-    "data-instgrm-permalink": props.attributes.url,
-    "data-instgrm-version": "13"
+    className: "row row-cols-1 row-cols-md-2 g-4"
+  }, array.map(function (item) {
+    var _item$node = item.node,
+        id = _item$node.id,
+        display_url = _item$node.display_url,
+        thumbnail_src = _item$node.thumbnail_src,
+        edge_media_to_caption = _item$node.edge_media_to_caption,
+        shortcode = _item$node.shortcode;
+    var title = edge_media_to_caption.edges[0];
+    var imageSrc = imageType !== 'default' ? thumbnail_src : display_url;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "col",
+      key: id
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "card"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+      src: imageSrc,
+      alt: "",
+      className: "card__image"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "card__body"
+    }, title && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "card__title"
+    }, title.node.text), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+      href: "https://www.instagram.com/p/".concat(shortcode),
+      target: "_blank"
+    }, "Original Post"))));
   }));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (InstagramPostView);
+/* harmony default export */ __webpack_exports__["default"] = (InstagramFeedView);
 
 /***/ }),
 
@@ -6055,9 +6161,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swr */ "./node_modules/swr/esm/index.js");
 /* harmony import */ var _functions_fetcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../functions/fetcher */ "./src/functions/fetcher.js");
 
- //
-// WIP: HANDLE ERROR
-//
+
 
 var useApi = function useApi(type, categories) {
   var hasCategories = categories.length !== 0 ? "?categories=".concat(categories.map(function (item) {
@@ -6139,6 +6243,36 @@ var useMedia = function useMedia(id) {
 
 /***/ }),
 
+/***/ "./src/hooks/useRest.js":
+/*!******************************!*\
+  !*** ./src/hooks/useRest.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swr */ "./node_modules/swr/esm/index.js");
+/* harmony import */ var _functions_fetcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../functions/fetcher */ "./src/functions/fetcher.js");
+
+
+
+var useRest = function useRest(url) {
+  var _useSWR = Object(swr__WEBPACK_IMPORTED_MODULE_0__["default"])(url, _functions_fetcher__WEBPACK_IMPORTED_MODULE_1__["default"]),
+      data = _useSWR.data,
+      error = _useSWR.error;
+
+  return {
+    data: data,
+    isLoading: !error && !data,
+    isError: error
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (useRest);
+
+/***/ }),
+
 /***/ "./src/hooks/useScript.js":
 /*!********************************!*\
   !*** ./src/hooks/useScript.js ***!
@@ -6177,7 +6311,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Blocks_Hero_Hero__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Blocks/Hero/Hero */ "./src/Blocks/Hero/Hero.js");
 /* harmony import */ var _Blocks_PostsList_PostsList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Blocks/PostsList/PostsList */ "./src/Blocks/PostsList/PostsList.js");
 /* harmony import */ var _Blocks_Forms_Forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Blocks/Forms/Forms */ "./src/Blocks/Forms/Forms.js");
-/* harmony import */ var _Blocks_Instagram_Instagram__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Blocks/Instagram/Instagram */ "./src/Blocks/Instagram/Instagram.js");
+/* harmony import */ var _Blocks_InstagramFeed_InstagramFeed__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Blocks/InstagramFeed/InstagramFeed */ "./src/Blocks/InstagramFeed/InstagramFeed.js");
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_editor_scss__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
