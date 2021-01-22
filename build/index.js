@@ -5519,10 +5519,10 @@ var InstagramFeedView = function InstagramFeedView(props) {
     var title = edge_media_to_caption.edges[0];
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
       href: "https://www.instagram.com/p/".concat(shortcode),
-      target: "_blank"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "col",
+      target: "_blank",
       key: id
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "col"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "card"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {

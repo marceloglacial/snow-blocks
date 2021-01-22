@@ -14,8 +14,12 @@ const InstagramFeedView = (props) => {
         const { id, display_url, edge_media_to_caption, shortcode } = item.node;
         const title = edge_media_to_caption.edges[0];
         return (
-          <a href={`https://www.instagram.com/p/${shortcode}`} target='_blank'>
-            <div className={`col`} key={id}>
+          <a
+            href={`https://www.instagram.com/p/${shortcode}`}
+            target='_blank'
+            key={id}
+          >
+            <div className={`col`}>
               <div className='card'>
                 <img src={display_url} className='card__image' />
                 <div className={`card__body`}>
