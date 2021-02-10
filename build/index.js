@@ -5525,14 +5525,18 @@ var InstagramFeedSelection = function InstagramFeedSelection(props) {
     });
   };
 
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("form", {
-    className: "form__container form__container--selection",
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "instagram-feed__selection"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("form", {
+    className: "form__container",
     onSubmit: function onSubmit(e) {
       return handleSelection(e);
     }
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "form-control"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
     htmlFor: "formID",
-    className: "form__title"
+    className: "form-label instagram-feed__form-title"
   }, "Instagram User ID (", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
     href: "https://www.instafollowers.co/find-instagram-user-id",
     target: "_blank"
@@ -5540,13 +5544,15 @@ var InstagramFeedSelection = function InstagramFeedSelection(props) {
     type: "text",
     id: "formID",
     placeholder: "Ex: 530654",
-    className: "form__input",
+    className: "form-input",
     required: true
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
-    className: "form__button",
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "form-control"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
+    className: "form-submit btn btn--primary",
     type: "submit",
     value: "Add UserID"
-  }));
+  }))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (InstagramFeedSelection);
@@ -5585,7 +5591,7 @@ var InstagramFeedView = function InstagramFeedView(props) {
   if (!data.data) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "No items.");
   var array = data.data.user.edge_owner_to_timeline_media.edges;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "row row-cols-1 row-cols-md-2 g-4"
+    className: "instagram-feed row row-cols-1 row-cols-md-2 g-4"
   }, array.map(function (item) {
     var _item$node = item.node,
         id = _item$node.id,
@@ -5639,6 +5645,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hooks_useApi__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../hooks/useApi */ "./src/hooks/useApi.js");
 /* harmony import */ var _components_PostsListView__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/PostsListView */ "./src/Blocks/PostsList/components/PostsListView.js");
 /* harmony import */ var _components_PostsListInspector__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/PostsListInspector */ "./src/Blocks/PostsList/components/PostsListInspector.js");
+/* harmony import */ var _Alert_Alert__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Alert/Alert */ "./src/Blocks/Alert/Alert.js");
+
 
 
 
@@ -5663,19 +5671,19 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
     },
     showImage: {
       type: 'string',
-      default: 'no'
+      default: 'yes'
     },
     showDate: {
       type: 'string',
-      default: 'no'
+      default: 'yes'
     },
     showText: {
       type: 'string',
-      default: 'no'
+      default: 'yes'
     }
   }, "showDate", {
     type: 'string',
-    default: 'no'
+    default: 'yes'
   }),
   edit: function edit(props) {
     var _useApi = Object(_hooks_useApi__WEBPACK_IMPORTED_MODULE_4__["default"])('posts', props.attributes.categoryList),
@@ -5693,9 +5701,9 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
   },
   save: function save(props) {
     var title = props.attributes.title;
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: "posts-list"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h2", null, title), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, "Dynamic List"));
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_Alert_Alert__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      title: "Dynamic Block. Please use a Headless App to render it."
+    });
   }
 });
 
@@ -6022,17 +6030,22 @@ var PostsListsView = function PostsListsView(props) {
         date = item.date,
         title = item.title,
         excerpt = item.excerpt,
-        featured_media = item.featured_media;
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+        featured_media = item.featured_media,
+        link = item.link;
+    var hasImage = featured_media !== 0;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+      href: link,
       className: "card",
       key: id
-    }, featured_media !== 0 && showImage === 'yes' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_PostListImage__WEBPACK_IMPORTED_MODULE_3__["default"], item), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    }, showImage === 'yes' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("figure", {
+      className: "card__figure ".concat(!hasImage && "card__figure--no-image")
+    }, hasImage && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_PostListImage__WEBPACK_IMPORTED_MODULE_3__["default"], item)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "card__body"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h5", {
       className: "card__title"
     }, title.rendered || ''), showDate === 'yes' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", {
       className: "card__date"
-    }, Object(_functions_formatDate__WEBPACK_IMPORTED_MODULE_5__["default"])(date)), showText === 'yes' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", {
+    }, Object(_functions_formatDate__WEBPACK_IMPORTED_MODULE_5__["default"])(date)), showText === 'yes' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "card__text",
       dangerouslySetInnerHTML: {
         __html: excerpt.rendered || ''

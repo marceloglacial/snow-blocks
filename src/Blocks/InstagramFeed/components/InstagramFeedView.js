@@ -12,7 +12,7 @@ const InstagramFeedView = (props) => {
   const array = data.data.user.edge_owner_to_timeline_media.edges;
 
   return (
-    <div className={`row row-cols-1 row-cols-md-2 g-4`}>
+    <div className={`instagram-feed row row-cols-1 row-cols-md-2 g-4`}>
       {array.map((item) => {
         const {
           id,

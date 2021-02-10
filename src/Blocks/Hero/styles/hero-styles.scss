@@ -66,6 +66,11 @@
   .hero__container {
     display: flex;
   }
+
+  .hero__content {
+    width: 50%;
+  }
+
   .hero__figure {
     max-width: 50%;
     margin-left: 2rem;

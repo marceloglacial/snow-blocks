@@ -30,10 +30,11 @@
 
   .hero__button .btn.btn--primary {
     line-height: unset;
-    padding: 1rem 1rem 0.5rem 1rem !important;
+    padding: 0.5rem 0.5rem 0rem 0.5rem !important;
 
     textarea {
       text-align: center;
+      color: var(--white);
     }
 
     textarea::placeholder {
