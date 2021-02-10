@@ -1,11 +1,12 @@
-[data-type="snow-blocks/hero"] .hero textarea {
-  background: none;
-  margin: 0;
-}
-[data-type="snow-blocks/hero"] .hero .hero__upload {
+[data-type="snow-blocks/hero"] .hero__upload {
   border: dashed 2px grey;
   padding: 4rem;
   text-align: center;
+}
+
+[data-type="snow-blocks/hero"] .hero textarea {
+  background: none;
+  margin: 0;
 }
 [data-type="snow-blocks/hero"] .hero .hero__button {
   position: relative;
@@ -45,6 +46,28 @@
 
 [data-type="snow-blocks/hero"] .hero.hero--full textarea {
   color: var(--white);
+}
+[data-type="snow-blocks/hero"] .hero.hero--full textarea::-moz-placeholder {
+  color: var(--white);
+}
+[data-type="snow-blocks/hero"] .hero.hero--full textarea:-ms-input-placeholder {
+  color: var(--white);
+}
+[data-type="snow-blocks/hero"] .hero.hero--full textarea::placeholder {
+  color: var(--white);
+}
+
+[data-type="snow-blocks/hero"] .hero.hero--split textarea {
+  color: var(--black);
+}
+[data-type="snow-blocks/hero"] .hero.hero--split textarea::-moz-placeholder {
+  color: var(--black);
+}
+[data-type="snow-blocks/hero"] .hero.hero--split textarea:-ms-input-placeholder {
+  color: var(--black);
+}
+[data-type="snow-blocks/hero"] .hero.hero--split textarea::placeholder {
+  color: var(--black);
 }
 
 /*# sourceMappingURL=index.css.map*/

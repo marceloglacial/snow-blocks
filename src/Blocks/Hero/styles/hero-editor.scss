@@ -1,15 +1,17 @@
 // Global
+
+[data-type='snow-blocks/hero'] .hero__upload {
+  border: dashed 2px grey;
+  padding: 4rem;
+  text-align: center;
+}
+
 [data-type='snow-blocks/hero'] .hero {
   textarea {
     background: none;
     margin: 0;
   }
 
-  .hero__upload {
-    border: dashed 2px grey;
-    padding: 4rem;
-    text-align: center;
-  }
   .hero__button {
     position: relative;
     display: inline-block;
@@ -33,6 +35,7 @@
     textarea {
       text-align: center;
     }
+
     textarea::placeholder {
       color: var(--white);
     }
@@ -50,5 +53,18 @@
 [data-type='snow-blocks/hero'] .hero.hero--full {
   textarea {
     color: var(--white);
+  }
+  textarea::placeholder {
+    color: var(--white);
+  }
+}
+
+// Hero Split
+[data-type='snow-blocks/hero'] .hero.hero--split {
+  textarea {
+    color: var(--black);
+  }
+  textarea::placeholder {
+    color: var(--black);
   }
 }
