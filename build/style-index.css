@@ -1,60 +1,55 @@
-.hero {
+.hero__container {
   position: relative;
-}
-.hero .hero__image {
-  width: 100%;
-  height: 100vh;
-  max-height: 650px;
-  -o-object-fit: cover;
-     object-fit: cover;
 }
 
-.hero.hero--full .hero__figure {
-  width: 100vw;
-  position: relative;
-  margin-left: -50vw;
-  left: 50%;
+.hero__upload {
+  border: dashed 2px grey;
+  padding: 4rem;
+  text-align: center;
 }
-.hero.hero--full .hero__figure::after {
-  display: block;
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
+
+.hero.hero--full .hero__container {
+  padding: 10rem 4rem;
   z-index: 1;
-  width: 100%;
-  height: 100%;
-  background: black;
-  background: linear-gradient(0deg, black 0%, rgba(0, 0, 0, 0) 100%);
 }
-.hero.hero--full .hero__content {
-  position: absolute;
-  bottom: 4rem;
-  z-index: 10;
+.hero.hero--full .hero__title {
+  color: white;
+  color: var(--white);
+  margin: 0;
+}
+.hero.hero--full .hero__description {
+  margin: 0;
   color: white;
   color: var(--white);
 }
-
-.hero.hero--split .hero__container {
-  display: flex;
-  width: 100vw;
-  position: relative;
-  margin-left: -50vw;
-  left: 50%;
+.hero.hero--full .hero__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3;
 }
-
-.hero.hero--split .hero__content {
-  padding: 4rem;
-  width: 50%;
+.hero.hero--full .hero__figure {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
-
-.hero.hero--split .hero__figure {
-  position: relative;
-  width: 50%;
+.hero.hero--full .hero__figure::before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: rgba(0, 0, 0, 0.4);
+  content: "";
+  z-index: 2;
 }
-
-.hero.hero--left .hero__container {
-  flex-direction: row-reverse;
+.hero.hero--full .hero__image {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .alert {
@@ -78,11 +73,18 @@
   --shadow: rgba(0, 0, 0, 0.7);
 }
 
+.editor-styles-wrapper .wp-block {
+  max-width: unset !important;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
 .btn {
   display: inline-block;
   border-radius: 0.25rem;
   padding: 1.5rem !important;
   text-decoration: none;
+  line-height: 0;
 }
 
 .btn--primary {

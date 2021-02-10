@@ -8,3 +8,9 @@
   --secondary-color: var(--white);
   --shadow: rgba(0, 0, 0, 0.7);
 }
+
+.editor-styles-wrapper .wp-block {
+  max-width: unset !important;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
