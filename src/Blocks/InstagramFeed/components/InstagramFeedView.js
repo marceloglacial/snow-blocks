@@ -27,7 +27,9 @@ const InstagramFeedView = (props) => {
         return (
           <div className={`col`} key={id}>
             <div className='card'>
-              <img src={imageSrc} alt='' className='card__image' />
+              <figure className='card__figure'>
+                <img src={imageSrc} alt='' className='card__image' />
+              </figure>
               <div className={`card__body`}>
                 {title && <div className='card__title'>{title.node.text}</div>}
                 <a

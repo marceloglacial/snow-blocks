@@ -83,14 +83,6 @@
   width: 100%;
 }
 
-.instagram-feed {
-  display: flex;
-  flex-wrap: wrap;
-}
-.instagram-feed .col {
-  width: 33.33%;
-}
-
 .postslist textarea {
   background: none;
   color: var(--black);

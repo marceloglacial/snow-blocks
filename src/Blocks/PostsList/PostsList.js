@@ -56,10 +56,7 @@ registerBlockType('snow-blocks/postslist', {
       </>
     );
   },
-  save: (props) => {
-    const { title } = props.attributes;
-    return (
-      <Alert title='Dynamic Block. Please use a Headless App to render it.' />
-    );
-  },
+  save: (props) => (
+    <Alert title='Dynamic Block. Please use a Headless App to render it.' />
+  ),
 });

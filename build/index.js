@@ -4740,6 +4740,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _hooks_useScript__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../hooks/useScript */ "./src/hooks/useScript.js");
+/* harmony import */ var _Alert_Alert__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Alert/Alert */ "./src/Blocks/Alert/Alert.js");
+
 
 
 
@@ -4787,7 +4789,10 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('sno
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_FormView__WEBPACK_IMPORTED_MODULE_4__["default"], props);
   },
   save: function save(props) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_FormView__WEBPACK_IMPORTED_MODULE_4__["default"], props);
+    Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_Alert_Alert__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      title: "Dynamic Block. Please use a Headless App to render it."
+    });
+    return;
   }
 });
 
@@ -4808,6 +4813,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var FormView = function FormView(props) {
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "form",
     id: props.attributes.formId
   });
 };
@@ -4845,23 +4851,25 @@ var FormsSelection = function FormsSelection(props) {
   };
 
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("form", {
-    className: "form__container form__container--selection",
+    className: "form-block form__container form__container--selection",
     onSubmit: function onSubmit(e) {
       return handleSelection(e);
     }
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "form-control"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
     htmlFor: "formUrl",
-    className: "form__title"
+    className: "form-label"
   }, "Form url"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
     type: "url",
     id: "formUrl",
     placeholder: "E.G.: https://username.typeform.com/to/XxXxXXX",
-    className: "form__input"
+    className: "form-input"
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
-    className: "form__button",
+    className: "form-button btn btn--primary",
     type: "submit",
     value: "Add form"
-  }));
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (FormsSelection);
@@ -5606,11 +5614,13 @@ var InstagramFeedView = function InstagramFeedView(props) {
       key: id
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "card"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("figure", {
+      className: "card__figure"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
       src: imageSrc,
       alt: "",
       className: "card__image"
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "card__body"
     }, title && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "card__title"
@@ -5700,7 +5710,6 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('sno
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_PostsListInspector__WEBPACK_IMPORTED_MODULE_6__["default"], props), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_PostsListView__WEBPACK_IMPORTED_MODULE_5__["default"], postData));
   },
   save: function save(props) {
-    var title = props.attributes.title;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_Alert_Alert__WEBPACK_IMPORTED_MODULE_7__["default"], {
       title: "Dynamic Block. Please use a Headless App to render it."
     });
