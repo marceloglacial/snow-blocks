@@ -1,44 +1,50 @@
-[data-type="snow-blocks/hero"] .hero.hero--full textarea::-moz-placeholder {
-  color: var(--white);
+[data-type="snow-blocks/hero"] .hero textarea {
   background: none;
   margin: 0;
 }
-[data-type="snow-blocks/hero"] .hero.hero--full textarea:-ms-input-placeholder {
-  color: var(--white);
-  background: none;
-  margin: 0;
+[data-type="snow-blocks/hero"] .hero .hero__upload {
+  border: dashed 2px grey;
+  padding: 4rem;
+  text-align: center;
 }
-[data-type="snow-blocks/hero"] .hero.hero--full textarea,
-[data-type="snow-blocks/hero"] .hero.hero--full textarea::placeholder {
-  color: var(--white);
-  background: none;
-  margin: 0;
-}
-[data-type="snow-blocks/hero"] .hero.hero--full .hero__close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 3;
-}
-[data-type="snow-blocks/hero"] .hero.hero--full .hero__button {
+[data-type="snow-blocks/hero"] .hero .hero__button {
   position: relative;
   display: inline-block;
 }
-[data-type="snow-blocks/hero"] .hero.hero--full .hero__button .hero__link {
+[data-type="snow-blocks/hero"] .hero .hero__button .hero__link {
   position: absolute;
   right: -3rem;
 }
-[data-type="snow-blocks/hero"] .hero.hero--full .hero__button .hero__link .block-editor-url-input__button-modal {
+[data-type="snow-blocks/hero"] .hero .hero__button .hero__link .block-editor-url-input__button-modal {
   position: absolute;
   top: 0;
   left: 3rem;
 }
-[data-type="snow-blocks/hero"] .hero.hero--full .hero__button .btn.btn--primary {
+[data-type="snow-blocks/hero"] .hero .hero__button .btn.btn--primary {
   line-height: unset;
   padding: 1rem 1rem 0.5rem 1rem !important;
 }
-[data-type="snow-blocks/hero"] .hero.hero--full .hero__button .btn.btn--primary textarea {
+[data-type="snow-blocks/hero"] .hero .hero__button .btn.btn--primary textarea {
   text-align: center;
+}
+[data-type="snow-blocks/hero"] .hero .hero__button .btn.btn--primary textarea::-moz-placeholder {
+  color: var(--white);
+}
+[data-type="snow-blocks/hero"] .hero .hero__button .btn.btn--primary textarea:-ms-input-placeholder {
+  color: var(--white);
+}
+[data-type="snow-blocks/hero"] .hero .hero__button .btn.btn--primary textarea::placeholder {
+  color: var(--white);
+}
+[data-type="snow-blocks/hero"] .hero .hero__close {
+  position: absolute;
+  top: 0rem;
+  right: 1rem;
+  z-index: 3;
+}
+
+[data-type="snow-blocks/hero"] .hero.hero--full textarea {
+  color: var(--white);
 }
 
 /*# sourceMappingURL=index.css.map*/

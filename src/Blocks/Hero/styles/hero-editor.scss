@@ -1,17 +1,14 @@
-// Hero Full
-[data-type='snow-blocks/hero'] .hero.hero--full {
-  textarea,
-  textarea::placeholder {
-    color: var(--white);
+// Global
+[data-type='snow-blocks/hero'] .hero {
+  textarea {
     background: none;
     margin: 0;
   }
 
-  .hero__close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 3;
+  .hero__upload {
+    border: dashed 2px grey;
+    padding: 4rem;
+    text-align: center;
   }
   .hero__button {
     position: relative;
@@ -36,5 +33,22 @@
     textarea {
       text-align: center;
     }
+    textarea::placeholder {
+      color: var(--white);
+    }
+  }
+
+  .hero__close {
+    position: absolute;
+    top: 0rem;
+    right: 1rem;
+    z-index: 3;
+  }
+}
+
+// Hero Full
+[data-type='snow-blocks/hero'] .hero.hero--full {
+  textarea {
+    color: var(--white);
   }
 }
