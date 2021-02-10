@@ -4,6 +4,7 @@
   textarea::placeholder {
     color: var(--white);
     background: none;
+    margin: 0;
   }
 
   .hero__close {
@@ -11,5 +12,29 @@
     top: 1rem;
     right: 1rem;
     z-index: 3;
+  }
+  .hero__button {
+    position: relative;
+    display: inline-block;
+  }
+
+  .hero__button .hero__link {
+    position: absolute;
+    right: -3rem;
+
+    .block-editor-url-input__button-modal {
+      position: absolute;
+      top: 0;
+      left: 3rem;
+    }
+  }
+
+  .hero__button .btn.btn--primary {
+    line-height: unset;
+    padding: 1rem 1rem 0.5rem 1rem !important;
+
+    textarea {
+      text-align: center;
+    }
   }
 }

@@ -5006,24 +5006,26 @@ var HeroButton = function HeroButton(props) {
   });
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "hero__button"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "hero__link"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["URLInputButton"], {
-    className: "hero__link",
     url: buttonLink,
     onChange: function onChange(buttonLink) {
       return setAttributes({
         buttonLink: buttonLink
       });
     }
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["PlainText"], {
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "btn btn--primary"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["PlainText"], {
     placeholder: 'Add Title',
     value: buttonText,
-    className: "btn btn--primary",
     onChange: function onChange(val) {
       return setAttributes({
         buttonText: val
       });
     }
-  }));
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (HeroButton);
