@@ -12,7 +12,7 @@ const InstagramFeedView = (props) => {
   const array = data.data.user.edge_owner_to_timeline_media.edges;
 
   return (
-    <div className={`row row-cols-1 row-cols-md-2 g-4`}>
+    <div className={`instagram-feed row row-cols-1 row-cols-md-2 g-4`}>
       {array.map((item) => {
         const {
           id,
@@ -27,7 +27,9 @@ const InstagramFeedView = (props) => {
         return (
           <div className={`col`} key={id}>
             <div className='card'>
-              <img src={imageSrc} alt='' className='card__image' />
+              <figure className='card__figure'>
+                <img src={imageSrc} alt='' className='card__image' />
+              </figure>
               <div className={`card__body`}>
                 {title && <div className='card__title'>{title.node.text}</div>}
                 <a

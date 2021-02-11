@@ -3,6 +3,8 @@
   border-radius: 0.25rem;
   padding: 1.5rem !important;
   text-decoration: none;
+  line-height: 0;
+  appearance: none;
 }
 
 .btn--primary {
@@ -12,6 +14,7 @@
 }
 
 .btn--primary:hover {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
+  opacity: 0.7;
+  color: var(--secondary-color);
+  cursor: pointer;
 }

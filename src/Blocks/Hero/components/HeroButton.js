@@ -18,17 +18,19 @@ const HeroButton = (props) => {
 
   return (
     <div className='hero__button'>
-      <URLInputButton
-        className='hero__link'
-        url={buttonLink}
-        onChange={(buttonLink) => setAttributes({ buttonLink })}
-      />
-      <PlainText
-        placeholder={'Add Title'}
-        value={buttonText}
-        className='btn btn--primary'
-        onChange={(val) => setAttributes({ buttonText: val })}
-      />
+      <div className='hero__link'>
+        <URLInputButton
+          url={buttonLink}
+          onChange={(buttonLink) => setAttributes({ buttonLink })}
+        />
+      </div>
+      <div className='btn btn--primary'>
+        <PlainText
+          placeholder={'Add Title'}
+          value={buttonText}
+          onChange={(val) => setAttributes({ buttonText: val })}
+        />
+      </div>
     </div>
   );
 };

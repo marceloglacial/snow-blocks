@@ -1,0 +1,20 @@
+.form__container--selection {
+  padding: 4rem;
+  outline: dashed 2px var(--grey);
+}
+
+.form-control {
+  padding-bottom: 1rem;
+
+  .form-label {
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .form-input {
+    padding: 0.5rem 1rem !important;
+    width: 100%;
+  }
+}

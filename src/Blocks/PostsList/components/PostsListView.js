@@ -27,11 +27,18 @@ const PostsListsView = (props) => {
       <PostsListTitle {...props.props} />
       <div className='cardgrid'>
         {data.map((item) => {
-          const { id, date, title, excerpt, featured_media } = item;
+          const { id, date, title, excerpt, featured_media, link } = item;
+          const hasImage = featured_media !== 0;
           return (
-            <div className='card' key={id}>
-              {featured_media !== 0 && showImage === 'yes' && (
-                <PostListImage {...item} />
+            <a href={link} className='card' key={id}>
+              {showImage === 'yes' && (
+                <figure
+                  className={`card__figure ${
+                    !hasImage && `card__figure--no-image`
+                  }`}
+                >
+                  {hasImage && <PostListImage {...item} />}
+                </figure>
               )}
               <div className='card__body'>
                 <h5 className='card__title'>{title.rendered || ''}</h5>
@@ -39,13 +46,13 @@ const PostsListsView = (props) => {
                   <p className='card__date'>{formatDate(date)}</p>
                 )}
                 {showText === 'yes' && (
-                  <p
+                  <div
                     className='card__text'
                     dangerouslySetInnerHTML={{ __html: excerpt.rendered || '' }}
                   />
                 )}
               </div>
-            </div>
+            </a>
           );
         })}
       </div>

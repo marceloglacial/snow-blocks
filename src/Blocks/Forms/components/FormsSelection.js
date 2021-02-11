@@ -9,19 +9,25 @@ const FormsSelection = (props) => {
   };
   return (
     <form
-      className='form__container form__container--selection'
+      className='form-block form__container form__container--selection'
       onSubmit={(e) => handleSelection(e)}
     >
-      <label htmlFor='formUrl' className='form__title'>
-        Form url
-      </label>
-      <input
-        type='url'
-        id='formUrl'
-        placeholder='E.G.: https://username.typeform.com/to/XxXxXXX'
-        className='form__input'
-      />
-      <input className='form__button' type='submit' value='Add form' />
+      <div className='form-control'>
+        <label htmlFor='formUrl' className='form-label'>
+          Form url
+        </label>
+        <input
+          type='url'
+          id='formUrl'
+          placeholder='E.G.: https://username.typeform.com/to/XxXxXXX'
+          className='form-input'
+        />
+        <input
+          className='form-button btn btn--primary'
+          type='submit'
+          value='Add form'
+        />
+      </div>
     </form>
   );
 };

@@ -3,6 +3,7 @@ import { __ } from '@wordpress/i18n';
 import useApi from '../../hooks/useApi';
 import PostsListsView from './components/PostsListView';
 import PostsListInspector from './components/PostsListInspector';
+import Alert from '../Alert/Alert';
 
 registerBlockType('snow-blocks/postslist', {
   title: __('Posts List', 'postslist'),
@@ -21,19 +22,19 @@ registerBlockType('snow-blocks/postslist', {
     },
     showImage: {
       type: 'string',
-      default: 'no',
+      default: 'yes',
     },
     showDate: {
       type: 'string',
-      default: 'no',
+      default: 'yes',
     },
     showText: {
       type: 'string',
-      default: 'no',
+      default: 'yes',
     },
     showDate: {
       type: 'string',
-      default: 'no',
+      default: 'yes',
     },
   },
   edit: (props) => {
@@ -55,13 +56,7 @@ registerBlockType('snow-blocks/postslist', {
       </>
     );
   },
-  save: (props) => {
-    const { title } = props.attributes;
-    return (
-      <div className='posts-list'>
-        <h2>{title}</h2>
-        <p>Dynamic List</p>
-      </div>
-    );
-  },
+  save: (props) => (
+    <Alert title='Dynamic Block. Please use a Headless App to render it.' />
+  ),
 });

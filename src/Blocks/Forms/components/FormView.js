@@ -1,2 +1,4 @@
-const FormView = (props) => <div id={props.attributes.formId} />;
+const FormView = (props) => (
+  <div className='form' id={props.attributes.formId} />
+);
 export default FormView;

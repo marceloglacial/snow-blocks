@@ -4,6 +4,7 @@ import FormsSelection from './components/FormsSelection';
 import FormView from './components/FormView';
 import { useEffect } from 'react';
 import useScript from '../../hooks/useScript';
+import Alert from '../Alert/Alert';
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -46,6 +47,7 @@ registerBlockType('snow-blocks/forms', {
     return <FormView {...props} />;
   },
   save: (props) => {
-    return <FormView {...props} />;
+    <Alert title='Dynamic Block. Please use a Headless App to render it.' />;
+    return;
   },
 });
