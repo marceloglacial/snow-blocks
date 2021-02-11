@@ -6,29 +6,39 @@ const InstagramFeedSelection = (props) => {
     setAttributes({ userID: userID });
   };
   return (
-    <form
-      className='form__container form__container--selection'
-      onSubmit={(e) => handleSelection(e)}
-    >
-      <label htmlFor='formID' className='form__title'>
-        Instagram User ID (
-        <a
-          href='https://www.instafollowers.co/find-instagram-user-id'
-          target='_blank'
-        >
-          Find yours here
-        </a>
-        )
-      </label>
-      <input
-        type='text'
-        id='formID'
-        placeholder='Ex: 530654'
-        className='form__input'
-        required
-      />
-      <input className='form__button' type='submit' value='Add UserID' />
-    </form>
+    <div className='instagram-feed__selection'>
+      <form className='form__container' onSubmit={(e) => handleSelection(e)}>
+        <div className='form-control'>
+          <label
+            htmlFor='formID'
+            className='form-label instagram-feed__form-title'
+          >
+            Instagram User ID (
+            <a
+              href='https://www.instafollowers.co/find-instagram-user-id'
+              target='_blank'
+            >
+              Find yours here
+            </a>
+            )
+          </label>
+          <input
+            type='text'
+            id='formID'
+            placeholder='Ex: 530654'
+            className='form-input'
+            required
+          />
+        </div>
+        <div className='form-control'>
+          <input
+            className='form-submit btn btn--primary'
+            type='submit'
+            value='Add UserID'
+          />
+        </div>
+      </form>
+    </div>
   );
 };
 export default InstagramFeedSelection;

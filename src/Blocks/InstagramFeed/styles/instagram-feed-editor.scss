@@ -1,0 +1,14 @@
+// Selection
+.instagram-feed__selection {
+  padding: 4rem;
+  outline: dashed 2px var(--grey);
+
+  .instagram-feed__form-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .form-input {
+    width: 100%;
+  }
+}
