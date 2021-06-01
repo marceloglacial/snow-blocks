@@ -1,12 +1,11 @@
 import { registerBlockType } from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
 import useApi from '../../hooks/useApi';
 import PostsListsView from './components/PostsListView';
 import PostsListInspector from './components/PostsListInspector';
 import Alert from '../Alert/Alert';
 
 registerBlockType('snow-blocks/postslist', {
-  title: __('Posts List', 'postslist'),
+  title: 'Posts List',
   category: 'widgets',
   icon: 'excerpt-view',
   supports: {
