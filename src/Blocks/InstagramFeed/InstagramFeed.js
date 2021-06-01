@@ -1,11 +1,10 @@
 import { registerBlockType } from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
 import InstagramFeedInspector from './components/InstagramFeedInspector';
 import InstagramFeedSelection from './components/InstagramFeedSelection';
 import InstagramFeedView from './components/InstagramFeedView';
 
 registerBlockType('snow-blocks/instagram-feed', {
-  title: __('Instagram Feed', 'instagramfeed'),
+  title: 'Instagram Feed',
   category: 'widgets',
   icon: 'heart',
   supports: {

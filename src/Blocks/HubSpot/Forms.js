@@ -1,9 +1,8 @@
 import { registerBlockType } from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
 import useHubSpot from '../../hooks/useHubSpot';
 
 registerBlockType('snow-blocks/hubspot-forms', {
-  title: __('HubSpot Forms', 'hubspot-forms'),
+  title: 'HubSpot Forms',
   category: 'widgets',
   icon: 'cover-image',
   supports: {

@@ -1,5 +1,4 @@
 import { registerBlockType } from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
 import FormsSelection from './components/FormsSelection';
 import FormView from './components/FormView';
 import { useEffect } from 'react';
@@ -9,7 +8,7 @@ import Alert from '../Alert/Alert';
 const { v4: uuidv4 } = require('uuid');
 
 registerBlockType('snow-blocks/forms', {
-  title: __('Forms', 'forms'),
+  title: 'Forms',
   category: 'widgets',
   icon: 'feedback',
   supports: {
