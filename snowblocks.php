@@ -2,7 +2,7 @@
 /**
  * Plugin Name:     Snowblocks
  * Description:     Example block written with ESNext standard and JSX support – build step required.
- * Version:         0.12.0
+ * Version:         0.24.0
  * Author:          The WordPress Contributors
  * License:         GPL-2.0-or-later
  * License URI:     https://www.gnu.org/licenses/gpl-2.0.html
@@ -89,6 +89,7 @@ function set_allowed_blocks($final_blocks, $post) {
     // Register custom blocks
     $custom_blocks = array(
         'snow-blocks/hero',
+        'snow-blocks/hubspot-forms',
         'snow-blocks/postslist',
 		'snow-blocks/forms',
 		'snow-blocks/instagram-feed',
