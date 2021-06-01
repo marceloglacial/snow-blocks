@@ -89,6 +89,7 @@ function set_allowed_blocks($final_blocks, $post) {
     // Register custom blocks
     $custom_blocks = array(
         'snow-blocks/hero',
+        'snow-blocks/hubspot-forms',
         'snow-blocks/postslist',
 		'snow-blocks/forms',
 		'snow-blocks/instagram-feed',
