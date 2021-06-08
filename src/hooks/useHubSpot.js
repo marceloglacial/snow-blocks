@@ -3,9 +3,9 @@ import fetcher from '../functions/fetcher';
 
 // TODO: Fix Cors for real
 
-const useHubSpot = (id) => {
+const useHubSpot = (hubSpotApiKey) => {
   const { data, error } = useSWR(
-    `https://cors-anywhere.herokuapp.com/https://api.hubapi.com/marketing/v3/forms?hapikey=${process.env.NEXT_PUBLIC_HUBSPOT}&limit=100`,
+    `https://cors-anywhere.herokuapp.com/https://api.hubapi.com/marketing/v3/forms?hapikey=${hubSpotApiKey}&limit=100`,
     fetcher
   );
   return {
