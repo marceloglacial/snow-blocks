@@ -34,7 +34,7 @@ registerBlockType('snow-blocks/hubspot-forms', {
           onChange={(e) => handleSelect(e)}
         >
           <option>--------</option>
-          {data.results.map((item) => {
+          {data.results?.map((item) => {
             const { archived, id, name } = item;
             if (archived) return null;
             return (
