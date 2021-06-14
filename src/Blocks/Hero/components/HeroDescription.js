@@ -1,4 +1,4 @@
-import { PlainText } from '@wordpress/block-editor';
+import { RichText } from '@wordpress/block-editor';
 
 const HeroDescription = (props) => {
   const { attributes, setAttributes, env } = props;
@@ -9,7 +9,7 @@ const HeroDescription = (props) => {
 
   return (
     <p className={`hero__description`}>
-      <PlainText
+      <RichText
         placeholder={'Add Description'}
         value={description}
         onChange={(val) => setAttributes({ description: val })}

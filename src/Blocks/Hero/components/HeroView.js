@@ -5,8 +5,8 @@ import HeroCloseButton from './HeroCloseButton';
 import HeroButton from './HeroButton';
 
 const HeroView = (props) => {
-  const { env } = props;
-  const { hasButton, heroStyle, imagePosition, imageUrl } = props.attributes;
+  const { env, attributes } = props;
+  const { hasButton, heroStyle, imagePosition, imageUrl } = attributes;
 
   if (!env && !imageUrl) return null;
 
