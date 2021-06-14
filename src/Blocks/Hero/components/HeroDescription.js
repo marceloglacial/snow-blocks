@@ -5,16 +5,22 @@ const HeroDescription = (props) => {
   const { description } = attributes;
 
   if (!description && !env) return null;
-  if (!env) return <p className={`hero__description`}>{description}</p>;
+  if (!env)
+    return (
+      <div
+        className={`hero__description`}
+        dangerouslySetInnerHTML={{ __html: description }}
+      />
+    );
 
   return (
-    <p className={`hero__description`}>
-      <RichText
-        placeholder={'Add Description'}
-        value={description}
-        onChange={(val) => setAttributes({ description: val })}
-      />
-    </p>
+    <RichText
+      tagName='p'
+      placeholder={'Add Description'}
+      value={description}
+      className={`hero__description`}
+      onChange={(val) => setAttributes({ description: val })}
+    />
   );
 };
 export default HeroDescription;
