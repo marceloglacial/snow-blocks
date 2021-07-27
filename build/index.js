@@ -5454,7 +5454,7 @@ __webpack_require__.r(__webpack_exports__);
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('snow-blocks/image', {
   title: 'Image',
   category: 'widgets',
-  icon: 'image',
+  icon: 'format-image',
   supports: {
     html: false
   },
@@ -5529,10 +5529,7 @@ const ImageEditor = props => {
   const {
     src,
     alt,
-    caption,
-    width,
-    height,
-    className
+    caption
   } = attributes;
   if (!src) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_ImageMediaLibrary__WEBPACK_IMPORTED_MODULE_1__["default"], props);
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("figure", {
@@ -5546,9 +5543,6 @@ const ImageEditor = props => {
   }, "X"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
     src: src,
     alt: alt,
-    className: className,
-    width: width || 800,
-    height: height || 600,
     loading: "lazy"
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["RichText"], {
     tagName: "figcaption",
@@ -5593,12 +5587,13 @@ const ImageMediaLibrary = props => {
     className: "image__upload"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["MediaUploadCheck"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["MediaUpload"], {
     onSelect: media => {
+      console.log(media);
       return setAttributes({
         src: media.sizes.full.url,
         alt: media.alt,
         caption: media.caption,
-        width: media.sizes.full.width,
-        height: media.sizes.full.height
+        width: media.width,
+        height: media.height
       });
     },
     allowedTypes: ALLOWED_MEDIA_TYPES,
@@ -5633,17 +5628,11 @@ const ImageView = props => {
   const {
     src,
     alt,
-    caption,
-    width,
-    height,
-    className
+    caption
   } = props.attributes;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("figure", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
     src: src,
     alt: alt,
-    className: className,
-    width: width || 800,
-    height: height || 600,
     loading: "lazy"
   }), caption && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("figcaption", {
     dangerouslySetInnerHTML: {
