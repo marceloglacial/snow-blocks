@@ -1,3 +1,20 @@
+.image__editor {
+  position: relative;
+}
+
+.image__button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.image__upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  border: dashed 1px grey;
+}
 [data-type="snow-blocks/hero"] .hero__upload {
   border: dashed 2px grey;
   padding: 4rem;

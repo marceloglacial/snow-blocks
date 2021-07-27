@@ -1,0 +1,17 @@
+.image__editor {
+  position: relative;
+}
+
+.image__button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.image__upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  border: dashed 1px grey;
+}
