@@ -7,7 +7,6 @@ const HeroMediLibrary = (props) => {
     <div className='hero__upload'>
       <MediaUploadCheck>
         <MediaUpload
-          // onSelect={(media) => console.log(media)}
           onSelect={(media) =>
             setAttributes({ imageUrl: media.sizes.full.url, image: media })
           }

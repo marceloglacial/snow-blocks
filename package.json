@@ -16,8 +16,8 @@
     "packages-update": "wp-scripts packages-update"
   },
   "devDependencies": {
-    "@wordpress/env": "^2.1.0",
-    "@wordpress/scripts": "^12.5.0",
+    "@wordpress/env": "^4.1.0",
+    "@wordpress/scripts": "^17.0.0",
     "postscribe": "^2.0.8",
     "swr": "^0.5.6",
     "uuid": "^8.3.2"

@@ -77,7 +77,6 @@ function set_allowed_blocks($final_blocks, $post) {
     $core_blocks = array(
         'core/heading',
         'core/gallery',
-        'core/image',
         'core/list',
         'core/paragraph',
         'core/quote',
@@ -92,6 +91,7 @@ function set_allowed_blocks($final_blocks, $post) {
         'snow-blocks/hubspot-forms',
         'snow-blocks/postslist',
 		'snow-blocks/forms',
+		'snow-blocks/image',
 		'snow-blocks/instagram-feed',
     );
 
