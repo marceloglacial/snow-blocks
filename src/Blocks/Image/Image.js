@@ -5,7 +5,7 @@ import ImageView from './components/ImageView';
 registerBlockType('snow-blocks/image', {
   title: 'Image',
   category: 'widgets',
-  icon: 'image',
+  icon: 'format-image',
   supports: {
     html: false,
   },

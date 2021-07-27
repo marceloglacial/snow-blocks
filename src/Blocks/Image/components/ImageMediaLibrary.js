@@ -8,12 +8,13 @@ const ImageMediaLibrary = (props) => {
       <MediaUploadCheck>
         <MediaUpload
           onSelect={(media) => {
+            console.log(media);
             return setAttributes({
               src: media.sizes.full.url,
               alt: media.alt,
               caption: media.caption,
-              width: media.sizes.full.width,
-              height: media.sizes.full.height,
+              width: media.width,
+              height: media.height,
             });
           }}
           allowedTypes={ALLOWED_MEDIA_TYPES}

@@ -6,7 +6,7 @@ import '../Image.scss';
 
 const ImageEditor = (props) => {
   const { attributes, setAttributes } = props;
-  const { src, alt, caption, width, height, className } = attributes;
+  const { src, alt, caption } = attributes;
   if (!src) return <ImageMediaLibrary {...props} />;
 
   return (
@@ -18,14 +18,7 @@ const ImageEditor = (props) => {
       >
         X
       </Button>
-      <img
-        src={src}
-        alt={alt}
-        className={className}
-        width={width || 800}
-        height={height || 600}
-        loading='lazy'
-      />
+      <img src={src} alt={alt} loading='lazy' />
       <RichText
         tagName='figcaption'
         placeholder={'Add caption'}
