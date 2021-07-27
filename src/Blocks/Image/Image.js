@@ -10,23 +10,24 @@ registerBlockType('snow-blocks/image', {
     html: false,
   },
   attributes: {
-    src: {
-      type: 'string',
+    media: {
+      type: 'object',
+      default: {
+        sizes: {
+          full: { url: '' },
+          large: { url: '' },
+          medium: { url: '' },
+          thumbnail: { url: '' },
+        },
+      },
     },
-    alt: {
+    imageSize: {
       type: 'string',
+      default: 'full',
     },
-    caption: {
+    imageAlignment: {
       type: 'string',
-    },
-    width: {
-      type: 'string',
-    },
-    height: {
-      type: 'string',
-    },
-    className: {
-      type: 'string',
+      default: 'center',
     },
   },
   edit: (props) => <ImageEditor {...props} />,

@@ -7,16 +7,7 @@ const ImageMediaLibrary = (props) => {
     <div className='image__upload'>
       <MediaUploadCheck>
         <MediaUpload
-          onSelect={(media) => {
-            console.log(media);
-            return setAttributes({
-              src: media.sizes.full.url,
-              alt: media.alt,
-              caption: media.caption,
-              width: media.width,
-              height: media.height,
-            });
-          }}
+          onSelect={(media) => setAttributes({ media: { ...media } })}
           allowedTypes={ALLOWED_MEDIA_TYPES}
           render={({ open }) => (
             <Button type='button' isPrimary onClick={open}>
