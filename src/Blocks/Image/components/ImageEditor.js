@@ -11,6 +11,7 @@ const ImageEditor = (props) => {
 
   if (!url) return <ImageMediaLibrary {...props} />;
   const { alt, caption } = media;
+  const { width, height } = media?.sizes[imageSize];
 
   return (
     <figure className={`align-${imageAlignment} image__editor`}>
@@ -55,7 +56,14 @@ const ImageEditor = (props) => {
       >
         X
       </Button>
-      <img src={url} alt={alt} className='figure__image' loading='lazy' />
+      <img
+        src={url}
+        alt={alt}
+        width={width}
+        height={height}
+        className='figure__image'
+        loading='lazy'
+      />
       <RichText
         tagName='figcaption'
         placeholder={'Add caption'}

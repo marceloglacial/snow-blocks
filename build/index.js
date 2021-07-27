@@ -5548,6 +5548,10 @@ const ImageEditor = props => {
     alt,
     caption
   } = media;
+  const {
+    width,
+    height
+  } = media === null || media === void 0 ? void 0 : media.sizes[imageSize];
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("figure", {
     className: `align-${imageAlignment} image__editor`
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["Panel"], {
@@ -5609,6 +5613,8 @@ const ImageEditor = props => {
   }, "X"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
     src: url,
     alt: alt,
+    width: width,
+    height: height,
     className: "figure__image",
     loading: "lazy"
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["RichText"], {
@@ -5700,7 +5706,9 @@ const ImageView = props => {
     imageAlignment
   } = attributes;
   const {
-    url
+    url,
+    width,
+    height
   } = media === null || media === void 0 ? void 0 : media.sizes[imageSize];
   const {
     alt,
@@ -5711,6 +5719,8 @@ const ImageView = props => {
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
     src: url,
     alt: alt,
+    width: width,
+    height: height,
     className: "figure__image",
     loading: "lazy"
   }), caption && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("figcaption", {
