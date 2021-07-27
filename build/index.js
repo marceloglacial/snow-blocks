@@ -5459,23 +5459,32 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('sno
     html: false
   },
   attributes: {
-    src: {
-      type: 'string'
+    media: {
+      type: 'object',
+      default: {
+        sizes: {
+          full: {
+            url: ''
+          },
+          large: {
+            url: ''
+          },
+          medium: {
+            url: ''
+          },
+          thumbnail: {
+            url: ''
+          }
+        }
+      }
     },
-    alt: {
-      type: 'string'
+    imageSize: {
+      type: 'string',
+      default: 'full'
     },
-    caption: {
-      type: 'string'
-    },
-    width: {
-      type: 'string'
-    },
-    height: {
-      type: 'string'
-    },
-    className: {
-      type: 'string'
+    imageAlignment: {
+      type: 'string',
+      default: 'center'
     }
   },
   edit: props => Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_ImageEditor__WEBPACK_IMPORTED_MODULE_2__["default"], props),
@@ -5527,31 +5536,100 @@ const ImageEditor = props => {
     setAttributes
   } = props;
   const {
-    src,
+    media,
+    imageSize,
+    imageAlignment
+  } = attributes;
+  const {
+    url
+  } = media === null || media === void 0 ? void 0 : media.sizes[imageSize];
+  if (!url) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_ImageMediaLibrary__WEBPACK_IMPORTED_MODULE_1__["default"], props);
+  const {
     alt,
     caption
-  } = attributes;
-  if (!src) return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_ImageMediaLibrary__WEBPACK_IMPORTED_MODULE_1__["default"], props);
+  } = media;
+  const {
+    width,
+    height
+  } = media === null || media === void 0 ? void 0 : media.sizes[imageSize];
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("figure", {
-    className: "image__editor"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+    className: `align-${imageAlignment} image__editor`
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["Panel"], {
+    header: "Image"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
+    title: "Image size",
+    initialOpen: true
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["RadioControl"], {
+    selected: imageSize,
+    options: [{
+      label: 'Full',
+      value: 'full'
+    }, {
+      label: 'Large',
+      value: 'large'
+    }, {
+      label: 'Medium',
+      value: 'medium'
+    }, {
+      label: 'Thumbnail',
+      value: 'thumbnail'
+    }],
+    onChange: value => setAttributes({
+      imageSize: value
+    })
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
+    title: "Image lignment",
+    initialOpen: true
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["RadioControl"], {
+    selected: imageAlignment,
+    options: [{
+      label: 'Left',
+      value: 'left'
+    }, {
+      label: 'Center',
+      value: 'center'
+    }, {
+      label: 'Right',
+      value: 'right'
+    }],
+    onChange: value => setAttributes({
+      imageAlignment: value
+    })
+  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["Button"], {
     className: "image__button",
     isPrimary: true,
-    onClick: () => setAttributes({
-      src: ''
-    })
+    onClick: () => {
+      const reset = {
+        sizes: {
+          [imageSize]: {
+            url: ''
+          }
+        }
+      };
+      return setAttributes({
+        media: reset
+      });
+    }
   }, "X"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
-    src: src,
+    src: url,
     alt: alt,
+    width: width,
+    height: height,
+    className: "figure__image",
     loading: "lazy"
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["RichText"], {
     tagName: "figcaption",
     placeholder: 'Add caption',
     value: caption,
     allowedFormats: [],
-    onChange: val => setAttributes({
-      caption: val
-    })
+    onChange: value => {
+      const result = { ...attributes
+      };
+      result.media['caption'] = value;
+      return setAttributes({
+        result
+      });
+    }
   }));
 };
 
@@ -5586,16 +5664,10 @@ const ImageMediaLibrary = props => {
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "image__upload"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["MediaUploadCheck"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["MediaUpload"], {
-    onSelect: media => {
-      console.log(media);
-      return setAttributes({
-        src: media.sizes.full.url,
-        alt: media.alt,
-        caption: media.caption,
-        width: media.width,
-        height: media.height
-      });
-    },
+    onSelect: media => setAttributes({
+      media: { ...media
+      }
+    }),
     allowedTypes: ALLOWED_MEDIA_TYPES,
     render: ({
       open
@@ -5626,13 +5698,30 @@ __webpack_require__.r(__webpack_exports__);
 
 const ImageView = props => {
   const {
-    src,
+    attributes
+  } = props;
+  const {
+    media,
+    imageSize,
+    imageAlignment
+  } = attributes;
+  const {
+    url,
+    width,
+    height
+  } = media === null || media === void 0 ? void 0 : media.sizes[imageSize];
+  const {
     alt,
     caption
-  } = props.attributes;
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("figure", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
-    src: src,
+  } = media;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("figure", {
+    className: `align-${imageAlignment}`
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+    src: url,
     alt: alt,
+    width: width,
+    height: height,
+    className: "figure__image",
     loading: "lazy"
   }), caption && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("figcaption", {
     dangerouslySetInnerHTML: {

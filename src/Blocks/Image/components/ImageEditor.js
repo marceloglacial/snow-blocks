@@ -1,30 +1,79 @@
 import ImageMediaLibrary from './ImageMediaLibrary';
-import { RichText } from '@wordpress/block-editor';
-import { Button } from '@wordpress/components';
+import { RichText, InspectorControls } from '@wordpress/block-editor';
+import { Button, Panel, PanelBody, RadioControl } from '@wordpress/components';
 
 import '../Image.scss';
 
 const ImageEditor = (props) => {
   const { attributes, setAttributes } = props;
-  const { src, alt, caption } = attributes;
-  if (!src) return <ImageMediaLibrary {...props} />;
+  const { media, imageSize, imageAlignment } = attributes;
+  const { url } = media?.sizes[imageSize];
+
+  if (!url) return <ImageMediaLibrary {...props} />;
+  const { alt, caption } = media;
+  const { width, height } = media?.sizes[imageSize];
 
   return (
-    <figure className='image__editor'>
+    <figure className={`align-${imageAlignment} image__editor`}>
+      <InspectorControls>
+        <Panel header='Image'>
+          <PanelBody title='Image size' initialOpen={true}>
+            <RadioControl
+              selected={imageSize}
+              options={[
+                { label: 'Full', value: 'full' },
+                { label: 'Large', value: 'large' },
+                { label: 'Medium', value: 'medium' },
+                { label: 'Thumbnail', value: 'thumbnail' },
+              ]}
+              onChange={(value) => setAttributes({ imageSize: value })}
+            />
+          </PanelBody>
+          <PanelBody title='Image lignment' initialOpen={true}>
+            <RadioControl
+              selected={imageAlignment}
+              options={[
+                { label: 'Left', value: 'left' },
+                { label: 'Center', value: 'center' },
+                { label: 'Right', value: 'right' },
+              ]}
+              onChange={(value) => setAttributes({ imageAlignment: value })}
+            />
+          </PanelBody>
+        </Panel>
+      </InspectorControls>
       <Button
         className='image__button'
         isPrimary
-        onClick={() => setAttributes({ src: '' })}
+        onClick={() => {
+          const reset = {
+            sizes: {
+              [imageSize]: { url: '' },
+            },
+          };
+          return setAttributes({ media: reset });
+        }}
       >
         X
       </Button>
-      <img src={src} alt={alt} loading='lazy' />
+      <img
+        src={url}
+        alt={alt}
+        width={width}
+        height={height}
+        className='figure__image'
+        loading='lazy'
+      />
       <RichText
         tagName='figcaption'
         placeholder={'Add caption'}
         value={caption}
         allowedFormats={[]}
-        onChange={(val) => setAttributes({ caption: val })}
+        onChange={(value) => {
+          const result = { ...attributes };
+          result.media['caption'] = value;
+          return setAttributes({ result });
+        }}
       />
     </figure>
   );

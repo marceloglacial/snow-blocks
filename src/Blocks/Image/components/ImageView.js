@@ -1,8 +1,18 @@
 const ImageView = (props) => {
-  const { src, alt, caption } = props.attributes;
+  const { attributes } = props;
+  const { media, imageSize, imageAlignment } = attributes;
+  const { url, width, height } = media?.sizes[imageSize];
+  const { alt, caption } = media;
   return (
-    <figure>
-      <img src={src} alt={alt} loading='lazy' />
+    <figure className={`align-${imageAlignment}`}>
+      <img
+        src={url}
+        alt={alt}
+        width={width}
+        height={height}
+        className='figure__image'
+        loading='lazy'
+      />
       {caption && <figcaption dangerouslySetInnerHTML={{ __html: caption }} />}
     </figure>
   );
