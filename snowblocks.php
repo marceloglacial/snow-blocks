@@ -136,7 +136,7 @@ add_action(
 			if ( use_block_editor_for_post_type( $post_type ) ) {
 				register_rest_field(
 					$post_type,
-					'blocks',
+					'blockData',
 					[
 						'get_callback' => function ( array $post ) {
 							return parse_blocks( $post['content']['raw'] );
